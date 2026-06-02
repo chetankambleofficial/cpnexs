@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CPNexs Visiting Card</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink: #191816;
+      --cream: #f7f3ec;
+      --paper: #fffaf0;
+      --sun: #f8cf5d;
+      --coral: #e95f47;
+      --reef: #12a594;
+      --plum: #5d3f8f;
+      --midnight: #10151f;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      margin: 0;
+      display: grid;
+      place-items: center;
+      gap: 28px;
+      padding: 32px;
+      background:
+        radial-gradient(circle at 20% 10%, rgba(248, 207, 93, 0.28), transparent 28%),
+        radial-gradient(circle at 82% 86%, rgba(18, 165, 148, 0.22), transparent 30%),
+        var(--cream);
+      color: var(--ink);
+      font-family: "DM Sans", Arial, sans-serif;
+    }
+
+    .sheet {
+      display: grid;
+      gap: 24px;
+    }
+
+    .card {
+      position: relative;
+      width: 3.5in;
+      height: 2in;
+      overflow: hidden;
+      border-radius: 20px;
+      box-shadow: 0 24px 60px rgba(25, 24, 22, 0.18);
+    }
+
+    .front {
+      background:
+        linear-gradient(145deg, rgba(255, 250, 240, 0.98), rgba(247, 243, 236, 0.96)),
+        var(--paper);
+      border: 1px solid rgba(25, 24, 22, 0.1);
+    }
+
+    .back {
+      background:
+        radial-gradient(circle at 80% 16%, rgba(248, 207, 93, 0.26), transparent 28%),
+        radial-gradient(circle at 12% 88%, rgba(18, 165, 148, 0.28), transparent 32%),
+        var(--midnight);
+      color: #ffffff;
+    }
+
+    .front::before,
+    .front::after,
+    .back::before,
+    .back::after {
+      content: "";
+      position: absolute;
+      border-radius: 999px;
+      pointer-events: none;
+    }
+
+    .front::before {
+      width: 130px;
+      height: 130px;
+      right: -40px;
+      top: -46px;
+      background: rgba(233, 95, 71, 0.16);
+    }
+
+    .front::after {
+      width: 150px;
+      height: 150px;
+      right: 32px;
+      bottom: -98px;
+      background: rgba(18, 165, 148, 0.13);
+    }
+
+    .back::before {
+      width: 160px;
+      height: 160px;
+      right: -58px;
+      top: -62px;
+      background: rgba(93, 63, 143, 0.45);
+      filter: blur(8px);
+    }
+
+    .back::after {
+      width: 130px;
+      height: 130px;
+      left: -54px;
+      bottom: -56px;
+      background: rgba(18, 165, 148, 0.45);
+      filter: blur(8px);
+    }
+
+    .inner {
+      position: relative;
+      z-index: 1;
+      height: 100%;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .top-row,
+    .bottom-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo-box {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 15px;
+      background: var(--ink);
+      box-shadow: 0 10px 24px rgba(25, 24, 22, 0.18);
+    }
+
+    .logo-box img {
+      width: 30px;
+      height: 30px;
+      object-fit: contain;
+    }
+
+    .company,
+    .name,
+    .back-title {
+      font-family: "Space Grotesk", Arial, sans-serif;
+    }
+
+    .company {
+      margin: 0;
+      font-size: 23px;
+      line-height: 1;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+
+    .tagline {
+      margin: 4px 0 0;
+      color: rgba(25, 24, 22, 0.58);
+      font-size: 7.8px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .badge {
+      border-radius: 999px;
+      background: var(--sun);
+      padding: 7px 10px;
+      color: var(--ink);
+      font-size: 8px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .name {
+      margin: 0;
+      max-width: 190px;
+      font-size: 21px;
+      line-height: 1.04;
+      font-weight: 700;
+    }
+
+    .role {
+      margin: 6px 0 0;
+      color: var(--coral);
+      font-size: 9.5px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .contact {
+      display: grid;
+      gap: 5px;
+      min-width: 132px;
+      color: rgba(25, 24, 22, 0.68);
+      font-size: 9.2px;
+      font-weight: 600;
+      line-height: 1.15;
+    }
+
+    .contact span {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+    }
+
+    .dot {
+      width: 6px;
+      height: 6px;
+      flex: 0 0 6px;
+      border-radius: 999px;
+      background: var(--reef);
+    }
+
+    .service-strip {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .service-strip span {
+      border-radius: 999px;
+      background: rgba(25, 24, 22, 0.07);
+      padding: 5px 8px;
+      color: rgba(25, 24, 22, 0.78);
+      font-size: 8px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .back .inner {
+      padding: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: inherit;
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.11), transparent 38%),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+      background-size: auto, 34px 34px, 34px 34px;
+    }
+
+    .back-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .back-brand img {
+      width: 52px;
+      height: 52px;
+      object-fit: contain;
+    }
+
+    .back-title {
+      margin: 0;
+      font-size: 30px;
+      line-height: 0.95;
+      font-weight: 700;
+    }
+
+    .back-copy {
+      max-width: 270px;
+      margin: 0;
+      color: rgba(255, 255, 255, 0.72);
+      font-size: 12px;
+      line-height: 1.45;
+      font-weight: 500;
+    }
+
+    .back-services {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      width: 100%;
+    }
+
+    .back-services span {
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.07);
+      padding: 8px 10px;
+      font-size: 9px;
+      font-weight: 800;
+      color: rgba(255, 255, 255, 0.88);
+    }
+
+    .back-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      color: rgba(255, 255, 255, 0.66);
+      font-size: 9px;
+      font-weight: 700;
+    }
+
+    .website {
+      color: var(--sun);
+    }
+
+    .print-note {
+      color: rgba(25, 24, 22, 0.62);
+      font-size: 13px;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    @media print {
+      body {
+        min-height: auto;
+        padding: 0.25in;
+        background: #ffffff;
+      }
+
+      .card {
+        box-shadow: none;
+        break-inside: avoid;
+      }
+
+      .print-note {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="sheet" aria-label="CPNexs visiting card design">
+    <section class="card front" aria-label="Front side">
+      <div class="inner">
+        <div class="top-row">
+          <div class="brand">
+            <div class="logo-box">
+              <img src="public/images/logowhite.png" alt="CPNexs logo" />
+            </div>
+            <div>
+              <h1 class="company">CPNexs</h1>
+              <p class="tagline">Next-Gen Digital Solutions</p>
+            </div>
+          </div>
+          <span class="badge">Fast + Affordable</span>
+        </div>
+
+        <div class="bottom-row">
+          <div>
+            <p class="name">Chetan Prakash Kamble</p>
+            <p class="role">CEO & Lead Developer</p>
+          </div>
+
+          <div class="contact">
+            <span><i class="dot"></i> hello@cpnexs.com</span>
+            <span><i class="dot"></i> cpnexs.com</span>
+            <span><i class="dot"></i> India / Remote</span>
+          </div>
+        </div>
+
+        <div class="service-strip" aria-label="Services">
+          <span>Websites</span>
+          <span>Mobile Apps</span>
+          <span>AI Tools</span>
+          <span>Cloud</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="card back" aria-label="Back side">
+      <div class="inner">
+        <div class="back-brand">
+          <img src="public/images/logowhite.png" alt="CPNexs logo" />
+          <div>
+            <h2 class="back-title">CPNexs</h2>
+            <p class="tagline" style="color: rgba(255,255,255,0.54);">Digital Studio</p>
+          </div>
+        </div>
+
+        <p class="back-copy">
+          Beautiful digital products, built faster and priced fairly for founders,
+          startups, and local businesses.
+        </p>
+
+        <div class="back-services">
+          <span>Web Development</span>
+          <span>UI/UX Design</span>
+          <span>AI Automation</span>
+          <span>Digital Growth</span>
+        </div>
+
+        <div class="back-footer">
+          <span>Strategy / Design / Engineering</span>
+          <span class="website">cpnexs.com</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <p class="print-note">Print at 100% scale for a 3.5in x 2in visiting card.</p>
+</body>
+</html>
