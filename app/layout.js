@@ -50,7 +50,7 @@ export const metadata = {
     siteName: "CPNexs",
     images: [
       {
-        url: "/images/og-banner.png",
+        url: "/images/favicon.png",
         width: 1200,
         height: 630,
         alt: "CPNexs",
@@ -65,7 +65,7 @@ export const metadata = {
     title: "CPNexs | Next-Gen Digital Solutions",
     description:
       "Modern websites, AI solutions, and scalable digital systems for growing businesses.",
-    images: ["/images/og-banner.png"],
+    images: ["/images/favicon.png"],
   },
 
   robots: {
