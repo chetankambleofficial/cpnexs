@@ -40,13 +40,13 @@ export const metadata = {
   creator: "CPNexs",
   publisher: "CPNexs",
 
-  metadataBase: new URL("https://cpnexs.com"),
+  metadataBase: new URL("https://cpnexs-pduwyll2g-chetan582003-1296s-projects.vercel.app"),
 
   openGraph: {
     title: "CPNexs | Websites, AI Solutions & Business Growth",
     description:
       "We build high-performing websites, AI tools, and digital systems for ambitious businesses.",
-    url: "https://cpnexs.com",
+    url: "https://cpnexs-pduwyll2g-chetan582003-1296s-projects.vercel.app",
     siteName: "CPNexs",
     images: [
       {
