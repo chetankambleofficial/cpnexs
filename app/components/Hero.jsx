@@ -296,9 +296,9 @@ export default function Hero() {
               variants={fadeUp} initial="hidden" animate="visible" custom={1}
               className="text-5xl font-bold leading-[1.1] text-white mt-10 md:text-6xl lg:text-[64px]"
             >
-              Software Company
+              Your Business
               <br />
-              in Hubli &amp;{" "}
+              Deserves a{" "}
               <motion.span
                 key={wordIdx}
                 initial={{ opacity: 0, y: 16, filter: "blur(5px)" }}
@@ -310,32 +310,31 @@ export default function Hero() {
                 {words[wordIdx]}
               </motion.span>
               <br />
-              <span className="text-white/85">Bangalore.</span>
+              <span className="text-white/85">Website.</span>
             </motion.h1>
 
             <motion.p
               variants={fadeUp} initial="hidden" animate="visible" custom={2}
               className="mt-6 max-w-lg text-lg leading-8 text-slate-400"
             >
-              We build custom websites, mobile apps, ERP/CRM systems, and AI-powered software for businesses in{" "}
-              <span className="text-white font-medium">Hubli, Bangalore, and across Karnataka</span> —
-              fast, affordable, and built to grow your business.
+              We build professional websites for small businesses, shops, and startups —{" "}
+              <span className="text-white font-medium">fast, affordable, and ready to attract customers</span>.
+              No tech knowledge needed. Just share your idea.
             </motion.p>
 
             {/* Feature pills */}
             <motion.div
               variants={fadeUp} initial="hidden" animate="visible" custom={3}
               className="mt-6 flex flex-wrap gap-2"
-              aria-label="Key features"
             >
               {[
                 { icon: CheckCircle, label: "Ready in 3–7 days" },
-                { icon: IndianRupee, label: "Starting ₹2,999" },
+                { icon: IndianRupee, label: "Starting ₹4,999" },
                 { icon: Smartphone,  label: "Mobile Friendly" },
                 { icon: ShieldCheck, label: "Secure & Fast" },
               ].map(({ icon: Icon, label }) => (
                 <span key={label} className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-medium text-white/80">
-                  <Icon size={11} className="text-blue-400" aria-hidden="true" />
+                  <Icon size={11} className="text-blue-400" />
                   {label}
                 </span>
               ))}
@@ -346,20 +345,20 @@ export default function Hero() {
               variants={fadeUp} initial="hidden" animate="visible" custom={4}
               className="mt-9 flex flex-wrap gap-4"
             >
-              <Link href="/contact" aria-label="Start your software project with CPNexs">
+              <Link href="/contact">
                 <motion.div
                   whileHover={{ scale: 1.04, boxShadow: "0 0 36px rgba(59,130,246,0.5)" }}
                   whileTap={{ scale: 0.97 }}
                   className="group relative overflow-hidden rounded-xl bg-blue-600 px-7 py-3.5 text-sm font-semibold text-white cursor-pointer"
                 >
                   <span className="relative z-10 flex items-center gap-2">
-                    Start Your Project
-                    <motion.span animate={{ x: [0, 4, 0] }} transition={{ duration: 1.5, repeat: Infinity }} aria-hidden="true">→</motion.span>
+                    Get Your Website Now
+                    <motion.span animate={{ x: [0, 4, 0] }} transition={{ duration: 1.5, repeat: Infinity }}>→</motion.span>
                   </span>
-                  <span aria-hidden="true" className="absolute inset-0 bg-gradient-to-r from-blue-500 to-cyan-500 opacity-0 transition-opacity group-hover:opacity-100" />
+                  <span className="absolute inset-0 bg-gradient-to-r from-blue-500 to-cyan-500 opacity-0 transition-opacity group-hover:opacity-100" />
                 </motion.div>
               </Link>
-              <Link href="/portfolio" aria-label="View CPNexs project portfolio">
+              <Link href="/portfolio">
                 <motion.div
                   whileHover={{ scale: 1.04, backgroundColor: "rgba(255,255,255,0.08)" }}
                   whileTap={{ scale: 0.97 }}

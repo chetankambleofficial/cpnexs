@@ -14,15 +14,15 @@ const fadeUp = {
 
 export default function Services() {
   const services = [
-    { mark: "01", title: "Web Development",       desc: "Responsive websites, landing pages, and dashboards built with React and Next.js for speed, SEO, and conversion.",                    accent: "from-blue-500 to-cyan-400",    icon: Globe },
-    { mark: "02", title: "Mobile App Development", desc: "Android and iOS apps with clean architecture, reliable performance, and polished UX for businesses in Karnataka.",                  accent: "from-orange-400 to-yellow-400", icon: Smartphone },
-    { mark: "03", title: "AI & Automation",         desc: "AI integrations, business automation, intelligent chatbots, and data workflows to streamline your operations.",                    accent: "from-purple-500 to-blue-500",   icon: Bot },
-    { mark: "04", title: "UI/UX Design",            desc: "Interface design systems and user journeys that make complex products feel simple and intuitive.",                                  accent: "from-yellow-400 to-orange-400", icon: Palette },
-    { mark: "05", title: "ERP & CRM Systems",       desc: "Custom ERP software, CRM platforms, restaurant management systems, inventory tools, and admin dashboards for your business.",     accent: "from-emerald-400 to-cyan-400",  icon: Settings },
-    { mark: "06", title: "SaaS & Cloud Apps",       desc: "End-to-end SaaS product development, REST APIs, and cloud applications deployed on AWS for scale and reliability.",              accent: "from-purple-500 to-pink-500",   icon: TrendingUp },
+    { mark: "01", title: "Web Development",  desc: "Responsive websites, landing pages, and dashboards built for speed and conversion.", accent: "from-blue-500 to-cyan-400",    icon: Globe },
+    { mark: "02", title: "Mobile Apps",       desc: "Android and iOS apps with clean flows, reliable architecture, and polished UX.",   accent: "from-orange-400 to-yellow-400", icon: Smartphone },
+    { mark: "03", title: "AI Solutions",      desc: "Automation, chat experiences, data workflows, and AI-assisted tools.",             accent: "from-purple-500 to-blue-500",   icon: Bot },
+    { mark: "04", title: "UI/UX Design",      desc: "Interface design systems and user journeys that make complex products feel simple.", accent: "from-yellow-400 to-orange-400", icon: Palette },
+    { mark: "05", title: "Custom Software",   desc: "Secure internal tools, admin panels, APIs, and integrations for your business.",   accent: "from-emerald-400 to-cyan-400",  icon: Settings },
+    { mark: "06", title: "Digital Marketing", desc: "SEO, analytics, paid campaigns, and content-ready pages for qualified leads.",     accent: "from-purple-500 to-pink-500",   icon: TrendingUp },
   ];
 
-  const techStack = ["React", "Next.js", "Node.js", "Python", "AI/ML", "Flutter", "AWS", "Firebase", "MongoDB", "PostgreSQL", "Express", "REST APIs"];
+  const techStack = ["React", "Next.js", "Node.js", "Python", "AI/ML", "Flutter", "AWS", "Firebase", "MongoDB", "PostgreSQL"];
 
   const process = [
     { num: "01", label: "Discovery", sub: "Goals, users & market research",    icon: Search },
@@ -54,11 +54,11 @@ export default function Services() {
               <div className="w-fit rounded-full border border-blue-500/25 bg-blue-500/10 px-4 py-2 text-xs font-bold uppercase tracking-[0.2em] text-blue-400">
                 What We Do
               </div>
-              <h1 className="mt-4 font-heading text-4xl font-bold tracking-normal text-white md:text-5xl lg:text-6xl">
-                Software development services in Hubli &amp; Bangalore.
-              </h1>
+              <h2 className="mt-4 font-heading text-4xl font-bold tracking-normal text-white md:text-5xl lg:text-6xl">
+                Your digital build team, from idea to launch.
+              </h2>
               <p className="mt-5 max-w-md text-base leading-7 text-white/50">
-                Custom websites, mobile apps, ERP/CRM systems, AI automation, and SaaS products — built for startups and businesses across Karnataka and India.
+                Strategy, design, engineering, and growth support under one roof — shaped for founders and local businesses that need practical results.
               </p>
               <div className="mt-8 grid max-w-sm grid-cols-3 gap-3">
                 {["Plan", "Design", "Ship"].map((step, i) => (
@@ -74,7 +74,7 @@ export default function Services() {
                   </motion.div>
                 ))}
               </div>
-              <Link href="/contact" aria-label="Discuss your software project with CPNexs">
+              <Link href="/contact">
                 <motion.div
                   whileHover={{ scale: 1.04, boxShadow: "0 0 30px rgba(59,130,246,0.4)" }}
                   whileTap={{ scale: 0.97 }}
@@ -139,9 +139,9 @@ export default function Services() {
             className="text-center mb-16"
           >
             <div className="text-xs font-bold uppercase tracking-[0.2em] text-blue-400 mb-3">Our Process</div>
-            <h2 className="text-4xl font-bold text-white md:text-5xl">How we deliver your project</h2>
+            <h2 className="text-4xl font-bold text-white md:text-5xl">A strategy that actually works</h2>
             <p className="mt-4 text-base text-white/45 max-w-xl mx-auto">
-              Every project follows a clear, repeatable process so you always know where things stand — from discovery to deployment.
+              Every project follows a clear, repeatable process so you always know where things stand.
             </p>
           </motion.div>
 
@@ -188,11 +188,11 @@ export default function Services() {
               Our Expertise
             </div>
             <h2 className="mt-3 text-4xl font-bold tracking-normal text-white md:text-5xl">
-                Modern tech stack. Human delivery.
-              </h2>
-              <p className="mt-5 max-w-xl text-base leading-7 text-white/50">
-                We use React, Next.js, Node.js, Flutter, AWS, and AI/ML tools — chosen to keep your product fast, maintainable, and ready to scale.
-              </p>
+              Modern stack. Human delivery.
+            </h2>
+            <p className="mt-5 max-w-xl text-base leading-7 text-white/50">
+              We choose tools that keep your product fast, maintainable, and ready for the next stage.
+            </p>
           </motion.div>
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
             {techStack.map((tech, i) => (
