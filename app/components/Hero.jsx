@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { motion, useInView, animate } from "framer-motion";
+import { CheckCircle, IndianRupee, Smartphone, ShieldCheck, ShoppingBag, Phone, Star } from "lucide-react";
 
 function CountUp({ to, suffix = "", duration = 2 }) {
   const [val, setVal] = useState(0);
@@ -61,10 +62,10 @@ function HeroVisual() {
       initial={{ opacity: 0, x: 50 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 0.25 }}
-      className="relative w-full max-w-[500px] mx-auto"
+      className="relative w-full max-w-[500px] mx-0"
     >
       {/* Ambient glow — sits behind everything */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] rounded-full bg-blue-600/15 blur-[80px] pointer-events-none" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] rounded-full bg-blue-600/15 blur-[80px] pointer-events-none" />
 
       {/* ── ROW 1: top badges ── */}
       <div className="flex items-start justify-between gap-3 mb-4">
@@ -156,9 +157,13 @@ function HeroVisual() {
           </div>
           {/* Feature cards */}
           <div className="grid grid-cols-3 gap-2.5 mb-4">
-            {["🛍️","📞","⭐"].map((icon, i) => (
+            {[
+              { icon: ShoppingBag, label: "Shop" },
+              { icon: Phone,       label: "Call" },
+              { icon: Star,        label: "Reviews" },
+            ].map(({ icon: Icon, label }, i) => (
               <div key={i} className="rounded-xl bg-white/5 border border-white/8 p-3 flex flex-col items-center gap-1.5">
-                <span className="text-base">{icon}</span>
+                <Icon size={14} className="text-white/50" />
                 <div className="w-full h-1.5 rounded-full bg-white/15" />
                 <div className="w-2/3 h-1 rounded-full bg-white/8" />
               </div>
@@ -282,19 +287,12 @@ export default function Hero() {
 
           {/* ── LEFT: Copy ── */}
           <div className="flex flex-col">
-            {/* Badge */}
-            <motion.div
-              variants={fadeUp} initial="hidden" animate="visible" custom={0}
-              className="mb-7 inline-flex w-fit items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs backdrop-blur"
-            >
-              <span className="h-1.5 w-1.5 rounded-full bg-green-400 shadow-[0_0_5px_rgba(74,222,128,0.8)]" />
-              <span className="font-semibold text-white">Websites for Small Businesses &amp; Startups</span>
-            </motion.div>
+          
 
             {/* Headline */}
             <motion.h1
               variants={fadeUp} initial="hidden" animate="visible" custom={1}
-              className="text-5xl font-bold leading-[1.1] text-white md:text-6xl lg:text-[64px]"
+              className="text-5xl font-bold leading-[1.1] text-white mt-10 md:text-6xl lg:text-[64px]"
             >
               Your Business
               <br />
@@ -327,9 +325,15 @@ export default function Hero() {
               variants={fadeUp} initial="hidden" animate="visible" custom={3}
               className="mt-6 flex flex-wrap gap-2"
             >
-              {["✅ Ready in 3–7 days", "💰 Starting ₹4,999", "📱 Mobile Friendly", "🔒 Secure & Fast"].map((item) => (
-                <span key={item} className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-medium text-white/80">
-                  {item}
+              {[
+                { icon: CheckCircle, label: "Ready in 3–7 days" },
+                { icon: IndianRupee, label: "Starting ₹4,999" },
+                { icon: Smartphone,  label: "Mobile Friendly" },
+                { icon: ShieldCheck, label: "Secure & Fast" },
+              ].map(({ icon: Icon, label }) => (
+                <span key={label} className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-medium text-white/80">
+                  <Icon size={11} className="text-blue-400" />
+                  {label}
                 </span>
               ))}
             </motion.div>
