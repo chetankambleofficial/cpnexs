@@ -28,9 +28,9 @@ export default function Contact() {
   };
 
   const contactLinks = [
-    { icon: Phone, label: "Call or WhatsApp", value: "+91 9844538521", href: "tel:+919844538521" },
+    { icon: Phone, label: "Call or WhatsApp", value: "+91 9844538521",   href: "tel:+919844538521" },
     { icon: Mail,  label: "Email Us",         value: "cpnexs@gmail.com", href: "mailto:cpnexs@gmail.com" },
-    { icon: Globe, label: "Visit Website",    value: "www.cpnexs.com",  href: "https://www.cpnexs.com" },
+    { icon: Globe, label: "Visit Website",    value: "www.cpnexs.in",   href: "https://www.cpnexs.in" },
   ];
 
   return (
@@ -50,10 +50,10 @@ export default function Contact() {
         >
           <div className="text-xs font-bold tracking-[0.2em] uppercase text-blue-400">Let's Talk</div>
           <h2 className="mt-3 text-4xl font-bold tracking-normal text-white md:text-5xl lg:text-6xl">
-            Ready to make the site people remember?
+            Hire a software developer in Hubli or Bangalore.
           </h2>
           <p className="mt-5 max-w-xl text-base leading-7 text-white/50">
-            Share the idea, the deadline, or the problem. We will reply within 24 hours with practical next steps.
+            Share your project idea, deadline, or problem. We reply within 24 hours with practical next steps — no jargon, no pressure.
           </p>
 
           <div className="mt-10 grid gap-4">
@@ -130,14 +130,16 @@ export default function Contact() {
                 <input type="tel" name="phone" value={form.phone} onChange={handleChange} placeholder="+91 98765 43210" className="form-input-dark" />
               </Field>
               <Field label="Service Needed">
-                <select name="service" value={form.service} onChange={handleChange} className="form-input-dark">
+                <select name="service" value={form.service} onChange={handleChange} className="form-input-dark" aria-label="Select a service">
                   <option value="">Select a service</option>
                   <option>Web Development</option>
-                  <option>Mobile App</option>
-                  <option>AI Solutions</option>
+                  <option>Mobile App Development</option>
+                  <option>ERP / CRM System</option>
+                  <option>AI Automation</option>
+                  <option>SaaS Development</option>
                   <option>UI/UX Design</option>
-                  <option>Digital Marketing</option>
                   <option>Cloud Solutions</option>
+                  <option>Custom Software</option>
                 </select>
               </Field>
               <Field label="Your Message">

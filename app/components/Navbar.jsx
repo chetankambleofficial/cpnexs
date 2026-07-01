@@ -52,7 +52,7 @@ export default function Navbar() {
                 transition={{ type: "spring", stiffness: 400, damping: 20 }}
                 className="flex h-8 w-8 items-center justify-center rounded-lg"
               >
-                <img src="/images/logowhite.png" alt="CPNexs" className="h-8 w-8 object-contain" />
+                <img src="/images/logowhite.png" alt="CPNexs logo — Software Company Hubli" width="32" height="32" className="h-8 w-8 object-contain" />
               </motion.div>
               <span className="brand-name text-lg leading-none">CPNexs</span>
             </Link>

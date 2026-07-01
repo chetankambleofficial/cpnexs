@@ -9,10 +9,10 @@ export default function Pricing() {
     {
       badge: "Limited Offer",
       name: "Starter",
-      desc: "Perfect for small businesses getting online",
-      price: "₹2,999",
+      desc: "Perfect for college projects",
+      price: "₹5,999",
       period: " /project",
-      features: ["5-page responsive website", "Mobile optimized design", "Basic SEO setup", "Contact form integration", "1 month free support", "Fast delivery in 7 days"],
+      features: ["5-page responsive website", "Mobile optimized design", "Contact form integration", "1 month free support", "Fast delivery in 20 days"],
       featured: false,
       btnText: "Get Started",
       icon: Sprout,
@@ -24,9 +24,9 @@ export default function Pricing() {
       featured: true,
       name: "Growth",
       desc: "For growing businesses needing real impact",
-      price: "₹7,999",
+      price: "₹9,999",
       period: " /project",
-      features: ["10-page custom website", "CMS or admin panel", "Advanced SEO and analytics", "Payment gateway integration", "Social media integration", "3 months free support", "Priority delivery in 5 days"],
+      features: ["10-page custom website", "CMS or admin panel", "Advanced SEO and analytics", "Payment gateway integration", "Social media integration", "3 months free support", "Priority delivery in 20 days"],
       btnText: "Choose Growth",
       icon: Zap,
       accent: "from-blue-600/30 to-purple-600/20",
@@ -55,7 +55,10 @@ export default function Pricing() {
   ];
 
   return (
-    <section className="relative bg-[#050816] px-4 pt-24 pb-24 md:px-8 md:py-32 overflow-hidden">
+    <section
+      aria-label="CPNexs pricing plans for websites and software development"
+      className="relative bg-[#050816] px-4 pt-24 pb-24 md:px-8 md:py-32 overflow-hidden"
+    >
       <div className="absolute inset-0 bg-[linear-gradient(rgba(59,130,246,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(59,130,246,0.03)_1px,transparent_1px)] bg-[size:52px_52px] pointer-events-none" />
       <div className="absolute top-0 left-1/2 -translate-x-1/2 h-[400px] w-[700px] rounded-full bg-blue-600/10 blur-[120px] pointer-events-none" />
 
@@ -69,10 +72,10 @@ export default function Pricing() {
         >
           <div className="text-xs font-bold tracking-[0.2em] uppercase text-blue-400 mb-3">Simple Pricing</div>
           <h2 className="text-4xl font-bold tracking-normal text-white md:text-6xl">
-            Pick the launch lane that fits.
+            Transparent pricing for every business.
           </h2>
           <p className="mx-auto mt-5 max-w-xl text-base leading-7 text-white/50">
-            Clear packages for websites and custom quotes for products that need deeper planning.
+            Clear packages for websites starting at &#8377;2,999, and custom quotes for mobile apps, ERP/CRM, and enterprise software.
           </p>
         </motion.div>
 

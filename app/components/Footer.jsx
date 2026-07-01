@@ -11,20 +11,31 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="relative bg-[#03050f] px-4 py-14 text-white md:px-8 border-t border-white/8">
-      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+    <footer
+      className="relative bg-[#03050f] px-4 py-14 text-white md:px-8 border-t border-white/8"
+      aria-label="CPNexs footer"
+      itemScope
+      itemType="https://schema.org/WPFooter"
+    >
+      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" aria-hidden="true" />
       <div className="section-shell">
         <div className="flex flex-col justify-between gap-8 md:flex-row md:items-center">
-          <Link href="/" className="flex items-center gap-4 no-underline">
+          <Link href="/" className="flex items-center gap-4 no-underline" aria-label="CPNexs — Software Development Company Hubli">
             <span className="flex h-12 w-12 items-center justify-center rounded-full border border-white/10 bg-white/5">
-              <img src="/images/logowhite.png" alt="CPNexs Logo" className="h-8 w-8 object-contain" />
+              <img
+                src="/images/logowhite.png"
+                alt="CPNexs logo — Software Company Hubli Karnataka"
+                width="32"
+                height="32"
+                className="h-8 w-8 object-contain"
+              />
             </span>
             <div>
               <div className="brand-name text-xl">CPNexs</div>
-              <div className="text-xs font-medium uppercase tracking-[0.22em] text-white/30">Next-Gen Digital Solutions</div>
+              <div className="text-xs font-medium uppercase tracking-[0.22em] text-white/30">Software Development Company</div>
             </div>
           </Link>
-          <div className="flex flex-wrap gap-3">
+          <nav aria-label="Footer navigation" className="flex flex-wrap gap-3">
             {links.map(([label, href]) => (
               <Link
                 href={href}
@@ -34,20 +45,44 @@ export default function Footer() {
                 {label}
               </Link>
             ))}
-          </div>
+          </nav>
         </div>
 
-        <div className="mt-10 flex flex-col justify-between gap-5 border-t border-white/8 pt-7 md:flex-row md:items-center">
-          <p className="m-0 text-sm text-white/30">Copyright 2026 CPNexs. All rights reserved. Built by Chetan Prakash Kamble.</p>
-          <div className="flex gap-2">
-            {["f", "in", "x", "ig"].map((item) => (
+        {/* Address for local SEO */}
+        <address
+          className="mt-8 not-italic text-sm text-white/25"
+          itemScope
+          itemType="https://schema.org/PostalAddress"
+        >
+          <span itemProp="addressLocality">Hubli</span>,{" "}
+          <span itemProp="addressRegion">Karnataka</span>,{" "}
+          <span itemProp="addressCountry">India</span>
+          {" — "}
+          <a href="tel:+919844538521" className="text-white/30 no-underline hover:text-white/60" itemProp="telephone">+91 9844538521</a>
+          {" — "}
+          <a href="mailto:cpnexs@gmail.com" className="text-white/30 no-underline hover:text-white/60" itemProp="email">cpnexs@gmail.com</a>
+        </address>
+
+        <div className="mt-6 flex flex-col justify-between gap-5 border-t border-white/8 pt-7 md:flex-row md:items-center">
+          <p className="m-0 text-sm text-white/30">
+            &copy; {new Date().getFullYear()} CPNexs. All rights reserved. Built by{" "}
+            <span itemProp="founder">Chetan Prakash Kamble</span>.
+          </p>
+          <div className="flex gap-2" aria-label="CPNexs social media links">
+            {[
+              { id: "f",  label: "Facebook",  href: "#" },
+              { id: "in", label: "LinkedIn",   href: "#" },
+              { id: "x",  label: "X (Twitter)", href: "#" },
+              { id: "ig", label: "Instagram",  href: "#" },
+            ].map((item) => (
               <a
-                key={item}
-                href="#"
+                key={item.id}
+                href={item.href}
                 onClick={(e) => e.preventDefault()}
+                aria-label={`CPNexs on ${item.label}`}
                 className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/5 text-xs font-bold text-white/40 no-underline transition-all hover:bg-blue-600/20 hover:border-blue-500/30 hover:text-white"
               >
-                {item}
+                {item.id}
               </a>
             ))}
           </div>

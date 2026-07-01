@@ -4,10 +4,15 @@ export default function robots() {
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/api/"],
+        disallow: ["/api/", "/_next/", "/static/"],
+      },
+      {
+        // Block AI training crawlers from scraping contact/form endpoints
+        userAgent: ["GPTBot", "ChatGPT-User", "CCBot", "anthropic-ai", "Claude-Web"],
+        disallow: ["/"],
       },
     ],
-    sitemap: "https://www.cpnexs.com/sitemap.xml",
-    host: "https://www.cpnexs.com",
+    sitemap: "https://www.cpnexs.in/sitemap.xml",
+    host: "https://www.cpnexs.in",
   };
 }
