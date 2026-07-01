@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CPNexs Visiting Card</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+    rel="stylesheet" />
   <style>
     :root {
       --ink: #191816;
@@ -19,20 +22,17 @@
       --midnight: #10151f;
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       min-height: 100vh;
-      margin: 0;
       display: grid;
       place-items: center;
-      gap: 28px;
-      padding: 32px;
+      gap: 32px;
+      padding: 40px 32px;
       background:
-        radial-gradient(circle at 20% 10%, rgba(248, 207, 93, 0.28), transparent 28%),
-        radial-gradient(circle at 82% 86%, rgba(18, 165, 148, 0.22), transparent 30%),
+        radial-gradient(circle at 18% 12%, rgba(248, 207, 93, 0.30), transparent 30%),
+        radial-gradient(circle at 80% 88%, rgba(18, 165, 148, 0.24), transparent 32%),
         var(--cream);
       color: var(--ink);
       font-family: "DM Sans", Arial, sans-serif;
@@ -40,135 +40,96 @@
 
     .sheet {
       display: grid;
-      gap: 24px;
+      gap: 28px;
     }
 
+    /* ── Card base ── */
     .card {
       position: relative;
       width: 3.5in;
       height: 2in;
       overflow: hidden;
-      border-radius: 20px;
-      box-shadow: 0 24px 60px rgba(25, 24, 22, 0.18);
+      border-radius: 22px;
+      box-shadow: 0 28px 64px rgba(25, 24, 22, 0.20);
     }
 
+    /* ── FRONT ── */
     .front {
-      background:
-        linear-gradient(145deg, rgba(255, 250, 240, 0.98), rgba(247, 243, 236, 0.96)),
-        var(--paper);
-      border: 1px solid rgba(25, 24, 22, 0.1);
+      background: linear-gradient(148deg, #ffffff 0%, #f7f3ec 100%);
+      border: 1px solid rgba(25, 24, 22, 0.09);
     }
 
-    .back {
-      background:
-        radial-gradient(circle at 80% 16%, rgba(248, 207, 93, 0.26), transparent 28%),
-        radial-gradient(circle at 12% 88%, rgba(18, 165, 148, 0.28), transparent 32%),
-        var(--midnight);
-      color: #ffffff;
-    }
-
-    .front::before,
-    .front::after,
-    .back::before,
-    .back::after {
+    /* decorative blobs */
+    .front::before {
       content: "";
       position: absolute;
+      width: 120px; height: 120px;
+      right: -36px; top: -40px;
       border-radius: 999px;
+      background: rgba(233, 95, 71, 0.18);
+      pointer-events: none;
+    }
+    .front::after {
+      content: "";
+      position: absolute;
+      width: 90px; height: 90px;
+      left: -28px; bottom: -30px;
+      border-radius: 999px;
+      background: rgba(18, 165, 148, 0.16);
       pointer-events: none;
     }
 
-    .front::before {
-      width: 130px;
-      height: 130px;
-      right: -40px;
-      top: -46px;
-      background: rgba(233, 95, 71, 0.16);
-    }
-
-    .front::after {
-      width: 150px;
-      height: 150px;
-      right: 32px;
-      bottom: -98px;
-      background: rgba(18, 165, 148, 0.13);
-    }
-
-    .back::before {
-      width: 160px;
-      height: 160px;
-      right: -58px;
-      top: -62px;
-      background: rgba(93, 63, 143, 0.45);
-      filter: blur(8px);
-    }
-
-    .back::after {
-      width: 130px;
-      height: 130px;
-      left: -54px;
-      bottom: -56px;
-      background: rgba(18, 165, 148, 0.45);
-      filter: blur(8px);
-    }
-
+    /* ── inner wrapper ── */
     .inner {
       position: relative;
       z-index: 1;
       height: 100%;
-      padding: 18px;
+      padding: 16px 18px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
     }
 
-    .top-row,
-    .bottom-row {
+    /* ── TOP BAR: logo + badge ── */
+    .top-bar {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 16px;
     }
 
     .brand {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 9px;
     }
 
     .logo-box {
-      width: 42px;
-      height: 42px;
+      width: 36px; height: 36px;
       display: grid;
       place-items: center;
-      border-radius: 15px;
+      border-radius: 12px;
       background: var(--ink);
-      box-shadow: 0 10px 24px rgba(25, 24, 22, 0.18);
+      box-shadow: 0 8px 20px rgba(25, 24, 22, 0.22);
+      flex-shrink: 0;
     }
 
     .logo-box img {
-      width: 30px;
-      height: 30px;
+      width: 24px; height: 24px;
       object-fit: contain;
     }
 
-    .company,
-    .name,
-    .back-title {
-      font-family: "Space Grotesk", Arial, sans-serif;
-    }
-
     .company {
-      margin: 0;
-      font-size: 23px;
-      line-height: 1;
+      font-family: "Space Grotesk", Arial, sans-serif;
+      font-size: 20px;
       font-weight: 700;
       letter-spacing: -0.01em;
+      line-height: 1;
     }
 
     .tagline {
-      margin: 4px 0 0;
-      color: rgba(25, 24, 22, 0.58);
-      font-size: 7.8px;
+      margin-top: 3px;
+      color: rgba(25, 24, 22, 0.52);
+      font-size: 7px;
       font-weight: 700;
       letter-spacing: 0.18em;
       text-transform: uppercase;
@@ -178,173 +139,246 @@
     .badge {
       border-radius: 999px;
       background: var(--sun);
-      padding: 7px 10px;
+      padding: 5px 9px;
       color: var(--ink);
-      font-size: 8px;
+      font-size: 7.5px;
       font-weight: 800;
       letter-spacing: 0.12em;
       text-transform: uppercase;
       white-space: nowrap;
     }
 
+    /* ── MID: name + role ── */
+    .mid-row {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .name-block { flex: 1; }
+
     .name {
-      margin: 0;
-      max-width: 190px;
-      font-size: 21px;
-      line-height: 1.04;
+      font-family: "Space Grotesk", Arial, sans-serif;
+      font-size: 18px;
       font-weight: 700;
+      line-height: 1.08;
+      letter-spacing: -0.01em;
     }
 
     .role {
-      margin: 6px 0 0;
+      margin-top: 4px;
       color: var(--coral);
-      font-size: 9.5px;
+      font-size: 8px;
       font-weight: 800;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.10em;
       text-transform: uppercase;
     }
 
+    /* ── CONTACT GRID ── */
     .contact {
       display: grid;
-      gap: 5px;
-      min-width: 132px;
-      color: rgba(25, 24, 22, 0.68);
-      font-size: 9.2px;
-      font-weight: 600;
-      line-height: 1.15;
+      grid-template-columns: 1fr 1fr;
+      gap: 4px 12px;
+      align-self: flex-end;
     }
 
-    .contact span {
+    .contact-item {
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
       white-space: nowrap;
+      overflow: hidden;
     }
 
-    .dot {
-      width: 6px;
-      height: 6px;
-      flex: 0 0 6px;
-      border-radius: 999px;
-      background: var(--reef);
+    .ci-icon {
+      width: 14px; height: 14px;
+      flex-shrink: 0;
+      display: grid;
+      place-items: center;
+      border-radius: 5px;
+      background: rgba(18, 165, 148, 0.12);
     }
 
+    .ci-icon svg {
+      width: 8px; height: 8px;
+      stroke: var(--reef);
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .ci-text {
+      font-size: 7.8px;
+      font-weight: 600;
+      color: rgba(25, 24, 22, 0.70);
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* ── BOTTOM: services ── */
     .service-strip {
       display: flex;
-      gap: 6px;
-      flex-wrap: wrap;
+      gap: 5px;
     }
 
     .service-strip span {
       border-radius: 999px;
       background: rgba(25, 24, 22, 0.07);
-      padding: 5px 8px;
-      color: rgba(25, 24, 22, 0.78);
-      font-size: 8px;
+      padding: 4px 8px;
+      color: rgba(25, 24, 22, 0.75);
+      font-size: 7.5px;
       font-weight: 800;
       white-space: nowrap;
     }
 
+    /* ── BACK ── */
+    .back {
+      background:
+        radial-gradient(circle at 82% 14%, rgba(248, 207, 93, 0.28), transparent 30%),
+        radial-gradient(circle at 14% 86%, rgba(18, 165, 148, 0.30), transparent 34%),
+        var(--midnight);
+      color: #ffffff;
+    }
+
+    .back::before {
+      content: "";
+      position: absolute;
+      width: 170px; height: 170px;
+      right: -60px; top: -65px;
+      border-radius: 999px;
+      background: rgba(93, 63, 143, 0.40);
+      filter: blur(10px);
+      pointer-events: none;
+    }
+
+    .back::after {
+      content: "";
+      position: absolute;
+      width: 140px; height: 140px;
+      left: -55px; bottom: -55px;
+      border-radius: 999px;
+      background: rgba(18, 165, 148, 0.40);
+      filter: blur(10px);
+      pointer-events: none;
+    }
+
     .back .inner {
-      padding: 20px;
-      border: 1px solid rgba(255, 255, 255, 0.12);
+      padding: 18px 20px;
+      border: 1px solid rgba(255, 255, 255, 0.10);
       border-radius: inherit;
       background:
-        linear-gradient(135deg, rgba(255, 255, 255, 0.11), transparent 38%),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-        linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
-      background-size: auto, 34px 34px, 34px 34px;
+        linear-gradient(135deg, rgba(255,255,255,0.09), transparent 40%),
+        linear-gradient(90deg,  rgba(255,255,255,0.04) 1px, transparent 1px),
+        linear-gradient(        rgba(255,255,255,0.04) 1px, transparent 1px);
+      background-size: auto, 32px 32px, 32px 32px;
     }
 
     .back-brand {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 11px;
     }
 
-    .back-brand img {
-      width: 52px;
-      height: 52px;
+    .back-logo-box {
+      width: 40px; height: 40px;
+      display: grid;
+      place-items: center;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.10);
+      border: 1px solid rgba(255,255,255,0.16);
+      flex-shrink: 0;
+    }
+
+    .back-logo-box img {
+      width: 26px; height: 26px;
       object-fit: contain;
     }
 
     .back-title {
-      margin: 0;
-      font-size: 30px;
-      line-height: 0.95;
+      font-family: "Space Grotesk", Arial, sans-serif;
+      font-size: 26px;
       font-weight: 700;
+      line-height: 1;
+    }
+
+    .back-sub {
+      margin-top: 3px;
+      color: rgba(255,255,255,0.50);
+      font-size: 7px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
     }
 
     .back-copy {
-      max-width: 270px;
-      margin: 0;
-      color: rgba(255, 255, 255, 0.72);
-      font-size: 12px;
-      line-height: 1.45;
+      color: rgba(255,255,255,0.68);
+      font-size: 10.5px;
+      line-height: 1.5;
       font-weight: 500;
+      max-width: 280px;
     }
 
     .back-services {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 8px;
-      width: 100%;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
     }
 
     .back-services span {
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      border-radius: 12px;
-      background: rgba(255, 255, 255, 0.07);
-      padding: 8px 10px;
-      font-size: 9px;
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 10px;
+      background: rgba(255,255,255,0.07);
+      padding: 6px 4px;
+      font-size: 7.5px;
       font-weight: 800;
-      color: rgba(255, 255, 255, 0.88);
+      color: rgba(255,255,255,0.86);
+      text-align: center;
+      white-space: nowrap;
     }
 
     .back-footer {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 12px;
-      color: rgba(255, 255, 255, 0.66);
-      font-size: 9px;
+      gap: 8px;
+      color: rgba(255,255,255,0.55);
+      font-size: 8px;
       font-weight: 700;
     }
 
     .website {
       color: var(--sun);
+      font-size: 7.5px;
+      letter-spacing: 0.01em;
     }
 
+    /* ── Print note ── */
     .print-note {
-      color: rgba(25, 24, 22, 0.62);
+      color: rgba(25, 24, 22, 0.55);
       font-size: 13px;
       font-weight: 600;
       text-align: center;
     }
 
     @media print {
-      body {
-        min-height: auto;
-        padding: 0.25in;
-        background: #ffffff;
-      }
-
-      .card {
-        box-shadow: none;
-        break-inside: avoid;
-      }
-
-      .print-note {
-        display: none;
-      }
+      body { min-height: auto; padding: 0.25in; background: #ffffff; }
+      .card { box-shadow: none; break-inside: avoid; }
+      .print-note { display: none; }
     }
   </style>
 </head>
+
 <body>
   <main class="sheet" aria-label="CPNexs visiting card design">
+
+    <!-- ══ FRONT ══ -->
     <section class="card front" aria-label="Front side">
       <div class="inner">
-        <div class="top-row">
+
+        <!-- Top: logo + badge -->
+        <div class="top-bar">
           <div class="brand">
             <div class="logo-box">
               <img src="public/images/logowhite.png" alt="CPNexs logo" />
@@ -357,58 +391,96 @@
           <span class="badge">Fast + Affordable</span>
         </div>
 
-        <div class="bottom-row">
-          <div>
-            <p class="name">Chetan Prakash Kamble</p>
-            <p class="role">CEO & Lead Developer</p>
+        <!-- Mid: name/role + contact grid -->
+        <div class="mid-row">
+          <div class="name-block">
+            <p class="name">Chetan Prakash<br>Kamble</p>
+            <p class="role">CEO &amp; Lead Developer</p>
           </div>
 
           <div class="contact">
-            <span><i class="dot"></i> hello@cpnexs.com</span>
-            <span><i class="dot"></i> cpnexs.com</span>
-            <span><i class="dot"></i> India / Remote</span>
+            <!-- Email -->
+            <div class="contact-item">
+              <span class="ci-icon">
+                <svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
+              </span>
+              <span class="ci-text">chetanprakashkamble@gmail.com</span>
+            </div>
+
+            <!-- Phone -->
+            <div class="contact-item">
+              <span class="ci-icon">
+                <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.6 3.41 2 2 0 0 1 3.59 1.24h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.71 2.81a2 2 0 0 1-.45 2.11L7.91 8.82a16 16 0 0 0 6.29 6.29l.94-.94a2 2 0 0 1 2.11-.45c.91.34 1.85.58 2.81.71A2 2 0 0 1 22 16.92z"/></svg>
+              </span>
+              <span class="ci-text">+91 98445 38521</span>
+            </div>
+
+            <!-- Website -->
+            <div class="contact-item">
+              <span class="ci-icon">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10A15.3 15.3 0 0 1 8 12 15.3 15.3 0 0 1 12 2z"/></svg>
+              </span>
+              <span class="ci-text">main.djlo8085e7tae.amplifyapp.com</span>
+            </div>
+
+            <!-- Location -->
+            <div class="contact-item">
+              <span class="ci-icon">
+                <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              </span>
+              <span class="ci-text">Bammapur Oni, Hubli</span>
+            </div>
           </div>
         </div>
 
+        <!-- Bottom: service tags -->
         <div class="service-strip" aria-label="Services">
           <span>Websites</span>
           <span>Mobile Apps</span>
           <span>AI Tools</span>
           <span>Cloud</span>
         </div>
+
       </div>
     </section>
 
+    <!-- ══ BACK ══ -->
     <section class="card back" aria-label="Back side">
       <div class="inner">
+
         <div class="back-brand">
-          <img src="public/images/logowhite.png" alt="CPNexs logo" />
+          <div class="back-logo-box">
+            <img src="public/images/logowhite.png" alt="CPNexs logo" />
+          </div>
           <div>
             <h2 class="back-title">CPNexs</h2>
-            <p class="tagline" style="color: rgba(255,255,255,0.54);">Digital Studio</p>
+            <p class="back-sub">Digital Studio</p>
           </div>
         </div>
 
         <p class="back-copy">
-          Beautiful digital products, built faster and priced fairly for founders,
-          startups, and local businesses.
+          Beautiful digital products, built faster and priced fairly
+          for founders, startups &amp; local businesses.
         </p>
 
         <div class="back-services">
-          <span>Web Development</span>
-          <span>UI/UX Design</span>
-          <span>AI Automation</span>
-          <span>Digital Growth</span>
+          <span>Web Dev</span>
+          <span>UI / UX</span>
+          <span>AI Tools</span>
+          <span>Growth</span>
         </div>
 
         <div class="back-footer">
-          <span>Strategy / Design / Engineering</span>
-          <span class="website">cpnexs.com</span>
+          <span>Strategy · Design · Engineering</span>
+          <span class="website">main.djlo8085e7tae.amplifyapp.com</span>
         </div>
+
       </div>
     </section>
+
   </main>
 
-  <p class="print-note">Print at 100% scale for a 3.5in x 2in visiting card.</p>
+  <p class="print-note">Print at 100% scale · 3.5 in × 2 in</p>
 </body>
+
 </html>
