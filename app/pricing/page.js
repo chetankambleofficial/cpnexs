@@ -29,8 +29,8 @@ const jsonLd = {
       "@type": "Offer",
       "@id": `${PAGE_URL}/#starter`,
       name: "Starter Website Package",
-      description: "5-page responsive website with mobile optimisation, basic SEO, contact form, and 1 month support. Delivered in 7 days.",
-      price: "2999",
+      description: "5-page responsive website for college projects with mobile optimisation, contact form, and 1 month support. Delivered in 20 days.",
+      price: "5999",
       priceCurrency: "INR",
       availability: "https://schema.org/InStock",
       seller: { "@id": `${BASE_URL}/#organization` },
@@ -41,8 +41,8 @@ const jsonLd = {
       "@type": "Offer",
       "@id": `${PAGE_URL}/#growth`,
       name: "Growth Website Package",
-      description: "10-page custom website with CMS, advanced SEO, analytics, payment gateway, social media integration, and 3 months support. Delivered in 5 days.",
-      price: "7999",
+      description: "10-page custom website with CMS, advanced SEO, analytics, payment gateway, social media integration, and 3 months support. Delivered in 20 days.",
+      price: "9999",
       priceCurrency: "INR",
       availability: "https://schema.org/InStock",
       seller: { "@id": `${BASE_URL}/#organization` },
@@ -68,9 +68,9 @@ const jsonLd = {
 };
 
 export const metadata = {
-  title: "Pricing — Website & Software Development Cost in Hubli | CPNexs",
+  title: "Pricing — Website & Software Development Cost | CPNexs",
   description:
-    "Transparent website and software development pricing in Hubli and Bangalore. Starter websites from ₹2,999, growth packages from ₹7,999, and custom enterprise quotes. No hidden fees.",
+    "Transparent website and software development pricing. College project websites from ₹5,999, business packages from ₹9,999, and custom enterprise quotes. No hidden fees.",
   keywords: [
     "website development cost Hubli",
     "software development pricing India",
@@ -88,9 +88,9 @@ export const metadata = {
   },
   openGraph: {
     url: PAGE_URL,
-    title: "Pricing — Website & Software Development Cost | CPNexs Hubli",
+    title: "Pricing — Website & Software Development Cost | CPNexs",
     description:
-      "Transparent pricing for websites, mobile apps, and custom software. Packages from ₹2,999. No hidden fees.",
+      "Transparent pricing for websites, mobile apps, and custom software. College projects from ₹5,999, business packages from ₹9,999. No hidden fees.",
     images: [
       {
         url: "/images/og-image.png",
@@ -102,9 +102,9 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Pricing — Software Development Cost | CPNexs Hubli",
+    title: "Pricing — Software Development Cost | CPNexs",
     description:
-      "Websites from ₹2,999. Mobile apps, ERP/CRM, and custom software. Transparent pricing, no hidden fees.",
+      "College project websites from ₹5,999, business packages from ₹9,999. Mobile apps, ERP/CRM, and custom software. Transparent pricing, no hidden fees.",
     images: ["/images/og-image.png"],
   },
 };
