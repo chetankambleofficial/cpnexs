@@ -1,9 +1,7 @@
-import path from "path";
 import { getTransporter } from "@/lib/transporter";
 import {
   COMPANY_NAME,
   COMPANY_WEBSITE,
-  CONTACT_EMAIL,
   escapeHtml,
   renderThemedEmail,
   themedHeader,
@@ -11,15 +9,6 @@ import {
 } from "@/lib/mailTheme";
 
 export const dynamic = "force-dynamic";
-
-const LOGO_PATH = path.join(process.cwd(), "public", "images", "logowhite.png");
-
-// CID attachment — embeds the logo so it shows in all email clients
-const logoAttachment = {
-  filename: "logo.png",
-  path: LOGO_PATH,
-  cid: "logo", // matches src="cid:logo" in the HTML
-};
 
 // ── row helper ────────────────────────────────────────────────────────────────
 const row = (icon, label, value) => `
@@ -156,7 +145,13 @@ export async function POST(request) {
       return Response.json({ error: "Missing required fields" }, { status: 400 });
     }
 
-    const transporter = getTransporter();
+    let transporter;
+    try {
+      transporter = getTransporter();
+    } catch (envError) {
+      console.error("Transporter init failed:", envError.message);
+      return Response.json({ error: "Mail service misconfigured" }, { status: 500 });
+    }
 
     try {
       await transporter.sendMail({
@@ -164,7 +159,6 @@ export async function POST(request) {
         to: process.env.CONTACT_TO_EMAIL,
         subject: `New Inquiry from ${name} — ${COMPANY_NAME}`,
         html: contactNotificationTemplate({ name, email, phone, service, message }),
-        attachments: [logoAttachment],
       });
 
       await transporter.sendMail({
@@ -172,7 +166,6 @@ export async function POST(request) {
         to: email,
         subject: `We received your message — ${COMPANY_NAME}`,
         html: contactAutoReplyTemplate({ name, email, phone, message }),
-        attachments: [logoAttachment],
       });
     } catch (emailError) {
       console.error("========== EMAIL ERROR ==========");
