@@ -175,7 +175,13 @@ export async function POST(request) {
         attachments: [logoAttachment],
       });
     } catch (emailError) {
-      console.error("Email sending failed:", emailError);
+      console.error("========== EMAIL ERROR ==========");
+console.error("Message:", emailError.message);
+console.error("Code:", emailError.code);
+console.error("Command:", emailError.command);
+console.error("Response:", emailError.response);
+console.error("ResponseCode:", emailError.responseCode);
+console.error("Stack:", emailError.stack);
       return Response.json({ error: "Failed to send email" }, { status: 500 });
     }
 
