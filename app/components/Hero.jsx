@@ -105,7 +105,7 @@ function HeroVisual() {
             className="rounded-2xl border border-blue-400/25 bg-[#0d1117]/95 backdrop-blur-md px-4 py-3 shadow-xl"
           >
             <p className="text-[10px] text-white/40 font-medium mb-0.5">Starting at</p>
-            <p className="text-lg font-bold text-white leading-none">₹4,999
+            <p className="text-lg font-bold text-white leading-none">₹9,999
               <span className="text-xs font-normal text-white/40 ml-1">/ site</span>
             </p>
             <p className="text-[9px] text-green-400 font-bold mt-1">✓ No hidden charges</p>
@@ -326,8 +326,8 @@ export default function Hero() {
               className="mt-6 flex flex-wrap gap-2"
             >
               {[
-                { icon: CheckCircle, label: "Ready in 3–7 days" },
-                { icon: IndianRupee, label: "Starting ₹4,999" },
+                { icon: CheckCircle, label: "Ready in 7–10 days" },
+                { icon: IndianRupee, label: "Starting ₹9,999" },
                 { icon: Smartphone,  label: "Mobile Friendly" },
                 { icon: ShieldCheck, label: "Secure & Fast" },
               ].map(({ icon: Icon, label }) => (
