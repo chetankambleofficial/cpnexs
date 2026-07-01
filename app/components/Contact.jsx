@@ -50,10 +50,10 @@ export default function Contact() {
         >
           <div className="text-xs font-bold tracking-[0.2em] uppercase text-blue-400">Let's Talk</div>
           <h2 className="mt-3 text-4xl font-bold tracking-normal text-white md:text-5xl lg:text-6xl">
-            Hire a software developer in Hubli or Bangalore.
+            Ready to make the site people remember?
           </h2>
           <p className="mt-5 max-w-xl text-base leading-7 text-white/50">
-            Share your project idea, deadline, or problem. We reply within 24 hours with practical next steps — no jargon, no pressure.
+            Share the idea, the deadline, or the problem. We will reply within 24 hours with practical next steps.
           </p>
 
           <div className="mt-10 grid gap-4">
@@ -133,13 +133,11 @@ export default function Contact() {
                 <select name="service" value={form.service} onChange={handleChange} className="form-input-dark" aria-label="Select a service">
                   <option value="">Select a service</option>
                   <option>Web Development</option>
-                  <option>Mobile App Development</option>
-                  <option>ERP / CRM System</option>
-                  <option>AI Automation</option>
-                  <option>SaaS Development</option>
+                  <option>Mobile App</option>
+                  <option>AI Solutions</option>
                   <option>UI/UX Design</option>
+                  <option>Digital Marketing</option>
                   <option>Cloud Solutions</option>
-                  <option>Custom Software</option>
                 </select>
               </Field>
               <Field label="Your Message">

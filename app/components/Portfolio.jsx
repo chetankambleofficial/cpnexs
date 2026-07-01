@@ -66,9 +66,9 @@ export default function Portfolio() {
           >
             <div className="text-xs font-bold tracking-[0.2em] uppercase text-yellow-400 mb-3">Our Portfolio</div>
             <h2 className="font-heading text-4xl font-bold tracking-normal md:text-6xl">
-              Real projects.
+              Work that feels built,
               <br />
-              Real results.
+              not templated.
             </h2>
           </motion.div>
           <motion.p
@@ -135,8 +135,8 @@ export default function Portfolio() {
           transition={{ duration: 0.6 }}
           className="mt-14 text-center"
         >
-          <p className="text-white/40 text-sm mb-4">Want a custom website or software solution for your business in Hubli or Bangalore?</p>
-          <Link href="/contact" aria-label="Start your software project with CPNexs">
+          <p className="text-white/40 text-sm mb-4">Want something like this for your business?</p>
+          <Link href="/contact">
             <motion.div
               whileHover={{ scale: 1.05, boxShadow: "0 0 36px rgba(59,130,246,0.5)" }}
               whileTap={{ scale: 0.97 }}

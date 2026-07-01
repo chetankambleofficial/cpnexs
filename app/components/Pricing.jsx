@@ -72,10 +72,10 @@ export default function Pricing() {
         >
           <div className="text-xs font-bold tracking-[0.2em] uppercase text-blue-400 mb-3">Simple Pricing</div>
           <h2 className="text-4xl font-bold tracking-normal text-white md:text-6xl">
-            Transparent pricing for every business.
+            Pick the launch lane that fits.
           </h2>
           <p className="mx-auto mt-5 max-w-xl text-base leading-7 text-white/50">
-            Clear packages for websites starting at &#8377;2,999, and custom quotes for mobile apps, ERP/CRM, and enterprise software.
+            Clear packages for websites and custom quotes for products that need deeper planning.
           </p>
         </motion.div>
 

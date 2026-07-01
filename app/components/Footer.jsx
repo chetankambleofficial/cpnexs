@@ -20,11 +20,11 @@ export default function Footer() {
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" aria-hidden="true" />
       <div className="section-shell">
         <div className="flex flex-col justify-between gap-8 md:flex-row md:items-center">
-          <Link href="/" className="flex items-center gap-4 no-underline" aria-label="CPNexs — Software Development Company Hubli">
+          <Link href="/" className="flex items-center gap-4 no-underline" aria-label="CPNexs — Next-Gen Digital Solutions">
             <span className="flex h-12 w-12 items-center justify-center rounded-full border border-white/10 bg-white/5">
               <img
                 src="/images/logowhite.png"
-                alt="CPNexs logo — Software Company Hubli Karnataka"
+                alt="CPNexs Logo"
                 width="32"
                 height="32"
                 className="h-8 w-8 object-contain"
@@ -32,7 +32,7 @@ export default function Footer() {
             </span>
             <div>
               <div className="brand-name text-xl">CPNexs</div>
-              <div className="text-xs font-medium uppercase tracking-[0.22em] text-white/30">Software Development Company</div>
+              <div className="text-xs font-medium uppercase tracking-[0.22em] text-white/30">Next-Gen Digital Solutions</div>
             </div>
           </Link>
           <nav aria-label="Footer navigation" className="flex flex-wrap gap-3">
@@ -48,16 +48,14 @@ export default function Footer() {
           </nav>
         </div>
 
-        {/* Address for local SEO */}
         <address
           className="mt-8 not-italic text-sm text-white/25"
           itemScope
           itemType="https://schema.org/PostalAddress"
         >
-          <span itemProp="addressLocality">Hubli</span>,{" "}
-          <span itemProp="addressRegion">Karnataka</span>,{" "}
-          <span itemProp="addressCountry">India</span>
-          {" — "}
+          <span itemProp="addressLocality" className="sr-only">Hubli</span>
+          <span itemProp="addressRegion" className="sr-only">Karnataka</span>
+          <span itemProp="addressCountry" className="sr-only">India</span>
           <a href="tel:+919844538521" className="text-white/30 no-underline hover:text-white/60" itemProp="telephone">+91 9844538521</a>
           {" — "}
           <a href="mailto:cpnexs@gmail.com" className="text-white/30 no-underline hover:text-white/60" itemProp="email">cpnexs@gmail.com</a>
