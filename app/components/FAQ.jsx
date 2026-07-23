@@ -50,14 +50,14 @@ export default function FAQ() {
           className="text-center mb-14"
         >
           <div className="inline-flex items-center gap-2 rounded-full border border-[#006BFF]/20 bg-[#EAF4FF] px-4 py-2 mb-5">
-            <span className="text-sm font-semibold text-[#006BFF]" style={{ fontFamily: "var(--font-inter)" }}>Frequently Asked Questions</span>
+            <span className="text-sm font-semibold text-[#006BFF] tracking-wide" style={{ fontFamily: "var(--font-heading), 'Alegreya Sans SC', sans-serif" }}>Frequently Asked Questions</span>
           </div>
-          <h2 className="text-4xl font-bold text-[#0F172A] md:text-5xl" style={{ fontFamily: "var(--font-space)" }}>
+          <h2 className="text-4xl font-bold text-[#0F172A] md:text-5xl" style={{ fontFamily: "var(--font-heading), 'Alegreya Sans SC', sans-serif" }}>
             Got Questions?
             <br />
             <span className="gradient-text">We Have Answers</span>
           </h2>
-          <p className="mt-4 max-w-xl mx-auto text-lg text-[#475569]" style={{ fontFamily: "var(--font-inter)" }}>
+          <p className="mt-4 max-w-xl mx-auto text-lg text-[#475569]" style={{ fontFamily: "var(--font-heading), 'Alegreya Sans SC', sans-serif" }}>
             Everything you need to know before starting your project with us.
           </p>
         </motion.div>
@@ -74,7 +74,7 @@ export default function FAQ() {
                 onClick={() => setOpen(open === i ? null : i)}
                 className="w-full flex items-center justify-between px-6 py-5 text-left cursor-pointer bg-transparent border-0"
               >
-                <span className="text-base font-semibold text-[#0F172A] pr-4" style={{ fontFamily: "var(--font-space)" }}>{faq.q}</span>
+                <span className="text-base font-semibold text-[#0F172A] pr-4" style={{ fontFamily: "var(--font-heading), 'Alegreya Sans SC', sans-serif" }}>{faq.q}</span>
                 <motion.span
                   animate={{ rotate: open === i ? 45 : 0 }}
                   transition={{ duration: 0.2 }}

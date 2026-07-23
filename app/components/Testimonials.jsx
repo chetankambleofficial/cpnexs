@@ -68,9 +68,9 @@ export default function Testimonials() {
           className="text-center mb-14"
         >
           <div className="inline-flex items-center gap-2 rounded-full border border-[#006BFF]/20 bg-[#EAF4FF] px-4 py-2 mb-5">
-            <span className="text-sm font-semibold text-[#006BFF]" style={{ fontFamily: "var(--font-inter)" }}>Client Testimonials</span>
+            <span className="text-sm font-semibold text-[#006BFF] tracking-wide" style={{ fontFamily: "var(--font-heading), 'Alegreya Sans SC', sans-serif" }}>Client Testimonials</span>
           </div>
-          <h2 className="text-4xl font-bold text-[#0F172A] md:text-5xl" style={{ fontFamily: "var(--font-space)" }}>
+          <h2 className="text-4xl font-bold text-[#0F172A] md:text-5xl" style={{ fontFamily: "var(--font-heading), 'Alegreya Sans SC', sans-serif" }}>
             What Our Clients
             <br />
             <span className="gradient-text">Say About Us</span>
@@ -100,12 +100,12 @@ export default function Testimonials() {
               <div className="flex items-center gap-4">
                 <div
                   className="h-12 w-12 rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0"
-                  style={{ background: testimonials[current].color, fontFamily: "var(--font-space)" }}
+                  style={{ background: testimonials[current].color, fontFamily: "var(--font-heading), 'Alegreya Sans SC', sans-serif" }}
                 >
                   {testimonials[current].initials}
                 </div>
                 <div>
-                  <p className="font-bold text-[#0F172A]" style={{ fontFamily: "var(--font-space)" }}>{testimonials[current].name}</p>
+                  <p className="font-bold text-[#0F172A]" style={{ fontFamily: "var(--font-heading), 'Alegreya Sans SC', sans-serif" }}>{testimonials[current].name}</p>
                   <p className="text-sm text-[#475569]" style={{ fontFamily: "var(--font-inter)" }}>{testimonials[current].role} · {testimonials[current].company}</p>
                 </div>
               </div>
