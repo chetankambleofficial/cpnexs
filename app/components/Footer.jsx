@@ -58,7 +58,7 @@ export default function Footer() {
           <h2 className="text-3xl font-bold text-white mb-3 md:text-4xl" style={{ fontFamily: "var(--font-space)" }}>
             Ready to Start Your Project?
           </h2>
-          <p className="text-white/80 mb-7 max-w-xl mx-auto" style={{ fontFamily: "var(--font-inter)" }}>
+          <p className="text-white/80 mb-7 max-w-xl mx-auto text-lg" style={{ fontFamily: "var(--font-heading), 'Alegreya Sans SC', sans-serif" }}>
             Get a free consultation and clear quote within 24 hours. No commitment required.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
@@ -67,7 +67,7 @@ export default function Footer() {
                 whileHover={{ scale: 1.04 }}
                 whileTap={{ scale: 0.97 }}
                 className="rounded-xl bg-white px-8 py-3.5 text-sm font-semibold text-[#006BFF] cursor-pointer"
-                style={{ fontFamily: "var(--font-inter)" }}
+                style={{ fontFamily: "var(--font-heading), 'Alegreya Sans SC', sans-serif" }}
               >
                 Book Free Consultation
               </motion.div>
@@ -77,7 +77,7 @@ export default function Footer() {
                 whileHover={{ scale: 1.04 }}
                 whileTap={{ scale: 0.97 }}
                 className="rounded-xl border-2 border-white/40 px-8 py-3.5 text-sm font-semibold text-white cursor-pointer hover:border-white transition-colors"
-                style={{ fontFamily: "var(--font-inter)" }}
+                style={{ fontFamily: "var(--font-heading), 'Alegreya Sans SC', sans-serif" }}
               >
                 WhatsApp Us
               </motion.div>
@@ -104,13 +104,16 @@ export default function Footer() {
             {/* Contact quick info */}
             <div className="space-y-2 mb-6">
               <a href="tel:+919844538521" className="flex items-center gap-2 text-sm text-white/50 hover:text-white no-underline transition-colors" style={{ fontFamily: "var(--font-inter)" }}>
-                <span>📞</span> +91 9844538521
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.6 3.41 2 2 0 0 1 3.59 1.24h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.71 2.81a2 2 0 0 1-.45 2.11L7.91 8.82a16 16 0 0 0 6.29 6.29l.94-.94a2 2 0 0 1 2.11-.45c.91.34 1.85.58 2.81.71A2 2 0 0 1 22 16.92z"/></svg>
+                +91 9844538521
               </a>
               <a href="mailto:cpnexs@gmail.com" className="flex items-center gap-2 text-sm text-white/50 hover:text-white no-underline transition-colors" style={{ fontFamily: "var(--font-inter)" }}>
-                <span>✉️</span> cpnexs@gmail.com
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
+                cpnexs@gmail.com
               </a>
               <span className="flex items-center gap-2 text-sm text-white/50" style={{ fontFamily: "var(--font-inter)" }}>
-                <span>📍</span> Hubli, Karnataka, India
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                Hubli, Karnataka, India
               </span>
             </div>
 

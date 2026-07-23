@@ -3,6 +3,13 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 
+const ShoppingBagIcon = () => (<svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>);
+const HospitalIcon = () => (<svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 21h18M5 21V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16"/><path d="M9 10h6M12 7v6"/></svg>);
+const SchoolIcon = () => (<svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>);
+const UtensilsIcon = () => (<svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M18 2v20M2 2v20M6 2v6a4 4 0 0 0 4 4v10M14 2v6a4 4 0 0 0 4 4v10"/></svg>);
+const FactoryIcon = () => (<svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M2 20a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8l-7 5V8l-7 5V4H2z"/></svg>);
+const HomeIcon = () => (<svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>);
+
 const projects = [
   {
     title: "AI-Powered E-Commerce Platform",
@@ -11,7 +18,7 @@ const projects = [
     tags: ["Next.js", "Node.js", "OpenAI", "PostgreSQL"],
     color: "#006BFF",
     bg: "#EAF4FF",
-    emoji: "🛍️",
+    icon: <ShoppingBagIcon />,
     span: "lg:col-span-2",
   },
   {
@@ -21,7 +28,7 @@ const projects = [
     tags: ["React", "Python", "AWS", "MongoDB"],
     color: "#059669",
     bg: "#ECFDF5",
-    emoji: "🏥",
+    icon: <HospitalIcon />,
     span: "",
   },
   {
@@ -31,7 +38,7 @@ const projects = [
     tags: ["React Native", "Node.js", "MySQL"],
     color: "#7C3AED",
     bg: "#F5F3FF",
-    emoji: "🏫",
+    icon: <SchoolIcon />,
     span: "",
   },
   {
@@ -41,7 +48,7 @@ const projects = [
     tags: ["Next.js", "Node.js", "PostgreSQL"],
     color: "#D97706",
     bg: "#FFFBEB",
-    emoji: "🍽️",
+    icon: <UtensilsIcon />,
     span: "",
   },
   {
@@ -51,7 +58,7 @@ const projects = [
     tags: ["React", "Python", "PostgreSQL", "Docker"],
     color: "#0891B2",
     bg: "#ECFEFF",
-    emoji: "🏭",
+    icon: <FactoryIcon />,
     span: "",
   },
   {
@@ -61,7 +68,7 @@ const projects = [
     tags: ["Next.js", "Node.js", "MongoDB", "AWS"],
     color: "#DC2626",
     bg: "#FEF2F2",
-    emoji: "🏠",
+    icon: <HomeIcon />,
     span: "lg:col-span-2",
   },
 ];
@@ -79,15 +86,15 @@ export default function Portfolio() {
         >
           <div>
             <div className="inline-flex items-center gap-2 rounded-full border border-[#006BFF]/20 bg-[#EAF4FF] px-4 py-2 mb-5">
-              <span className="text-sm font-semibold text-[#006BFF]" style={{ fontFamily: "var(--font-inter)" }}>Our Work</span>
+              <span className="text-sm font-semibold text-[#006BFF] tracking-wide" style={{ fontFamily: "var(--font-heading), 'Alegreya Sans SC', sans-serif" }}>Our Work</span>
             </div>
-            <h2 className="text-4xl font-bold text-[#0F172A] md:text-5xl" style={{ fontFamily: "var(--font-space)" }}>
+            <h2 className="text-4xl font-bold text-[#0F172A] md:text-5xl" style={{ fontFamily: "var(--font-heading), 'Alegreya Sans SC', sans-serif" }}>
               Projects That
               <br />
               <span className="gradient-text">Speak for Themselves</span>
             </h2>
           </div>
-          <p className="max-w-sm text-[#475569] text-base leading-7" style={{ fontFamily: "var(--font-inter)" }}>
+          <p className="max-w-sm text-[#475569] text-base leading-7" style={{ fontFamily: "var(--font-heading), 'Alegreya Sans SC', sans-serif" }}>
             Every project is built with precision, purpose, and a focus on real business outcomes.
           </p>
         </motion.div>
@@ -103,8 +110,8 @@ export default function Portfolio() {
             >
               {/* Preview area */}
               <div className="relative h-48 overflow-hidden" style={{ background: p.bg }}>
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="text-7xl opacity-20">{p.emoji}</span>
+                <div className="absolute inset-0 flex items-center justify-center text-slate-800 opacity-15">
+                  {p.icon}
                 </div>
                 {/* Browser mockup */}
                 <div className="absolute inset-4 bg-white rounded-xl shadow-lg overflow-hidden border border-[#E2E8F0]">
@@ -126,14 +133,14 @@ export default function Portfolio() {
                   </div>
                 </div>
                 {/* Industry badge */}
-                <div className="absolute top-3 left-3 rounded-full px-3 py-1 text-[11px] font-bold" style={{ background: p.color + "18", color: p.color, fontFamily: "var(--font-inter)" }}>
+                <div className="absolute top-3 left-3 rounded-full px-3 py-1 text-[11px] font-bold" style={{ background: p.color + "18", color: p.color, fontFamily: "var(--font-heading), 'Alegreya Sans SC', sans-serif" }}>
                   {p.industry}
                 </div>
               </div>
 
               {/* Content */}
               <div className="p-6">
-                <h3 className="text-lg font-bold text-[#0F172A] mb-2" style={{ fontFamily: "var(--font-space)" }}>{p.title}</h3>
+                <h3 className="text-lg font-bold text-[#0F172A] mb-2" style={{ fontFamily: "var(--font-heading), 'Alegreya Sans SC', sans-serif" }}>{p.title}</h3>
                 <p className="text-sm leading-6 text-[#475569] mb-4" style={{ fontFamily: "var(--font-inter)" }}>{p.desc}</p>
 
                 <div className="flex flex-wrap gap-2 mb-5">

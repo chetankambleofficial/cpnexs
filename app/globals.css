@@ -1,24 +1,40 @@
-@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Sora:wght@400;600;700;800&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Alegreya+Sans+SC:ital,wght@0,100;0,300;0,400;0,500;0,700;0,800;0,900;1,100;1,300;1,400;1,500;1,700;1,800;1,900&family=Amaranth:ital,wght@0,400;1,400;1,700&family=Outfit:wght@100..900&family=Righteous&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=Sora:wght@400;600;700;800&display=swap");
 
 @import "tailwindcss";
 
 @theme {
-  --font-heading: "Space Grotesk", sans-serif;
-  --font-body: "Inter", sans-serif;
+  --font-heading: "Alegreya Sans SC", sans-serif;
+  --font-space: "Space Grotesk", "Alegreya Sans SC", sans-serif;
+  --font-righteous: "Alegreya Sans SC", sans-serif;
+  --font-amaranth: "Alegreya Sans SC", sans-serif;
+  --font-alegreya: "Alegreya Sans SC", sans-serif;
+  --font-body: "Outfit", sans-serif;
   --font-number: "Sora", sans-serif;
-  --font-righteous: "Righteous", sans-serif;
-  --font-amaranth: "Amaranth", sans-serif;
+  --font-outfit: "Outfit", sans-serif;
+  --font-inter: "Inter", sans-serif;
 
-  --color-primary: #006BFF;
-  --color-primary-dark: #0052D9;
-  --color-primary-deeper: #0B2C85;
-  --color-primary-light: #EAF4FF;
+  /* Brand Palette */
+  --color-bg-primary: #F3F8FF;
+  --color-bg-section: #DEECFF;
+  --color-bg-card: #B1D4E0;
+  --color-accent: #3E7CB1;
+  --color-navbar: #1F2F56;
+
+  /* Legacy colors kept for compatibility */
+  --color-primary: #3E7CB1;
+  --color-primary-dark: #2A5B8F;
+  --color-primary-deeper: #1F2F56;
+  --color-primary-light: #F3F8FF;
   --color-bg: #FFFFFF;
-  --color-section: #F7FAFC;
-  --color-heading: #0F172A;
+  --color-section: #F3F8FF;
+  --color-heading: #1F2F56;
   --color-body: #475569;
-  --color-border: #E2E8F0;
+  --color-border: #DEECFF;
 }
+
+
+
 
 *, *::before, *::after { box-sizing: border-box; }
 
@@ -30,7 +46,7 @@ html {
 body {
   background: #FFFFFF;
   color: #475569;
-  font-family: "Inter", sans-serif;
+  font-family: "Outfit", sans-serif;
   margin: 0;
   padding: 0;
   overflow-x: hidden;
@@ -38,8 +54,11 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: "Space Grotesk", sans-serif;
+h1, h2, h3, h4, h5, h6,
+.subtitle,
+.sub-title,
+p.lead {
+  font-family: "Alegreya Sans SC", sans-serif;
   color: #0F172A;
 }
 
@@ -61,6 +80,12 @@ h1, h2, h3, h4, h5, h6 {
   -webkit-text-fill-color: transparent;
 }
 
+.righteous-regular {
+  font-family: "Righteous", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
 .font-righteous {
   font-family: var(--font-righteous), "Righteous", sans-serif;
   font-weight: 400;
@@ -69,7 +94,7 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Amaranth utilities */
 .amaranth-regular {
-  font-family: var(--font-amaranth), "Amaranth", sans-serif;
+  font-family: "Amaranth", sans-serif;
   font-weight: 400;
   font-style: normal;
 }
@@ -81,14 +106,99 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .amaranth-regular-italic {
-  font-family: var(--font-amaranth), "Amaranth", sans-serif;
+  font-family: "Amaranth", sans-serif;
   font-weight: 400;
   font-style: italic;
 }
 
 .amaranth-bold-italic {
-  font-family: var(--font-amaranth), "Amaranth", sans-serif;
+  font-family: "Amaranth", sans-serif;
   font-weight: 700;
+  font-style: italic;
+}
+
+/* Alegreya Sans SC utilities */
+.alegreya-sans-sc-thin {
+  font-family: "Alegreya Sans SC", sans-serif;
+  font-weight: 100;
+  font-style: normal;
+}
+
+.alegreya-sans-sc-light {
+  font-family: "Alegreya Sans SC", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.alegreya-sans-sc-regular {
+  font-family: "Alegreya Sans SC", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.alegreya-sans-sc-medium {
+  font-family: "Alegreya Sans SC", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.alegreya-sans-sc-bold {
+  font-family: "Alegreya Sans SC", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.alegreya-sans-sc-extrabold {
+  font-family: "Alegreya Sans SC", sans-serif;
+  font-weight: 800;
+  font-style: normal;
+}
+
+.alegreya-sans-sc-black {
+  font-family: "Alegreya Sans SC", sans-serif;
+  font-weight: 900;
+  font-style: normal;
+}
+
+.alegreya-sans-sc-thin-italic {
+  font-family: "Alegreya Sans SC", sans-serif;
+  font-weight: 100;
+  font-style: italic;
+}
+
+.alegreya-sans-sc-light-italic {
+  font-family: "Alegreya Sans SC", sans-serif;
+  font-weight: 300;
+  font-style: italic;
+}
+
+.alegreya-sans-sc-regular-italic {
+  font-family: "Alegreya Sans SC", sans-serif;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.alegreya-sans-sc-medium-italic {
+  font-family: "Alegreya Sans SC", sans-serif;
+  font-weight: 500;
+  font-style: italic;
+}
+
+.alegreya-sans-sc-bold-italic {
+  font-family: "Alegreya Sans SC", sans-serif;
+  font-weight: 700;
+  font-style: italic;
+}
+
+.alegreya-sans-sc-extrabold-italic {
+  font-family: "Alegreya Sans SC", sans-serif;
+  font-weight: 800;
+  font-style: italic;
+}
+
+.alegreya-sans-sc-black-italic {
+  font-family: "Alegreya Sans SC", sans-serif;
+  font-weight: 900;
   font-style: italic;
 }
 

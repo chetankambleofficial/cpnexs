@@ -36,12 +36,18 @@ const services = [
   { label: "Cloud Solutions" },
 ];
 
+const AIIcon = () => (<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2a2 2 0 0 1 2 2v1a7 7 0 0 1 0 14v1a2 2 0 0 1-4 0v-1a7 7 0 0 1 0-14V4a2 2 0 0 1 2-2z"/><circle cx="12" cy="12" r="3"/><path d="M6.3 6.3 4.9 4.9M17.7 6.3l1.4-1.4M6.3 17.7l-1.4 1.4M17.7 17.7l1.4 1.4"/></svg>);
+const ChartIcon = () => (<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>);
+const GlobeIcon = () => (<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10A15.3 15.3 0 0 1 8 12 15.3 15.3 0 0 1 12 2z"/></svg>);
+const GearIcon = () => (<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>);
+const CloudIcon = () => (<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg>);
+
 const floatingBadges = [
-  { icon: "🤖", title: "AI Assistant", sub: "Smart Automation", dot: "#7C3AED" },
-  { icon: "📊", title: "Analytics Dashboard", sub: "Real-time Insights", dot: "#059669" },
-  { icon: "🌐", title: "Website Design", sub: "Premium UI/UX", dot: "#0284C7" },
-  { icon: "⚙️", title: "Business Automation", sub: "Workflow Optimized", dot: "#D97706" },
-  { icon: "☁️", title: "Cloud Integration", sub: "Scalable & Secure", dot: "#4F46E5" },
+  { icon: <AIIcon />, title: "AI Assistant", sub: "Smart Automation", dot: "#7C3AED" },
+  { icon: <ChartIcon />, title: "Analytics Dashboard", sub: "Real-time Insights", dot: "#059669" },
+  { icon: <GlobeIcon />, title: "Website Design", sub: "Premium UI/UX", dot: "#0284C7" },
+  { icon: <GearIcon />, title: "Business Automation", sub: "Workflow Optimized", dot: "#D97706" },
+  { icon: <CloudIcon />, title: "Cloud Integration", sub: "Scalable & Secure", dot: "#4F46E5" },
 ];
 
 const clients = [
@@ -59,10 +65,10 @@ export default function Hero() {
   return (
     <section id="hero" className="relative min-h-screen flex items-center overflow-hidden bg-white" style={{ paddingTop: "80px" }}>
       <HeroBackground />
-      <div className="relative z-10 w-full section-shell py-20 lg:py-28">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 xl:gap-20 items-center">
+      <div className="relative z-10 w-full section-shell py-16 lg:py-20">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 xl:gap-20 items-start">
           <LeftContent />
-          <div className="hidden lg:block">
+          <div className="hidden lg:flex lg:items-start lg:justify-center lg:pt-4">
             <RightVisual />
           </div>
         </div>
@@ -94,16 +100,17 @@ function LeftContent() {
   return (
     <motion.div initial="hidden" animate="show" className="flex flex-col">
       <motion.div variants={fadeUp(0.05)} className="mb-7">
-        <span className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full text-sm font-semibold" style={{ background: "linear-gradient(135deg, #EAF4FF 0%, #F0F7FF 100%)", border: "1px solid rgba(0,107,255,0.2)", color: "#0052D9", fontFamily: "var(--font-inter)" }}>
+        <span className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full text-sm font-semibold tracking-wide" style={{ background: "linear-gradient(135deg, #EAF4FF 0%, #F0F7FF 100%)", border: "1px solid rgba(0,107,255,0.2)", color: "#0052D9", fontFamily: "var(--font-heading), 'Alegreya Sans SC', sans-serif" }}>
           <span className="relative flex h-2.5 w-2.5">
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#006BFF] opacity-60" />
             <span className="relative h-2.5 w-2.5 rounded-full bg-[#006BFF]" />
           </span>
-          🚀 Trusted Software Development Company
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9.663 17h4.673M12 3v1m6.364 1.636-.707.707M21 12h-1M4 12H3m3.343-5.657-.707-.707m2.828 9.9a5 5 0 1 1 7.072 0l-.548.547A3.374 3.374 0 0 0 14 18.469V19a2 2 0 1 1-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+          Trusted Software Development Company
         </span>
       </motion.div>
 
-      <motion.h1 variants={fadeUp(0.15)} className="font-bold leading-[1.08] text-[#0F172A]" style={{ fontFamily: "var(--font-amaranth)", fontWeight: 700, fontSize: "clamp(2.4rem, 4.8vw, 3.75rem)", letterSpacing: "0em" }}>
+      <motion.h1 variants={fadeUp(0.15)} className="font-bold leading-[1.08] text-[#0F172A]" style={{ fontFamily: "var(--font-heading), 'Alegreya Sans SC', sans-serif", fontWeight: 700, fontSize: "clamp(2.4rem, 4.8vw, 3.75rem)", letterSpacing: "0em" }}>
         Custom Software,{" "}
         <span style={{ background: "linear-gradient(135deg, #006BFF 0%, #0052D9 50%, #0B2C85 100%)", WebkitBackgroundClip: "text", backgroundClip: "text", WebkitTextFillColor: "transparent" }}>
           AI & Web Solutions
@@ -112,19 +119,19 @@ function LeftContent() {
         for Modern Businesses
       </motion.h1>
 
-      <motion.p variants={fadeUp(0.28)} className="mt-6 max-w-lg text-lg leading-[1.8] text-[#475569]" style={{ fontFamily: "var(--font-inter)" }}>
+      <motion.p variants={fadeUp(0.28)} className="mt-6 max-w-lg text-lg leading-[1.8] text-[#475569]" style={{ fontFamily: "var(--font-heading), 'Alegreya Sans SC', sans-serif" }}>
         CPNexs helps <strong className="text-[#0F172A] font-semibold">startups, SMEs, schools, hospitals, manufacturers,</strong> and enterprises build websites, mobile apps, AI solutions, ERP systems, CRM software, and custom business applications that improve productivity and accelerate growth.
       </motion.p>
 
       <motion.div variants={fadeUp(0.4)} className="mt-9 flex flex-wrap gap-4">
         <Link href="/contact">
-          <motion.div whileHover={{ scale: 1.04, boxShadow: "0 12px 40px rgba(0,107,255,0.45), 0 4px 12px rgba(0,82,217,0.3)" }} whileTap={{ scale: 0.97 }} className="relative inline-flex items-center gap-2.5 px-8 py-4 rounded-2xl text-white font-semibold text-base cursor-pointer overflow-hidden select-none" style={{ background: "linear-gradient(135deg, #006BFF 0%, #0052D9 60%, #0B2C85 100%)", fontFamily: "var(--font-inter)", boxShadow: "0 6px 24px rgba(0,107,255,0.3)" }}>
+          <motion.div whileHover={{ scale: 1.04, boxShadow: "0 12px 40px rgba(0,107,255,0.45), 0 4px 12px rgba(0,82,217,0.3)" }} whileTap={{ scale: 0.97 }} className="relative inline-flex items-center gap-2.5 px-8 py-4 rounded-2xl text-white font-semibold text-base cursor-pointer overflow-hidden select-none" style={{ background: "linear-gradient(135deg, #006BFF 0%, #0052D9 60%, #0B2C85 100%)", fontFamily: "var(--font-heading), 'Alegreya Sans SC', sans-serif", boxShadow: "0 6px 24px rgba(0,107,255,0.3)" }}>
             <span className="relative">Get Free Consultation</span>
             <motion.span className="relative text-lg" animate={{ x: [0, 4, 0] }} transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}>→</motion.span>
           </motion.div>
         </Link>
         <Link href="/portfolio">
-          <motion.div whileHover={{ scale: 1.04, backgroundColor: "#EAF4FF" }} whileTap={{ scale: 0.97 }} className="inline-flex items-center gap-2 px-8 py-4 rounded-2xl font-semibold text-base cursor-pointer transition-colors select-none" style={{ border: "1.5px solid #006BFF", color: "#006BFF", fontFamily: "var(--font-inter)", backgroundColor: "#fff" }}>
+          <motion.div whileHover={{ scale: 1.04, backgroundColor: "#EAF4FF" }} whileTap={{ scale: 0.97 }} className="inline-flex items-center gap-2 px-8 py-4 rounded-2xl font-semibold text-base cursor-pointer transition-colors select-none" style={{ border: "1.5px solid #006BFF", color: "#006BFF", fontFamily: "var(--font-heading), 'Alegreya Sans SC', sans-serif", backgroundColor: "#fff" }}>
             View Portfolio
             <span className="text-base">↗</span>
           </motion.div>
@@ -179,7 +186,7 @@ function LeftContent() {
 
 function RightVisual() {
   return (
-    <motion.div initial="hidden" animate="show" variants={fadeLeft(0.25)} className="relative flex items-center justify-center" style={{ minHeight: "560px" }}>
+    <motion.div initial="hidden" animate="show" variants={fadeLeft(0.25)} className="relative flex items-start justify-center" style={{ minHeight: "500px", paddingTop: "10px" }}>
       <div className="absolute inset-0 rounded-3xl" style={{ background: "radial-gradient(ellipse at center, rgba(0,107,255,0.08) 0%, transparent 70%)", filter: "blur(20px)" }} />
 
       <motion.div animate={{ y: [0, -10, 0] }} transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }} className="relative z-10" style={{ width: "380px" }}>
@@ -355,8 +362,9 @@ function MobileVisual() {
           <span className="w-3 h-3 rounded-full bg-red-400/70" />
           <span className="w-3 h-3 rounded-full bg-yellow-400/70" />
           <span className="w-3 h-3 rounded-full bg-green-400/70" />
-          <div className="flex-1 ml-3 rounded-md px-3 py-1 text-[10px] border" style={{ background: "#fff", borderColor: "#E2E8F0", color: "#94A3B8", fontFamily: "var(--font-inter)" }}>
-            🔒 cpnexs.in
+          <div className="flex-1 ml-3 rounded-md px-3 py-1 text-[10px] border flex items-center gap-1" style={{ background: "#fff", borderColor: "#E2E8F0", color: "#94A3B8", fontFamily: "var(--font-inter)" }}>
+            <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="#4ade80" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            cpnexs.in
           </div>
         </div>
         <div className="p-4 bg-white">
