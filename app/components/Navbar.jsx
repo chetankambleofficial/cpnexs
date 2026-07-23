@@ -46,7 +46,7 @@ const industriesMega = [
 /* ─── Nav Links ─── */
 const NAV_ITEMS = [
   { label: "Home",       href: "/",           mega: null },
-  { label: "Services",   href: "/services",   mega: "services" },
+  { label: "Services",   href: "/services",   mega: null },
   { label: "Portfolio",  href: "/portfolio",  mega: null },
   { label: "Pricing",    href: "/pricing",    mega: null },
   { label: "Contact",    href: "/contact",    mega: null },
@@ -259,6 +259,14 @@ export default function Navbar() {
     timeoutRef.current = setTimeout(() => setActiveMega(null), 120);
   };
 
+  const [isMobile, setIsMobile] = useState(true);
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 1024);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+
   const navHeight = scrolled ? "60px" : "76px";
 
   return (
@@ -282,54 +290,56 @@ export default function Navbar() {
           borderBottom: "1px solid rgba(255,255,255,0.07)",
         }}
       >
-        <div style={{ maxWidth: "1320px", margin: "0 auto", padding: "0 1.5rem", height: "100%", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "1rem" }}>
+        <div style={{ maxWidth: "1320px", margin: "0 auto", padding: "0 1rem", height: "100%", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "0.5rem" }}>
 
           {/* ── Logo ── */}
-          <Link href="/" className="no-underline flex-shrink-0" style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-            <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }} style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+          <Link href="/" className="no-underline" style={{ display: "flex", alignItems: "center", flexShrink: 0 }}>
+            <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }} style={{ display: "flex", alignItems: "center", gap: "8px", flexShrink: 0 }}>
               <div style={{
-                width: scrolled ? "34px" : "40px",
-                height: scrolled ? "34px" : "40px",
-                borderRadius: "10px",
+                width: scrolled ? "32px" : "36px",
+                height: scrolled ? "32px" : "36px",
+                borderRadius: "9px",
                 background: "linear-gradient(135deg, #3E7CB1 0%, #2A5B8F 100%)",
                 display: "flex", alignItems: "center", justifyContent: "center",
                 flexShrink: 0,
                 transition: "all 0.3s ease",
                 boxShadow: "0 2px 8px rgba(62,124,177,0.4)",
               }}>
-                <img src="/images/logocolor.png" alt="CPNexs" style={{ height: scrolled ? "22px" : "26px", width: scrolled ? "22px" : "26px", objectFit: "contain", filter: "brightness(0) invert(1)" }} />
+                <img src="/images/logocolor.png" alt="CPNexs" style={{ height: scrolled ? "20px" : "22px", width: scrolled ? "20px" : "22px", objectFit: "contain", filter: "brightness(0) invert(1)" }} />
               </div>
-              <div>
+              <div style={{ minWidth: 0 }}>
                 <div style={{
-                  fontFamily: "'Space Grotesk', 'Alegreya Sans SC', sans-serif",
+                  fontFamily: "var(--font-heading), 'Alegreya Sans SC', sans-serif",
                   fontWeight: 700,
-                  fontSize: scrolled ? "17px" : "19px",
+                  fontSize: scrolled ? "16px" : "18px",
                   color: "#fff",
                   lineHeight: 1.1,
                   letterSpacing: "-0.01em",
                   transition: "font-size 0.3s ease",
+                  whiteSpace: "nowrap",
                 }}>
                   CP<span style={{ color: ACCENT_HOVER }}>nexs</span>
                 </div>
-                <div style={{
-                  fontSize: "10px",
-                  color: "rgba(222,236,255,0.65)",
-                  fontWeight: 400,
-                  letterSpacing: "0.04em",
-                  lineHeight: 1,
-                  marginTop: "2px",
-                  fontFamily: "'Inter', sans-serif",
-                }}>
-                  Next-Gen Digital Solutions
-                </div>
+                {!isMobile && (
+                  <div style={{
+                    fontSize: "10px",
+                    color: "rgba(222,236,255,0.65)",
+                    fontWeight: 400,
+                    letterSpacing: "0.04em",
+                    lineHeight: 1,
+                    marginTop: "2px",
+                    fontFamily: "var(--font-heading), 'Alegreya Sans SC', sans-serif",
+                    whiteSpace: "nowrap",
+                  }}>
+                    Next-Gen Digital Solutions
+                  </div>
+                )}
               </div>
             </motion.div>
           </Link>
 
           {/* ── Desktop Nav ── */}
-          <nav style={{ display: "flex", alignItems: "center", gap: "2px", flex: 1, justifyContent: "center",
-            visibility: undefined }}
-            className="hidden lg:flex">
+          <nav style={{ display: isMobile ? "none" : "flex", alignItems: "center", gap: "2px", flex: 1, justifyContent: "center" }}>
             {NAV_ITEMS.map(({ label, href, mega }) => {
               const active = pathname === href || (href !== "/" && pathname.startsWith(href));
               const isOpen = activeMega === mega && mega !== null;
@@ -348,7 +358,7 @@ export default function Navbar() {
                       borderRadius: "8px",
                       fontSize: "14px",
                       fontWeight: 500,
-                      fontFamily: "'Inter', sans-serif",
+                      fontFamily: "var(--font-heading), 'Alegreya Sans SC', sans-serif",
                       color: active ? TEXT_ACTIVE : "rgba(255,255,255,0.88)",
                       transition: "color 0.2s, background 0.2s",
                       position: "relative",
@@ -410,10 +420,10 @@ export default function Navbar() {
           </nav>
 
           {/* ── Right Section ── */}
-          <div className="hidden lg:flex" style={{ alignItems: "center", gap: "12px", flexShrink: 0 }}>
+          <div style={{ display: isMobile ? "none" : "flex", alignItems: "center", gap: "12px", flexShrink: 0 }}>
             {/* Phone */}
             <a href="tel:+919844538521"
-              style={{ display: "flex", alignItems: "center", gap: "7px", color: "rgba(255,255,255,0.8)", textDecoration: "none", fontSize: "13px", fontWeight: 500, fontFamily: "'Inter', sans-serif", transition: "color 0.2s" }}
+              style={{ display: "flex", alignItems: "center", gap: "7px", color: "rgba(255,255,255,0.8)", textDecoration: "none", fontSize: "13px", fontWeight: 500, fontFamily: "var(--font-heading), 'Alegreya Sans SC', sans-serif", transition: "color 0.2s" }}
               onMouseEnter={e => e.currentTarget.style.color = "#fff"}
               onMouseLeave={e => e.currentTarget.style.color = "rgba(255,255,255,0.8)"}>
               <div style={{ height: "30px", width: "30px", borderRadius: "8px", background: "rgba(62,124,177,0.25)", display: "flex", alignItems: "center", justifyContent: "center", color: ACCENT_HOVER, flexShrink: 0 }}>
@@ -440,7 +450,7 @@ export default function Navbar() {
                   borderRadius: "14px",
                   fontSize: "13px",
                   fontWeight: 600,
-                  fontFamily: "'Inter', sans-serif",
+                  fontFamily: "var(--font-heading), 'Alegreya Sans SC', sans-serif",
                   cursor: "pointer",
                   whiteSpace: "nowrap",
                   boxShadow: "0 3px 12px rgba(62,124,177,0.35)",
@@ -454,7 +464,7 @@ export default function Navbar() {
           </div>
 
           {/* ── Mobile Hamburger ── */}
-          <div className="flex lg:hidden" style={{ flexShrink: 0 }}>
+          <div style={{ display: isMobile ? "flex" : "none", flexShrink: 0 }}>
             <button
               onClick={() => setMobileOpen(v => !v)}
               aria-label="Toggle menu"
@@ -492,7 +502,6 @@ export default function Navbar() {
               initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
               onClick={() => setMobileOpen(false)}
               style={{ position: "fixed", inset: 0, zIndex: 55, background: "rgba(10,18,40,0.7)", backdropFilter: "blur(4px)" }}
-              className="lg:hidden"
             />
 
             {/* Slide Panel */}
@@ -514,7 +523,6 @@ export default function Navbar() {
                 flexDirection: "column",
                 boxShadow: "-8px 0 40px rgba(10,18,40,0.5)",
               }}
-              className="lg:hidden"
             >
               {/* Drawer Header */}
               <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "20px", borderBottom: "1px solid rgba(255,255,255,0.1)" }}>
@@ -523,7 +531,7 @@ export default function Navbar() {
                     <img src="/images/logocolor.png" alt="CPNexs" style={{ height: "22px", width: "22px", objectFit: "contain", filter: "brightness(0) invert(1)" }} />
                   </div>
                   <div>
-                    <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: "17px", color: "#fff", lineHeight: 1.1 }}>
+                    <div style={{ fontFamily: "var(--font-heading), 'Alegreya Sans SC', sans-serif", fontWeight: 700, fontSize: "17px", color: "#fff", lineHeight: 1.1 }}>
                       CP<span style={{ color: ACCENT_HOVER }}>nexs</span>
                     </div>
                     <div style={{ fontSize: "10px", color: "rgba(222,236,255,0.55)", marginTop: "2px" }}>Next-Gen Digital Solutions</div>
@@ -562,7 +570,7 @@ export default function Navbar() {
                               color: active ? ACCENT_HOVER : "rgba(255,255,255,0.85)",
                               fontSize: "15px",
                               fontWeight: 600,
-                              fontFamily: "'Inter', sans-serif",
+                              fontFamily: "var(--font-heading), 'Alegreya Sans SC', sans-serif",
                               cursor: "pointer",
                               marginBottom: "2px",
                               textAlign: "left",
@@ -604,7 +612,7 @@ export default function Navbar() {
                             color: active ? ACCENT_HOVER : "rgba(255,255,255,0.85)",
                             fontSize: "15px",
                             fontWeight: 600,
-                            fontFamily: "'Inter', sans-serif",
+                            fontFamily: "var(--font-heading), 'Alegreya Sans SC', sans-serif",
                             background: active ? "rgba(62,124,177,0.2)" : "transparent",
                             marginBottom: "2px",
                             transition: "background 0.2s",
@@ -644,7 +652,7 @@ export default function Navbar() {
                       color: "#fff",
                       fontSize: "14px",
                       fontWeight: 700,
-                      fontFamily: "'Inter', sans-serif",
+                      fontFamily: "var(--font-heading), 'Alegreya Sans SC', sans-serif",
                       cursor: "pointer",
                       boxShadow: "0 4px 16px rgba(62,124,177,0.4)",
                       letterSpacing: "0.01em",
