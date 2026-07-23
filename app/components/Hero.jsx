@@ -1,395 +1,383 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { motion, useInView, animate } from "framer-motion";
-import { CheckCircle, IndianRupee, Smartphone, ShieldCheck, ShoppingBag, Phone, Star } from "lucide-react";
 
-function CountUp({ to, suffix = "", duration = 2 }) {
+/* ─── CountUp helper ───────────────────────────────────────── */
+function CountUp({ to, suffix = "", prefix = "", duration = 2.2 }) {
   const [val, setVal] = useState(0);
   const ref = useRef(null);
   const inView = useInView(ref, { once: true });
   useEffect(() => {
     if (!inView) return;
-    const controls = animate(0, to, {
+    const c = animate(0, to, {
       duration,
       ease: "easeOut",
       onUpdate: (v) => setVal(Math.round(v)),
     });
-    return controls.stop;
+    return c.stop;
   }, [inView, to, duration]);
-  return <span ref={ref}>{val}{suffix}</span>;
+  return <span ref={ref}>{prefix}{val}{suffix}</span>;
 }
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 28 },
-  visible: (i = 0) => ({
-    opacity: 1, y: 0,
-    transition: { duration: 0.6, delay: i * 0.12, ease: [0.22, 1, 0.36, 1] },
-  }),
-};
-
-// ── Avatars: colored initials as placeholder ──
-const reviews = [
-  { name: "Rahul S.", biz: "Rahul's Bakery", text: "Got our website in 4 days. Customers love it!", rating: 5, color: "#3B82F6", init: "R" },
-  { name: "Priya M.", biz: "Priya Boutique",  text: "Very affordable and professional. Highly recommend!", rating: 5, color: "#A855F7", init: "P" },
-  { name: "Amit K.", biz: "AK Consulting",   text: "Our leads doubled after the new site launched.", rating: 5, color: "#10B981", init: "A" },
+const stats = [
+  { value: 50,  suffix: "+",  label: "Projects Delivered" },
+  { value: 98,  suffix: "%",  label: "Client Satisfaction" },
+  { value: 3,   suffix: "+",  label: "Years Experience" },
+  { value: 24,  suffix: "/7", label: "Support" },
 ];
 
-function Stars({ n = 5 }) {
+const services = [
+  { label: "Custom Software Development" },
+  { label: "AI Solutions" },
+  { label: "Mobile Apps" },
+  { label: "ERP & CRM Systems" },
+  { label: "Cloud Solutions" },
+];
+
+const floatingBadges = [
+  { icon: "🤖", title: "AI Assistant", sub: "Smart Automation", dot: "#7C3AED" },
+  { icon: "📊", title: "Analytics Dashboard", sub: "Real-time Insights", dot: "#059669" },
+  { icon: "🌐", title: "Website Design", sub: "Premium UI/UX", dot: "#0284C7" },
+  { icon: "⚙️", title: "Business Automation", sub: "Workflow Optimized", dot: "#D97706" },
+  { icon: "☁️", title: "Cloud Integration", sub: "Scalable & Secure", dot: "#4F46E5" },
+];
+
+const clients = [
+  { initial: "S" },
+  { initial: "M" },
+  { initial: "H" },
+  { initial: "E" },
+];
+
+const fadeUp   = (delay = 0) => ({ hidden: { opacity: 0, y: 32 }, show: { opacity: 1, y: 0, transition: { duration: 0.65, delay, ease: [0.22, 1, 0.36, 1] } } });
+const fadeLeft = (delay = 0) => ({ hidden: { opacity: 0, x: 60 }, show: { opacity: 1, x: 0, transition: { duration: 0.8,  delay, ease: [0.22, 1, 0.36, 1] } } });
+const scaleIn  = (delay = 0) => ({ hidden: { opacity: 0, scale: 0.85 }, show: { opacity: 1, scale: 1, transition: { duration: 0.55, delay, ease: [0.22, 1, 0.36, 1] } } });
+
+export default function Hero() {
   return (
-    <div className="flex gap-0.5">
-      {Array.from({ length: n }).map((_, i) => (
-        <svg key={i} className="w-3 h-3 fill-yellow-400" viewBox="0 0 20 20">
-          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-        </svg>
-      ))}
+    <section id="hero" className="relative min-h-screen flex items-center overflow-hidden bg-white" style={{ paddingTop: "80px" }}>
+      <HeroBackground />
+      <div className="relative z-10 w-full section-shell py-20 lg:py-28">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 xl:gap-20 items-center">
+          <LeftContent />
+          <div className="hidden lg:block">
+            <RightVisual />
+          </div>
+        </div>
+        <div className="lg:hidden mt-14">
+          <MobileVisual />
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function HeroBackground() {
+  return (
+    <div className="absolute inset-0 pointer-events-none overflow-hidden">
+      <div className="absolute -top-40 -right-40 w-[900px] h-[900px] rounded-full opacity-60" style={{ background: "radial-gradient(circle at 60% 30%, rgba(0,107,255,0.09) 0%, rgba(0,82,217,0.04) 45%, transparent 70%)" }} />
+      <div className="absolute -bottom-32 -left-32 w-[700px] h-[700px] rounded-full opacity-50" style={{ background: "radial-gradient(circle at 40% 70%, rgba(11,44,133,0.07) 0%, transparent 65%)" }} />
+      <div className="absolute inset-0 opacity-[0.035]" style={{ backgroundImage: "radial-gradient(circle, #006BFF 1px, transparent 1px)", backgroundSize: "36px 36px" }} />
+      <div className="absolute top-0 left-0 right-0 h-1" style={{ background: "linear-gradient(90deg, transparent, #006BFF, #0052D9, transparent)" }} />
+      <div className="absolute top-[20%] left-[8%] w-72 h-72 rounded-full border border-[#006BFF]/5" />
+      <div className="absolute top-[15%] left-[6%] w-48 h-48 rounded-full border border-[#006BFF]/8" />
+      <div className="absolute bottom-[10%] right-[5%] w-56 h-56 rounded-full border border-[#0052D9]/6" />
+      <motion.div animate={{ scale: [1, 1.1, 1], opacity: [0.3, 0.5, 0.3] }} transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }} className="absolute top-[30%] right-[10%] w-6 h-6 rounded-full" style={{ background: "radial-gradient(circle, #006BFF 0%, transparent 70%)" }} />
+      <motion.div animate={{ scale: [1, 1.15, 1], opacity: [0.25, 0.4, 0.25] }} transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 3 }} className="absolute bottom-[25%] left-[15%] w-4 h-4 rounded-full" style={{ background: "radial-gradient(circle, #0052D9 0%, transparent 70%)" }} />
     </div>
   );
 }
 
-function HeroVisual() {
-  const [reviewIdx, setReviewIdx] = useState(0);
-  useEffect(() => {
-    const t = setInterval(() => setReviewIdx((i) => (i + 1) % reviews.length), 3000);
-    return () => clearInterval(t);
-  }, []);
-  const review = reviews[reviewIdx];
-
+function LeftContent() {
   return (
-    <motion.div
-      initial={{ opacity: 0, x: 50 }}
-      animate={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 0.25 }}
-      className="relative w-full max-w-[500px] mx-0"
-    >
-      {/* Ambient glow — sits behind everything */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] rounded-full bg-blue-600/15 blur-[80px] pointer-events-none" />
-
-      {/* ── ROW 1: top badges ── */}
-      <div className="flex items-start justify-between gap-3 mb-4">
-
-        {/* Delivery notification */}
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.7, duration: 0.55 }}
-        >
-          <motion.div
-            animate={{ y: [0, -5, 0] }}
-            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-            className="flex items-center gap-3 rounded-2xl border border-white/12 bg-[#0d1117]/95 backdrop-blur-md px-4 py-3 shadow-xl"
-          >
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-green-500/15 border border-green-500/25 flex-shrink-0">
-              <svg className="w-4 h-4 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-              </svg>
-            </div>
-            <div>
-              <p className="text-[11px] font-bold text-white">Project Delivered!</p>
-              <p className="text-[10px] text-white/40">Ready in 4 days</p>
-            </div>
-          </motion.div>
-        </motion.div>
-
-        {/* Pricing badge */}
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.85, duration: 0.55 }}
-        >
-          <motion.div
-            animate={{ y: [0, -5, 0] }}
-            transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: 0.6 }}
-            className="rounded-2xl border border-blue-400/25 bg-[#0d1117]/95 backdrop-blur-md px-4 py-3 shadow-xl"
-          >
-            <p className="text-[10px] text-white/40 font-medium mb-0.5">Starting at</p>
-            <p className="text-lg font-bold text-white leading-none">₹9,999
-              <span className="text-xs font-normal text-white/40 ml-1">/ site</span>
-            </p>
-            <p className="text-[9px] text-green-400 font-bold mt-1">✓ No hidden charges</p>
-          </motion.div>
-        </motion.div>
-
-      </div>
-
-      {/* ── ROW 2: central browser mockup ── */}
-      <motion.div
-        initial={{ opacity: 0, y: 24 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.4, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-        className="relative rounded-2xl border border-white/15 bg-[#0d1117] shadow-2xl shadow-blue-950/50 overflow-hidden"
-      >
-        {/* Browser top bar */}
-        <div className="flex items-center gap-1.5 px-3 py-2.5 border-b border-white/8 bg-[#161b22]">
-          <span className="h-2.5 w-2.5 rounded-full bg-red-400/80" />
-          <span className="h-2.5 w-2.5 rounded-full bg-yellow-400/80" />
-          <span className="h-2.5 w-2.5 rounded-full bg-green-400/80" />
-          <div className="ml-3 flex-1 rounded-md bg-white/5 border border-white/8 px-2.5 py-1 flex items-center gap-1.5">
-            <svg className="w-2.5 h-2.5 text-green-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
-            </svg>
-            <span className="text-[9px] text-white/35 font-mono">yourbusiness.com</span>
-          </div>
-        </div>
-        {/* Page mockup body */}
-        <div className="bg-gradient-to-b from-[#0d1117] to-[#0a0f1a] px-5 py-5">
-          {/* Navbar */}
-          <div className="flex items-center justify-between mb-5">
-            <div className="flex items-center gap-2">
-              <div className="w-5 h-5 rounded-md bg-blue-500/70" />
-              <div className="w-16 h-2 rounded-full bg-white/25" />
-            </div>
-            <div className="flex items-center gap-2">
-              {[1,2,3].map(i => <div key={i} className="w-9 h-1.5 rounded-full bg-white/10" />)}
-              <div className="w-14 h-6 rounded-lg bg-blue-500/55 border border-blue-400/30" />
-            </div>
-          </div>
-          {/* Hero block */}
-          <div className="rounded-xl bg-gradient-to-br from-blue-600/20 to-purple-600/15 border border-white/8 p-5 mb-4">
-            <div className="w-3/4 h-3.5 rounded-full bg-white/30 mb-2.5" />
-            <div className="w-1/2 h-2 rounded-full bg-white/15 mb-4" />
-            <div className="flex gap-2.5">
-              <div className="w-20 h-7 rounded-lg bg-blue-500/65 border border-blue-400/30" />
-              <div className="w-16 h-7 rounded-lg bg-white/8 border border-white/12" />
-            </div>
-          </div>
-          {/* Feature cards */}
-          <div className="grid grid-cols-3 gap-2.5 mb-4">
-            {[
-              { icon: ShoppingBag, label: "Shop" },
-              { icon: Phone,       label: "Call" },
-              { icon: Star,        label: "Reviews" },
-            ].map(({ icon: Icon, label }, i) => (
-              <div key={i} className="rounded-xl bg-white/5 border border-white/8 p-3 flex flex-col items-center gap-1.5">
-                <Icon size={14} className="text-white/50" />
-                <div className="w-full h-1.5 rounded-full bg-white/15" />
-                <div className="w-2/3 h-1 rounded-full bg-white/8" />
-              </div>
-            ))}
-          </div>
-          {/* Bottom strip */}
-          <div className="flex items-center gap-2">
-            <div className="flex-1 h-1.5 rounded-full bg-white/8" />
-            <div className="w-10 h-1.5 rounded-full bg-white/8" />
-          </div>
-        </div>
-        {/* Shimmer sweep */}
-        <motion.div
-          className="absolute inset-0 pointer-events-none"
-          initial={{ x: "-100%" }}
-          animate={{ x: "200%" }}
-          transition={{ duration: 2.2, repeat: Infinity, repeatDelay: 5, ease: "easeInOut", delay: 1.5 }}
-          style={{ background: "linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.04) 50%, transparent 60%)" }}
-        />
+    <motion.div initial="hidden" animate="show" className="flex flex-col">
+      <motion.div variants={fadeUp(0.05)} className="mb-7">
+        <span className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full text-sm font-semibold" style={{ background: "linear-gradient(135deg, #EAF4FF 0%, #F0F7FF 100%)", border: "1px solid rgba(0,107,255,0.2)", color: "#0052D9", fontFamily: "var(--font-inter)" }}>
+          <span className="relative flex h-2.5 w-2.5">
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#006BFF] opacity-60" />
+            <span className="relative h-2.5 w-2.5 rounded-full bg-[#006BFF]" />
+          </span>
+          🚀 Trusted Software Development Company
+        </span>
       </motion.div>
 
-      {/* ── ROW 3: bottom badges ── */}
-      <div className="flex items-end justify-between gap-3 mt-4">
+      <motion.h1 variants={fadeUp(0.15)} className="font-bold leading-[1.08] text-[#0F172A]" style={{ fontFamily: "var(--font-amaranth)", fontWeight: 700, fontSize: "clamp(2.4rem, 4.8vw, 3.75rem)", letterSpacing: "0em" }}>
+        Custom Software,{" "}
+        <span style={{ background: "linear-gradient(135deg, #006BFF 0%, #0052D9 50%, #0B2C85 100%)", WebkitBackgroundClip: "text", backgroundClip: "text", WebkitTextFillColor: "transparent" }}>
+          AI & Web Solutions
+        </span>
+        <br />
+        for Modern Businesses
+      </motion.h1>
 
-        {/* Rotating review card */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.0, duration: 0.55 }}
-          className="flex-1 min-w-0"
-        >
-          <motion.div
-            animate={{ y: [0, 4, 0] }}
-            transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-            key={reviewIdx}
-            className="rounded-2xl border border-white/12 bg-[#0d1117]/95 backdrop-blur-md px-4 py-3.5 shadow-xl"
-          >
-            <div className="flex items-center gap-2.5 mb-2">
-              <div
-                className="h-8 w-8 rounded-full flex items-center justify-center text-xs font-bold text-white flex-shrink-0"
-                style={{ background: `${review.color}33`, border: `1px solid ${review.color}55` }}
-              >
-                {review.init}
-              </div>
-              <div>
-                <p className="text-[11px] font-bold text-white leading-none">{review.name}</p>
-                <p className="text-[9px] text-white/35 mt-0.5">{review.biz}</p>
-              </div>
-            </div>
-            <Stars n={review.rating} />
-            <p className="mt-1.5 text-[10px] leading-[1.5] text-white/60">&ldquo;{review.text}&rdquo;</p>
+      <motion.p variants={fadeUp(0.28)} className="mt-6 max-w-lg text-lg leading-[1.8] text-[#475569]" style={{ fontFamily: "var(--font-inter)" }}>
+        CPNexs helps <strong className="text-[#0F172A] font-semibold">startups, SMEs, schools, hospitals, manufacturers,</strong> and enterprises build websites, mobile apps, AI solutions, ERP systems, CRM software, and custom business applications that improve productivity and accelerate growth.
+      </motion.p>
+
+      <motion.div variants={fadeUp(0.4)} className="mt-9 flex flex-wrap gap-4">
+        <Link href="/contact">
+          <motion.div whileHover={{ scale: 1.04, boxShadow: "0 12px 40px rgba(0,107,255,0.45), 0 4px 12px rgba(0,82,217,0.3)" }} whileTap={{ scale: 0.97 }} className="relative inline-flex items-center gap-2.5 px-8 py-4 rounded-2xl text-white font-semibold text-base cursor-pointer overflow-hidden select-none" style={{ background: "linear-gradient(135deg, #006BFF 0%, #0052D9 60%, #0B2C85 100%)", fontFamily: "var(--font-inter)", boxShadow: "0 6px 24px rgba(0,107,255,0.3)" }}>
+            <span className="relative">Get Free Consultation</span>
+            <motion.span className="relative text-lg" animate={{ x: [0, 4, 0] }} transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}>→</motion.span>
           </motion.div>
-        </motion.div>
-
-        {/* Happy clients badge */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.15, duration: 0.55 }}
-        >
-          <motion.div
-            animate={{ y: [0, 4, 0] }}
-            transition={{ duration: 3.8, repeat: Infinity, ease: "easeInOut", delay: 0.8 }}
-            className="rounded-2xl border border-white/12 bg-[#0d1117]/95 backdrop-blur-md px-4 py-3.5 shadow-xl"
-          >
-            <div className="flex -space-x-2 mb-2">
-              {[
-                { init: "R", color: "#3B82F6" },
-                { init: "P", color: "#A855F7" },
-                { init: "A", color: "#10B981" },
-                { init: "S", color: "#F59E0B" },
-              ].map((a, i) => (
-                <div
-                  key={i}
-                  className="h-7 w-7 rounded-full border-2 border-[#0d1117] flex items-center justify-center text-[10px] font-bold text-white"
-                  style={{ background: `${a.color}55` }}
-                >
-                  {a.init}
-                </div>
-              ))}
-            </div>
-            <p className="text-[11px] font-bold text-white">50+ Happy Clients</p>
-            <div className="flex items-center gap-1 mt-1">
-              <span className="h-1.5 w-1.5 rounded-full bg-green-400 shadow-[0_0_4px_rgba(74,222,128,0.8)]" />
-              <span className="text-[9px] text-green-400">Accepting projects</span>
-            </div>
+        </Link>
+        <Link href="/portfolio">
+          <motion.div whileHover={{ scale: 1.04, backgroundColor: "#EAF4FF" }} whileTap={{ scale: 0.97 }} className="inline-flex items-center gap-2 px-8 py-4 rounded-2xl font-semibold text-base cursor-pointer transition-colors select-none" style={{ border: "1.5px solid #006BFF", color: "#006BFF", fontFamily: "var(--font-inter)", backgroundColor: "#fff" }}>
+            View Portfolio
+            <span className="text-base">↗</span>
           </motion.div>
-        </motion.div>
+        </Link>
+      </motion.div>
 
+      <motion.div variants={fadeUp(0.52)} className="mt-9">
+        <div className="flex flex-wrap gap-x-6 gap-y-2.5">
+          {services.map((s) => (
+            <div key={s.label} className="flex items-center gap-2">
+              <span className="flex h-5 w-5 items-center justify-center rounded-full flex-shrink-0" style={{ background: "linear-gradient(135deg, #006BFF, #0052D9)" }}>
+                <svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="white" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" /></svg>
+              </span>
+              <span className="text-sm font-medium text-[#475569]" style={{ fontFamily: "var(--font-inter)" }}>{s.label}</span>
+            </div>
+          ))}
+        </div>
+      </motion.div>
+
+      <motion.div variants={fadeUp(0.62)} className="mt-10 flex items-center gap-5 pt-8 border-t border-[#E2E8F0]">
+        <div className="flex -space-x-3">
+          {clients.map((c, i) => (
+            <div key={i} className="w-9 h-9 rounded-full flex items-center justify-center text-xs font-bold text-white border-2 border-white flex-shrink-0" style={{ background: ["linear-gradient(135deg,#006BFF,#0052D9)", "linear-gradient(135deg,#0052D9,#0B2C85)", "linear-gradient(135deg,#059669,#047857)", "linear-gradient(135deg,#7C3AED,#5B21B6)"][i], zIndex: 4 - i }}>
+              {c.initial}
+            </div>
+          ))}
+          <div className="w-9 h-9 rounded-full flex items-center justify-center text-[10px] font-bold border-2 border-white flex-shrink-0" style={{ background: "#F1F5F9", color: "#64748B", zIndex: 0 }}>50+</div>
+        </div>
+        <div>
+          <div className="flex gap-0.5 mb-0.5">
+            {[...Array(5)].map((_, i) => (<span key={i} className="text-amber-400 text-sm leading-none">★</span>))}
+          </div>
+          <p className="text-sm text-[#475569]" style={{ fontFamily: "var(--font-inter)" }}>
+            <span className="font-semibold text-[#0F172A]">Trusted by 50+ businesses</span> across India
+          </p>
+        </div>
+      </motion.div>
+
+      <motion.div variants={fadeUp(0.7)} className="mt-8 grid grid-cols-4 gap-3">
+        {stats.map((s) => (
+          <div key={s.label} className="text-center">
+            <div className="text-2xl font-bold" style={{ fontFamily: "var(--font-sora)", color: "#006BFF" }}>
+              <CountUp to={s.value} suffix={s.suffix} />
+            </div>
+            <div className="mt-0.5 text-[10px] text-[#94A3B8] leading-tight" style={{ fontFamily: "var(--font-inter)" }}>{s.label}</div>
+          </div>
+        ))}
+      </motion.div>
+    </motion.div>
+  );
+}
+
+function RightVisual() {
+  return (
+    <motion.div initial="hidden" animate="show" variants={fadeLeft(0.25)} className="relative flex items-center justify-center" style={{ minHeight: "560px" }}>
+      <div className="absolute inset-0 rounded-3xl" style={{ background: "radial-gradient(ellipse at center, rgba(0,107,255,0.08) 0%, transparent 70%)", filter: "blur(20px)" }} />
+
+      <motion.div animate={{ y: [0, -10, 0] }} transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }} className="relative z-10" style={{ width: "380px" }}>
+        <LaptopMockup />
+      </motion.div>
+
+      <motion.div variants={scaleIn(0.6)} animate={{ y: [0, 8, 0] }} transition={{ duration: 9, repeat: Infinity, ease: "easeInOut", delay: 2 }} className="absolute bottom-0 -left-14 z-20" style={{ width: "170px" }}>
+        <TabletMockup />
+      </motion.div>
+
+      <motion.div variants={scaleIn(0.75)} animate={{ y: [0, -12, 0] }} transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 1 }} className="absolute bottom-8 -right-6 z-20" style={{ width: "100px" }}>
+        <PhoneMockup />
+      </motion.div>
+
+      <FloatingBadge badge={floatingBadges[0]} position={{ top: "-16px", left: "-10px" }} delay={0.9} floatDir="up" />
+      <FloatingBadge badge={floatingBadges[1]} position={{ top: "60px", right: "-28px" }} delay={1.1} floatDir="down" />
+      <FloatingBadge badge={floatingBadges[2]} position={{ top: "200px", right: "-36px" }} delay={1.3} floatDir="up" compact />
+      <FloatingBadge badge={floatingBadges[3]} position={{ bottom: "100px", left: "-26px" }} delay={1.5} floatDir="down" compact />
+
+      <svg className="absolute top-0 right-0 opacity-[0.06] pointer-events-none" width="200" height="200" viewBox="0 0 200 200" fill="none">
+        <path d="M160 20 L160 80 L120 80 L120 120 L160 120 L160 180" stroke="#006BFF" strokeWidth="1.5" />
+        <path d="M140 40 L100 40 L100 100 L140 100" stroke="#006BFF" strokeWidth="1.5" />
+        <circle cx="160" cy="20" r="4" fill="#006BFF" />
+        <circle cx="160" cy="180" r="4" fill="#006BFF" />
+        <circle cx="120" cy="80" r="3" fill="#0052D9" />
+        <circle cx="140" cy="40" r="3" fill="#0052D9" />
+        <circle cx="100" cy="100" r="3" fill="#0052D9" />
+        <path d="M180 60 L180 140" stroke="#006BFF" strokeWidth="1" strokeDasharray="4 4" />
+      </svg>
+    </motion.div>
+  );
+}
+
+function FloatingBadge({ badge, position, delay, floatDir = "up", compact = false }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, scale: 0.85 }}
+      animate={{ opacity: 1, scale: 1, y: floatDir === "up" ? [0, -7, 0] : [0, 7, 0] }}
+      transition={{ opacity: { delay, duration: 0.55 }, scale: { delay, duration: 0.55 }, y: { duration: floatDir === "up" ? 5 : 6, repeat: Infinity, ease: "easeInOut", delay: delay * 0.5 } }}
+      className="absolute z-30"
+      style={position}
+    >
+      <div className="flex items-center gap-2.5 rounded-2xl px-3.5 py-2.5" style={{ background: "rgba(255,255,255,0.92)", backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)", border: "1px solid rgba(226,232,240,0.8)", boxShadow: "0 8px 32px rgba(0,107,255,0.12), 0 2px 8px rgba(0,0,0,0.06)" }}>
+        <div className={`flex items-center justify-center rounded-xl flex-shrink-0 ${compact ? "w-7 h-7 text-sm" : "w-8 h-8 text-base"}`} style={{ background: `${badge.dot}22`, border: `1px solid ${badge.dot}44` }}>
+          {badge.icon}
+        </div>
+        {!compact && (
+          <div>
+            <div className="text-[11px] font-semibold text-[#0F172A] leading-tight" style={{ fontFamily: "var(--font-inter)" }}>{badge.title}</div>
+            <div className="text-[9px] text-[#94A3B8] leading-tight mt-0.5" style={{ fontFamily: "var(--font-inter)" }}>{badge.sub}</div>
+          </div>
+        )}
+        {compact && (
+          <div className="text-[10px] font-semibold text-[#0F172A]" style={{ fontFamily: "var(--font-inter)" }}>{badge.title}</div>
+        )}
+        <span className="w-1.5 h-1.5 rounded-full animate-pulse flex-shrink-0" style={{ background: badge.dot }} />
       </div>
     </motion.div>
   );
 }
 
-export default function Hero() {
-  const words = ["Affordable.", "Beautiful.", "On Time."];
-  const [wordIdx, setWordIdx] = useState(0);
-
-  useEffect(() => {
-    const t = setInterval(() => setWordIdx((i) => (i + 1) % words.length), 2200);
-    return () => clearInterval(t);
-  }, []);
-
-  const stats = [
-    { value: 50, suffix: "+", label: "Projects Delivered" },
-    { value: 98, suffix: "%", label: "Happy Clients" },
-    { value: 4,  suffix: " days", label: "Avg. Delivery" },
-  ];
-
+function LaptopMockup() {
   return (
-    <section className="relative bg-[#050816] px-6 pt-24 pb-20 md:px-12 min-h-screen flex items-center w-full overflow-hidden">
-      {/* Background blobs */}
-      <div className="absolute -top-20 right-0 h-[500px] w-[500px] rounded-full bg-blue-600/20 blur-[110px] pointer-events-none" />
-      <div className="absolute bottom-0 left-0 h-[450px] w-[450px] rounded-full bg-purple-600/15 blur-[110px] pointer-events-none" />
-
-      {/* Subtle grid */}
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(59,130,246,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(59,130,246,0.04)_1px,transparent_1px)] bg-[size:52px_52px] pointer-events-none" />
-
-      <div className="relative z-10 w-full mx-auto max-w-7xl">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-10 items-center">
-
-          {/* ── LEFT: Copy ── */}
-          <div className="flex flex-col">
-          
-
-            {/* Headline */}
-            <motion.h1
-              variants={fadeUp} initial="hidden" animate="visible" custom={1}
-              className="text-5xl font-bold leading-[1.1] text-white mt-10 md:text-6xl lg:text-[64px]"
-            >
-              Your Business
-              <br />
-              Deserves a{" "}
-              <motion.span
-                key={wordIdx}
-                initial={{ opacity: 0, y: 16, filter: "blur(5px)" }}
-                animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                exit={{ opacity: 0, y: -16 }}
-                transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-                className="inline-block bg-gradient-to-r from-blue-400 via-cyan-300 to-green-400 bg-clip-text text-transparent"
-              >
-                {words[wordIdx]}
-              </motion.span>
-              <br />
-              <span className="text-white/85">Website.</span>
-            </motion.h1>
-
-            <motion.p
-              variants={fadeUp} initial="hidden" animate="visible" custom={2}
-              className="mt-6 max-w-lg text-lg leading-8 text-slate-400"
-            >
-              We build professional websites for small businesses, shops, and startups —{" "}
-              <span className="text-white font-medium">fast, affordable, and ready to attract customers</span>.
-              No tech knowledge needed. Just share your idea.
-            </motion.p>
-
-            {/* Feature pills */}
-            <motion.div
-              variants={fadeUp} initial="hidden" animate="visible" custom={3}
-              className="mt-6 flex flex-wrap gap-2"
-            >
-              {[
-                { icon: CheckCircle, label: "Ready in 7–10 days" },
-                { icon: IndianRupee, label: "Starting ₹9,999" },
-                { icon: Smartphone,  label: "Mobile Friendly" },
-                { icon: ShieldCheck, label: "Secure & Fast" },
-              ].map(({ icon: Icon, label }) => (
-                <span key={label} className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-medium text-white/80">
-                  <Icon size={11} className="text-blue-400" />
-                  {label}
-                </span>
-              ))}
-            </motion.div>
-
-            {/* CTA */}
-            <motion.div
-              variants={fadeUp} initial="hidden" animate="visible" custom={4}
-              className="mt-9 flex flex-wrap gap-4"
-            >
-              <Link href="/contact">
-                <motion.div
-                  whileHover={{ scale: 1.04, boxShadow: "0 0 36px rgba(59,130,246,0.5)" }}
-                  whileTap={{ scale: 0.97 }}
-                  className="group relative overflow-hidden rounded-xl bg-blue-600 px-7 py-3.5 text-sm font-semibold text-white cursor-pointer"
-                >
-                  <span className="relative z-10 flex items-center gap-2">
-                    Get Your Website Now
-                    <motion.span animate={{ x: [0, 4, 0] }} transition={{ duration: 1.5, repeat: Infinity }}>→</motion.span>
-                  </span>
-                  <span className="absolute inset-0 bg-gradient-to-r from-blue-500 to-cyan-500 opacity-0 transition-opacity group-hover:opacity-100" />
-                </motion.div>
-              </Link>
-              <Link href="/portfolio">
-                <motion.div
-                  whileHover={{ scale: 1.04, backgroundColor: "rgba(255,255,255,0.08)" }}
-                  whileTap={{ scale: 0.97 }}
-                  className="rounded-xl border border-white/15 px-7 py-3.5 text-sm font-semibold text-white transition cursor-pointer"
-                >
-                  See Our Work
-                </motion.div>
-              </Link>
-            </motion.div>
-
-            {/* Stats */}
-            <motion.div
-              variants={fadeUp} initial="hidden" animate="visible" custom={5}
-              className="mt-10 flex flex-wrap gap-8 border-t border-white/10 pt-8"
-            >
-              {stats.map((s) => (
-                <div key={s.label} className="flex flex-col">
-                  <span className="text-3xl font-bold text-white">
-                    <CountUp to={s.value} suffix={s.suffix} />
-                  </span>
-                  <span className="mt-1 text-xs text-slate-500">{s.label}</span>
+    <div className="w-full">
+      <div className="w-full rounded-t-2xl overflow-hidden border-4" style={{ background: "#0F172A", borderColor: "#1E293B", boxShadow: "0 32px 80px rgba(0,107,255,0.18), 0 8px 32px rgba(0,0,0,0.2)", aspectRatio: "16/10" }}>
+        <div className="flex items-center gap-1.5 px-3 py-2 border-b" style={{ background: "#1E293B", borderColor: "#334155" }}>
+          <span className="w-2.5 h-2.5 rounded-full bg-red-400/80" />
+          <span className="w-2.5 h-2.5 rounded-full bg-yellow-400/80" />
+          <span className="w-2.5 h-2.5 rounded-full bg-green-400/80" />
+          <div className="flex-1 mx-3 rounded-md flex items-center gap-1.5 px-2 py-1" style={{ background: "#0F172A", border: "1px solid #334155" }}>
+            <svg className="w-2.5 h-2.5" viewBox="0 0 20 20" fill="#4ade80"><path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" /></svg>
+            <span className="text-[8px] text-[#64748B] font-mono">cpnexs.in</span>
+          </div>
+        </div>
+        <div className="p-3 h-full" style={{ background: "#0F172A" }}>
+          <div className="flex gap-2 h-full">
+            <div className="w-14 flex flex-col gap-1.5 flex-shrink-0">
+              <div className="h-6 rounded" style={{ background: "linear-gradient(135deg,#006BFF,#0052D9)", opacity: 0.9 }} />
+              {[...Array(5)].map((_, i) => (<div key={i} className="h-5 rounded" style={{ background: `rgba(148,163,184,${0.12 + i * 0.02})` }} />))}
+            </div>
+            <div className="flex-1 flex flex-col gap-2">
+              <div className="grid grid-cols-3 gap-1.5">
+                {[{ label: "Revenue", val: "₹2.4L", color: "#006BFF", bg: "rgba(0,107,255,0.12)" }, { label: "Projects", val: "12", color: "#059669", bg: "rgba(5,150,105,0.12)" }, { label: "Uptime", val: "99.9%", color: "#7C3AED", bg: "rgba(124,58,237,0.12)" }].map((m) => (
+                  <div key={m.label} className="rounded-lg p-2" style={{ background: m.bg }}>
+                    <div className="text-[7px] mb-0.5" style={{ color: "#94A3B8", fontFamily: "var(--font-inter)" }}>{m.label}</div>
+                    <div className="text-[11px] font-bold" style={{ color: m.color, fontFamily: "var(--font-sora)" }}>{m.val}</div>
+                  </div>
+                ))}
+              </div>
+              <div className="flex-1 rounded-lg p-2" style={{ background: "rgba(148,163,184,0.06)", border: "1px solid rgba(148,163,184,0.1)" }}>
+                <div className="text-[7px] mb-2 font-semibold" style={{ color: "#E2E8F0", fontFamily: "var(--font-inter)" }}>Project Delivery</div>
+                <div className="flex items-end gap-0.5 h-10">
+                  {[35, 55, 42, 70, 52, 80, 65, 88, 58, 92, 72, 85].map((h, i) => (
+                    <motion.div key={i} initial={{ height: 0 }} animate={{ height: `${h}%` }} transition={{ delay: 0.8 + i * 0.06, duration: 0.5, ease: "easeOut" }} className="flex-1 rounded-sm" style={{ background: i === 10 ? "linear-gradient(to top,#006BFF,#38BDF8)" : "rgba(0,107,255,0.25)" }} />
+                  ))}
                 </div>
-              ))}
-            </motion.div>
+              </div>
+              <div className="space-y-1.5">
+                {[{ name: "E-Commerce Platform", p: 85 }, { name: "AI Chatbot", p: 62 }].map((item) => (
+                  <div key={item.name}>
+                    <div className="flex justify-between mb-0.5">
+                      <span className="text-[7px]" style={{ color: "#94A3B8", fontFamily: "var(--font-inter)" }}>{item.name}</span>
+                      <span className="text-[7px]" style={{ color: "#64748B" }}>{item.p}%</span>
+                    </div>
+                    <div className="h-1 rounded-full" style={{ background: "rgba(148,163,184,0.15)" }}>
+                      <motion.div initial={{ width: 0 }} animate={{ width: `${item.p}%` }} transition={{ delay: 1.2, duration: 0.8, ease: "easeOut" }} className="h-full rounded-full" style={{ background: "linear-gradient(90deg,#006BFF,#0052D9)" }} />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
-
-          {/* ── RIGHT: Visual ── */}
-          <div className="flex items-center justify-center w-full">
-            <HeroVisual />
-          </div>
-
         </div>
       </div>
-    </section>
+      <div className="relative">
+        <div className="w-full h-4 rounded-b-sm" style={{ background: "linear-gradient(180deg,#1E293B 0%,#334155 100%)" }} />
+        <div className="w-[110%] h-2 rounded-b-xl mx-auto -mt-px" style={{ background: "#475569", transform: "translateX(-4.5%)" }} />
+      </div>
+    </div>
+  );
+}
+
+function TabletMockup() {
+  return (
+    <div className="w-full rounded-2xl border-4 overflow-hidden" style={{ borderColor: "#1E293B", background: "#0F172A", aspectRatio: "3/4", boxShadow: "0 16px 48px rgba(0,0,0,0.25)" }}>
+      <div className="px-2.5 py-2 border-b" style={{ background: "#1E293B", borderColor: "#334155" }}>
+        <div className="text-[8px] font-bold text-white" style={{ fontFamily: "var(--font-space)" }}>ERP Dashboard</div>
+      </div>
+      <div className="p-2.5 space-y-2">
+        {["Inventory", "Sales", "HR", "Finance"].map((item, i) => (
+          <div key={item} className="flex items-center gap-2 rounded-lg p-1.5" style={{ background: i === 1 ? "rgba(0,107,255,0.2)" : "rgba(148,163,184,0.07)" }}>
+            <div className="w-4 h-4 rounded flex-shrink-0" style={{ background: i === 1 ? "#006BFF" : `rgba(148,163,184,${0.2 + i * 0.05})` }} />
+            <div className="flex-1">
+              <div className="text-[7px] font-semibold" style={{ color: i === 1 ? "#38BDF8" : "#94A3B8", fontFamily: "var(--font-inter)" }}>{item}</div>
+              <div className="mt-0.5 h-1 rounded-full" style={{ background: "rgba(148,163,184,0.1)" }}>
+                <div className="h-full rounded-full" style={{ width: `${[70, 90, 55, 80][i]}%`, background: i === 1 ? "#006BFF" : "#475569" }} />
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function PhoneMockup() {
+  return (
+    <div className="w-full rounded-3xl border-4 overflow-hidden" style={{ borderColor: "#1E293B", background: "#0F172A", aspectRatio: "9/19", boxShadow: "0 16px 40px rgba(0,0,0,0.3)" }}>
+      <div className="px-2 pt-1.5 pb-1 flex justify-between items-center">
+        <span className="text-[5px] text-white font-medium">9:41</span>
+        <span className="text-[5px] text-white">●●●</span>
+      </div>
+      <div className="px-1.5 space-y-1.5">
+        <div className="h-6 rounded-lg" style={{ background: "linear-gradient(135deg,#006BFF,#0052D9)" }} />
+        <div className="grid grid-cols-2 gap-1">
+          {["Orders", "Chat", "Track", "Pay"].map((l, i) => (
+            <div key={l} className="h-6 rounded-lg flex items-center justify-center" style={{ background: `rgba(148,163,184,${0.1 + i * 0.03})` }}>
+              <span className="text-[6px] font-medium text-[#94A3B8]">{l}</span>
+            </div>
+          ))}
+        </div>
+        {[...Array(3)].map((_, i) => (<div key={i} className="h-4 rounded-lg" style={{ background: `rgba(148,163,184,${0.08 + i * 0.02})` }} />))}
+      </div>
+    </div>
+  );
+}
+
+function MobileVisual() {
+  return (
+    <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.3, ease: [0.22, 1, 0.36, 1] }} className="relative mx-auto max-w-sm">
+      <div className="rounded-2xl overflow-hidden border" style={{ borderColor: "#E2E8F0", boxShadow: "0 20px 60px rgba(0,107,255,0.12), 0 4px 16px rgba(0,0,0,0.06)" }}>
+        <div className="flex items-center gap-1.5 px-4 py-2.5 border-b" style={{ background: "#F7FAFC", borderColor: "#E2E8F0" }}>
+          <span className="w-3 h-3 rounded-full bg-red-400/70" />
+          <span className="w-3 h-3 rounded-full bg-yellow-400/70" />
+          <span className="w-3 h-3 rounded-full bg-green-400/70" />
+          <div className="flex-1 ml-3 rounded-md px-3 py-1 text-[10px] border" style={{ background: "#fff", borderColor: "#E2E8F0", color: "#94A3B8", fontFamily: "var(--font-inter)" }}>
+            🔒 cpnexs.in
+          </div>
+        </div>
+        <div className="p-4 bg-white">
+          <div className="grid grid-cols-3 gap-3 mb-4">
+            {[{ label: "Revenue", val: "₹2.4L", color: "text-[#006BFF]", bg: "bg-[#EAF4FF]" }, { label: "Projects", val: "12", color: "text-emerald-600", bg: "bg-emerald-50" }, { label: "Clients", val: "50+", color: "text-violet-600", bg: "bg-violet-50" }].map((m) => (
+              <div key={m.label} className={`rounded-xl p-3 ${m.bg}`}>
+                <div className="text-[10px] text-[#94A3B8] mb-1" style={{ fontFamily: "var(--font-inter)" }}>{m.label}</div>
+                <div className={`text-base font-bold ${m.color}`} style={{ fontFamily: "var(--font-sora)" }}>{m.val}</div>
+              </div>
+            ))}
+          </div>
+          <div className="flex flex-wrap gap-2">
+            {floatingBadges.map((b) => (
+              <div key={b.title} className="flex items-center gap-1.5 rounded-full px-3 py-1.5" style={{ background: "#F8FAFC", border: "1px solid #E2E8F0" }}>
+                <span className="text-sm">{b.icon}</span>
+                <span className="text-[11px] font-medium text-[#475569]" style={{ fontFamily: "var(--font-inter)" }}>{b.title}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </motion.div>
   );
 }
