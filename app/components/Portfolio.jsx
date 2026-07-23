@@ -3,146 +3,177 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 
+const projects = [
+  {
+    title: "AI-Powered E-Commerce Platform",
+    industry: "Retail",
+    desc: "Full-stack e-commerce with AI product recommendations, real-time inventory, and payment gateway integration for a growing retail chain.",
+    tags: ["Next.js", "Node.js", "OpenAI", "PostgreSQL"],
+    color: "#006BFF",
+    bg: "#EAF4FF",
+    emoji: "🛍️",
+    span: "lg:col-span-2",
+  },
+  {
+    title: "Hospital Management System",
+    industry: "Healthcare",
+    desc: "Patient records, appointment booking, billing, and telemedicine platform for a multi-specialty clinic.",
+    tags: ["React", "Python", "AWS", "MongoDB"],
+    color: "#059669",
+    bg: "#ECFDF5",
+    emoji: "🏥",
+    span: "",
+  },
+  {
+    title: "School ERP & Parent App",
+    industry: "Education",
+    desc: "Complete school management — admissions, attendance, fees, results, and a parent mobile app for real-time updates.",
+    tags: ["React Native", "Node.js", "MySQL"],
+    color: "#7C3AED",
+    bg: "#F5F3FF",
+    emoji: "🏫",
+    span: "",
+  },
+  {
+    title: "Restaurant CRM & POS System",
+    industry: "Food & Beverage",
+    desc: "Complete restaurant management — orders, inventory, staff scheduling, and customer loyalty programs in one system.",
+    tags: ["Next.js", "Node.js", "PostgreSQL"],
+    color: "#D97706",
+    bg: "#FFFBEB",
+    emoji: "🍽️",
+    span: "",
+  },
+  {
+    title: "Manufacturing ERP",
+    industry: "Manufacturing",
+    desc: "End-to-end manufacturing management — raw materials, production planning, quality control, and dispatch tracking.",
+    tags: ["React", "Python", "PostgreSQL", "Docker"],
+    color: "#0891B2",
+    bg: "#ECFEFF",
+    emoji: "🏭",
+    span: "",
+  },
+  {
+    title: "Real Estate Portal",
+    industry: "Real Estate",
+    desc: "Property listing, virtual tours, lead management, and agent CRM for a real estate company with 500+ listings.",
+    tags: ["Next.js", "Node.js", "MongoDB", "AWS"],
+    color: "#DC2626",
+    bg: "#FEF2F2",
+    emoji: "🏠",
+    span: "lg:col-span-2",
+  },
+];
+
+const fadeUp = { hidden: { opacity: 0, y: 32 }, show: { opacity: 1, y: 0 } };
+
 export default function Portfolio() {
-  const projects = [
-    {
-      cardClass: "lg:row-span-2 lg:min-h-[540px]",
-      tone: "bg-gradient-to-br from-blue-900/50 to-[#0d1a2e]",
-      tag: "Web Development",
-      title: "Next-Gen Digital Agency",
-      desc: "A bold landing experience with conversion-focused sections and premium motion-ready layouts.",
-      accentColor: "bg-blue-500",
-      glowColor: "rgba(59,130,246,0.3)",
-      emoji: "🚀",
-    },
-    {
-      cardClass: "",
-      tone: "bg-gradient-to-br from-orange-900/40 to-[#1a0e08]",
-      tag: "Web + Mobile",
-      title: "HealthCare Platform",
-      desc: "Patient management, booking flows, and a calm operational interface.",
-      accentColor: "bg-orange-500",
-      glowColor: "rgba(249,115,22,0.3)",
-      emoji: "🏥",
-    },
-    {
-      cardClass: "",
-      tone: "bg-gradient-to-br from-emerald-900/40 to-[#081a12]",
-      tag: "SaaS",
-      title: "Analytics Dashboard",
-      desc: "Performance reporting, role-based workflows, and team management.",
-      accentColor: "bg-emerald-500",
-      glowColor: "rgba(16,185,129,0.3)",
-      emoji: "📊",
-    },
-    {
-      cardClass: "",
-      tone: "bg-gradient-to-br from-purple-900/40 to-[#100818]",
-      tag: "E-Commerce",
-      title: "E-Commerce Store",
-      desc: "Fast product browsing, clean checkout, and growth-ready integrations.",
-      accentColor: "bg-purple-500",
-      glowColor: "rgba(168,85,247,0.3)",
-      emoji: "🛍️",
-    },
-  ];
-
   return (
-    <section
-      aria-label="CPNexs project portfolio"
-      className="relative bg-[#050816] px-4 pt-24 pb-24 text-white md:px-8 md:py-32 overflow-hidden"
-    >
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(59,130,246,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(59,130,246,0.03)_1px,transparent_1px)] bg-[size:52px_52px] pointer-events-none" />
-      <div className="absolute bottom-0 left-1/4 h-[400px] w-[400px] rounded-full bg-emerald-600/8 blur-[100px] pointer-events-none" />
-
-      <div className="section-shell relative">
-        {/* Header */}
-        <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end mb-14">
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <div className="text-xs font-bold tracking-[0.2em] uppercase text-yellow-400 mb-3">Our Portfolio</div>
-            <h2 className="font-heading text-4xl font-bold tracking-normal md:text-6xl">
-              Work that feels built,
+    <section className="bg-white py-24">
+      <div className="section-shell">
+        <motion.div
+          variants={fadeUp} initial="hidden" whileInView="show"
+          viewport={{ once: true }} transition={{ duration: 0.6 }}
+          className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-14"
+        >
+          <div>
+            <div className="inline-flex items-center gap-2 rounded-full border border-[#006BFF]/20 bg-[#EAF4FF] px-4 py-2 mb-5">
+              <span className="text-sm font-semibold text-[#006BFF]" style={{ fontFamily: "var(--font-inter)" }}>Our Work</span>
+            </div>
+            <h2 className="text-4xl font-bold text-[#0F172A] md:text-5xl" style={{ fontFamily: "var(--font-space)" }}>
+              Projects That
               <br />
-              not templated.
+              <span className="gradient-text">Speak for Themselves</span>
             </h2>
-          </motion.div>
-          <motion.p
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.15 }}
-            className="max-w-md text-base leading-7 text-white/45"
-          >
-            Every project is shaped around the customer journey, the business model, and the launch timeline.
-          </motion.p>
-        </div>
+          </div>
+          <p className="max-w-sm text-[#475569] text-base leading-7" style={{ fontFamily: "var(--font-inter)" }}>
+            Every project is built with precision, purpose, and a focus on real business outcomes.
+          </p>
+        </motion.div>
 
-        {/* Cards grid */}
-        <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
-          {projects.map((project, i) => (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {projects.map((p, i) => (
             <motion.article
-              key={project.title}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.12, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-              whileHover={{ y: -6, boxShadow: `0 24px 60px ${project.glowColor}` }}
-              className={`group relative overflow-hidden rounded-3xl border border-white/10 p-7 transition-all ${project.tone} ${project.cardClass} cursor-pointer`}
+              key={p.title}
+              variants={fadeUp} initial="hidden" whileInView="show"
+              viewport={{ once: true }} transition={{ delay: i * 0.1, duration: 0.55 }}
+              whileHover={{ y: -6, boxShadow: `0 20px 60px ${p.color}18` }}
+              className={`group relative overflow-hidden rounded-2xl border border-[#E2E8F0] bg-white cursor-pointer transition-all ${p.span}`}
             >
-              <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(255,255,255,0.06),transparent_44%)] pointer-events-none" />
-              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-[linear-gradient(135deg,rgba(255,255,255,0.04),transparent_50%)] pointer-events-none" />
-
-              <motion.div
-                className={`absolute right-7 top-7 h-16 w-16 rounded-2xl ${project.accentColor} shadow-lg opacity-80`}
-                whileHover={{ rotate: 12, scale: 1.15 }}
-                transition={{ duration: 0.3 }}
-              />
-              <div className="absolute right-8 top-[4.5rem] text-4xl opacity-20 transition-opacity group-hover:opacity-40 select-none">
-                {project.emoji}
+              {/* Preview area */}
+              <div className="relative h-48 overflow-hidden" style={{ background: p.bg }}>
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <span className="text-7xl opacity-20">{p.emoji}</span>
+                </div>
+                {/* Browser mockup */}
+                <div className="absolute inset-4 bg-white rounded-xl shadow-lg overflow-hidden border border-[#E2E8F0]">
+                  <div className="flex items-center gap-1.5 px-3 py-2 border-b border-[#E2E8F0] bg-[#F7FAFC]">
+                    <span className="h-2 w-2 rounded-full bg-red-400" />
+                    <span className="h-2 w-2 rounded-full bg-yellow-400" />
+                    <span className="h-2 w-2 rounded-full bg-green-400" />
+                    <div className="ml-2 flex-1 h-3 rounded bg-[#E2E8F0]" />
+                  </div>
+                  <div className="p-3 space-y-2">
+                    <div className="h-3 rounded bg-[#E2E8F0] w-3/4" />
+                    <div className="h-2 rounded bg-[#E2E8F0] w-full" />
+                    <div className="h-2 rounded bg-[#E2E8F0] w-5/6" />
+                    <div className="grid grid-cols-3 gap-2 mt-3">
+                      {[1,2,3].map(n => (
+                        <div key={n} className="h-12 rounded-lg" style={{ background: p.bg }} />
+                      ))}
+                    </div>
+                  </div>
+                </div>
+                {/* Industry badge */}
+                <div className="absolute top-3 left-3 rounded-full px-3 py-1 text-[11px] font-bold" style={{ background: p.color + "18", color: p.color, fontFamily: "var(--font-inter)" }}>
+                  {p.industry}
+                </div>
               </div>
 
-              <div className="relative z-10 flex min-h-[260px] flex-col justify-end">
-                <span className="mb-4 w-fit rounded-full border border-white/15 bg-white/8 px-3 py-1 text-xs font-bold uppercase tracking-[0.16em] backdrop-blur text-white/80">
-                  {project.tag}
-                </span>
-                <h3 className="font-heading text-3xl font-bold text-white md:text-4xl">
-                  {project.title}
-                </h3>
-                <p className="mt-3 max-w-lg text-sm leading-6 text-white/55">
-                  {project.desc}
-                </p>
-                <div className="mt-4 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0">
-                  <span className="inline-flex items-center gap-2 text-sm font-bold text-white">
-                    View Project
-                    <span className="transition-transform group-hover:translate-x-1">→</span>
-                  </span>
+              {/* Content */}
+              <div className="p-6">
+                <h3 className="text-lg font-bold text-[#0F172A] mb-2" style={{ fontFamily: "var(--font-space)" }}>{p.title}</h3>
+                <p className="text-sm leading-6 text-[#475569] mb-4" style={{ fontFamily: "var(--font-inter)" }}>{p.desc}</p>
+
+                <div className="flex flex-wrap gap-2 mb-5">
+                  {p.tags.map(tag => (
+                    <span key={tag} className="rounded-full px-3 py-1 text-[11px] font-semibold border border-[#E2E8F0] text-[#475569]" style={{ fontFamily: "var(--font-inter)" }}>
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+
+                <div className="flex gap-3">
+                  <Link href="/contact" className="no-underline flex-1">
+                    <motion.div
+                      whileHover={{ scale: 1.02 }}
+                      className="w-full rounded-lg py-2 text-center text-xs font-semibold text-white cursor-pointer"
+                      style={{ background: `linear-gradient(135deg, ${p.color}, ${p.color}cc)`, fontFamily: "var(--font-inter)" }}
+                    >
+                      Build Similar →
+                    </motion.div>
+                  </Link>
                 </div>
               </div>
             </motion.article>
           ))}
         </div>
 
-        {/* CTA */}
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="mt-14 text-center"
+          variants={fadeUp} initial="hidden" whileInView="show"
+          viewport={{ once: true }} transition={{ duration: 0.5 }}
+          className="mt-12 text-center"
         >
-          <p className="text-white/40 text-sm mb-4">Want something like this for your business?</p>
+          <p className="text-[#475569] text-sm mb-5" style={{ fontFamily: "var(--font-inter)" }}>Want a project like this built for your business?</p>
           <Link href="/contact">
             <motion.div
-              whileHover={{ scale: 1.05, boxShadow: "0 0 36px rgba(59,130,246,0.5)" }}
+              whileHover={{ scale: 1.04, boxShadow: "0 8px 30px rgba(0,107,255,0.3)" }}
               whileTap={{ scale: 0.97 }}
-              className="inline-block rounded-full bg-blue-600 px-8 py-3 text-sm font-bold text-white shadow-lg transition-all cursor-pointer"
+              className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-[#006BFF] to-[#0052D9] px-8 py-3.5 text-sm font-semibold text-white cursor-pointer"
+              style={{ fontFamily: "var(--font-inter)" }}
             >
-              Start Your Project
+              Start Your Project →
             </motion.div>
           </Link>
         </motion.div>
