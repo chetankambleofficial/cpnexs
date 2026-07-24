@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
@@ -261,44 +261,12 @@ function LaptopMockup() {
             <span className="text-[8px] text-[#64748B] font-mono">cpnexs.in</span>
           </div>
         </div>
-        <div className="p-3 h-full" style={{ background: "#0F172A" }}>
-          <div className="flex gap-2 h-full">
-            <div className="w-14 flex flex-col gap-1.5 flex-shrink-0">
-              <div className="h-6 rounded" style={{ background: "linear-gradient(135deg,#006BFF,#0052D9)", opacity: 0.9 }} />
-              {[...Array(5)].map((_, i) => (<div key={i} className="h-5 rounded" style={{ background: `rgba(148,163,184,${0.12 + i * 0.02})` }} />))}
-            </div>
-            <div className="flex-1 flex flex-col gap-2">
-              <div className="grid grid-cols-3 gap-1.5">
-                {[{ label: "Revenue", val: "₹2.4L", color: "#006BFF", bg: "rgba(0,107,255,0.12)" }, { label: "Projects", val: "12", color: "#059669", bg: "rgba(5,150,105,0.12)" }, { label: "Uptime", val: "99.9%", color: "#7C3AED", bg: "rgba(124,58,237,0.12)" }].map((m) => (
-                  <div key={m.label} className="rounded-lg p-2" style={{ background: m.bg }}>
-                    <div className="text-[7px] mb-0.5" style={{ color: "#94A3B8", fontFamily: "var(--font-inter)" }}>{m.label}</div>
-                    <div className="text-[11px] font-bold" style={{ color: m.color, fontFamily: "var(--font-sora)" }}>{m.val}</div>
-                  </div>
-                ))}
-              </div>
-              <div className="flex-1 rounded-lg p-2" style={{ background: "rgba(148,163,184,0.06)", border: "1px solid rgba(148,163,184,0.1)" }}>
-                <div className="text-[7px] mb-2 font-semibold" style={{ color: "#E2E8F0", fontFamily: "var(--font-inter)" }}>Project Delivery</div>
-                <div className="flex items-end gap-0.5 h-10">
-                  {[35, 55, 42, 70, 52, 80, 65, 88, 58, 92, 72, 85].map((h, i) => (
-                    <motion.div key={i} initial={{ height: 0 }} animate={{ height: `${h}%` }} transition={{ delay: 0.8 + i * 0.06, duration: 0.5, ease: "easeOut" }} className="flex-1 rounded-sm" style={{ background: i === 10 ? "linear-gradient(to top,#006BFF,#38BDF8)" : "rgba(0,107,255,0.25)" }} />
-                  ))}
-                </div>
-              </div>
-              <div className="space-y-1.5">
-                {[{ name: "E-Commerce Platform", p: 85 }, { name: "AI Chatbot", p: 62 }].map((item) => (
-                  <div key={item.name}>
-                    <div className="flex justify-between mb-0.5">
-                      <span className="text-[7px]" style={{ color: "#94A3B8", fontFamily: "var(--font-inter)" }}>{item.name}</span>
-                      <span className="text-[7px]" style={{ color: "#64748B" }}>{item.p}%</span>
-                    </div>
-                    <div className="h-1 rounded-full" style={{ background: "rgba(148,163,184,0.15)" }}>
-                      <motion.div initial={{ width: 0 }} animate={{ width: `${item.p}%` }} transition={{ delay: 1.2, duration: 0.8, ease: "easeOut" }} className="h-full rounded-full" style={{ background: "linear-gradient(90deg,#006BFF,#0052D9)" }} />
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
+        <div style={{ width: "100%", height: "calc(100% - 36px)", overflow: "hidden", position: "relative" }}>
+          <iframe
+            src="/htmls/ecommerce.html"
+            title="E-Commerce Preview"
+            style={{ width: "200%", height: "200%", border: "none", transform: "scale(0.5)", transformOrigin: "top left", pointerEvents: "none" }}
+          />
         </div>
       </div>
       <div className="relative">
@@ -381,7 +349,7 @@ function MobileVisual() {
               <div key={b.title} className="flex items-center gap-1.5 rounded-full px-3 py-1.5" style={{ background: "#F8FAFC", border: "1px solid #E2E8F0" }}>
                 <span className="text-sm">{b.icon}</span>
                 <span className="text-[11px] font-medium text-[#475569]" style={{ fontFamily: "var(--font-inter)" }}>{b.title}</span>
-              </div>
+           </div>
             ))}
           </div>
         </div>

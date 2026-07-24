@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vidyalaya ERP — School Management System</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;}
+  :root{
+    --blue:#2563EB;--blue-light:#EFF6FF;--blue-mid:#DBEAFE;
+    --green:#059669;--green-light:#ECFDF5;
+    --amber:#D97706;--amber-light:#FFFBEB;
+    --purple:#7C3AED;--purple-light:#F5F3FF;
+    --ink:#0F172A;--ink-soft:#475569;--border:#E2E8F0;
+    --bg:#F8FAFC;--white:#fff;
+    --font:'Plus Jakarta Sans',sans-serif;
+    --mono:'DM Mono',monospace;
+  }
+  body{font-family:var(--font);background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;}
+  a{text-decoration:none;color:inherit;}
+
+  /* NAV */
+  nav{background:var(--blue);padding:0 32px;height:60px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
+  .nav-brand{display:flex;align-items:center;gap:10px;}
+  .nav-logo{width:32px;height:32px;border-radius:8px;background:rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;font-size:16px;}
+  .nav-brand-text{font-size:17px;font-weight:700;color:#fff;letter-spacing:-0.3px;}
+  .nav-links{display:flex;gap:4px;}
+  .nav-link{padding:6px 14px;border-radius:6px;font-size:13px;font-weight:500;color:rgba(255,255,255,0.75);transition:all .2s;}
+  .nav-link:hover,.nav-link.active{background:rgba(255,255,255,0.15);color:#fff;}
+  .nav-right{display:flex;align-items:center;gap:10px;}
+  .nav-btn{padding:8px 18px;border-radius:8px;font-size:13px;font-weight:600;background:#fff;color:var(--blue);cursor:pointer;}
+  .nav-avatar{width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;font-size:14px;color:#fff;font-weight:600;overflow:hidden;}
+  .nav-avatar img{width:100%;height:100%;object-fit:cover;}
+
+  /* HERO DASHBOARD */
+  .hero{padding:32px;background:var(--bg);}
+  .hero-banner{width:100%;height:200px;border-radius:12px;overflow:hidden;margin-bottom:24px;display:flex;align-items:center;justify-content:center;}
+  .hero-banner img{width:100%;height:100%;object-fit:cover;}
+  .hero-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:28px;flex-wrap:wrap;gap:16px;}
+  .hero-title{font-size:22px;font-weight:700;color:var(--ink);}
+  .hero-sub{font-size:13px;color:var(--ink-soft);margin-top:3px;}
+  .hero-actions{display:flex;gap:10px;}
+  .btn-primary{padding:9px 20px;border-radius:8px;background:var(--blue);color:#fff;font-size:13px;font-weight:600;border:none;cursor:pointer;}
+  .btn-outline{padding:9px 20px;border-radius:8px;background:#fff;color:var(--ink);font-size:13px;font-weight:500;border:1px solid var(--border);cursor:pointer;}
+
+  /* STAT CARDS */
+  .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px;}
+  @media(max-width:900px){.stats-grid{grid-template-columns:repeat(2,1fr);}}
+  .stat-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:20px;display:flex;align-items:flex-start;gap:14px;}
+  .stat-icon{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;overflow:hidden;}
+  .stat-icon img{width:100%;height:100%;object-fit:cover;}
+  .stat-label{font-size:12px;color:var(--ink-soft);margin-bottom:4px;}
+  .stat-value{font-size:22px;font-weight:700;color:var(--ink);}
+  .stat-change{font-size:11px;margin-top:3px;}
+  .stat-change.up{color:var(--green);}
+  .stat-change.down{color:#DC2626;}
+
+  /* MAIN GRID */
+  .main-grid{display:grid;grid-template-columns:1fr 340px;gap:20px;}
+  @media(max-width:1000px){.main-grid{grid-template-columns:1fr;}}
+
+  /* TABLE */
+  .card{background:#fff;border:1px solid var(--border);border-radius:12px;overflow:hidden;}
+  .card-header{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;}
+  .card-title{font-size:14px;font-weight:600;color:var(--ink);}
+  .card-action{font-size:12px;color:var(--blue);font-weight:500;cursor:pointer;}
+  table{width:100%;border-collapse:collapse;}
+  th{padding:10px 20px;text-align:left;font-size:11px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:0.05em;background:var(--bg);border-bottom:1px solid var(--border);}
+  td{padding:12px 20px;font-size:13px;border-bottom:1px solid var(--border);}
+  tr:last-child td{border-bottom:none;}
+  tr:hover td{background:#FAFBFC;}
+  .badge{display:inline-flex;align-items:center;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600;}
+  .badge.present{background:var(--green-light);color:var(--green);}
+  .badge.absent{background:#FEF2F2;color:#DC2626;}
+  .badge.late{background:var(--amber-light);color:var(--amber);}
+  .avatar-cell{display:flex;align-items:center;gap:10px;}
+  .avatar{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;flex-shrink:0;overflow:hidden;}
+  .avatar img{width:100%;height:100%;object-fit:cover;}
+
+  /* SIDEBAR */
+  .sidebar{display:flex;flex-direction:column;gap:16px;}
+  .progress-item{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--border);}
+  .progress-item:last-child{border-bottom:none;}
+  .progress-label{font-size:13px;font-weight:500;color:var(--ink);flex:1;}
+  .progress-bar-wrap{flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden;}
+  .progress-bar{height:100%;border-radius:3px;}
+  .progress-pct{font-size:12px;font-weight:600;color:var(--ink-soft);width:36px;text-align:right;}
+
+  /* EVENTS */
+  .event-item{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--border);}
+  .event-item:last-child{border-bottom:none;}
+  .event-date{width:40px;height:44px;border-radius:8px;background:var(--blue-light);display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0;}
+  .event-day{font-size:16px;font-weight:700;color:var(--blue);line-height:1;}
+  .event-mon{font-size:9px;font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:0.05em;}
+  .event-info .event-title{font-size:13px;font-weight:600;color:var(--ink);}
+  .event-info .event-desc{font-size:11px;color:var(--ink-soft);margin-top:2px;}
+
+  /* FOOTER */
+  footer{padding:20px 32px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--ink-soft);background:#fff;}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand">
+    <div class="nav-logo">🎓</div>
+    <div class="nav-brand-text">Vidyalaya ERP</div>
+  </div>
+  <div class="nav-links">
+    <a class="nav-link active" href="#">Dashboard</a>
+    <a class="nav-link" href="#">Students</a>
+    <a class="nav-link" href="#">Attendance</a>
+    <a class="nav-link" href="#">Fees</a>
+    <a class="nav-link" href="#">Exams</a>
+    <a class="nav-link" href="#">Reports</a>
+  </div>
+  <div class="nav-right">
+    <div class="nav-avatar"><img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=100&h=100&fit=crop" alt="Principal"></div>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-banner">
+    <img src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=1400&h=400&fit=crop" alt="School Banner">
+  </div>
+
+  <div class="hero-header">
+    <div>
+      <div class="hero-title">Good morning, Principal Anand 👋</div>
+      <div class="hero-sub">Thursday, 15 May 2025 · Academic Year 2024–25</div>
+    </div>
+    <div class="hero-actions">
+      <button class="btn-outline">Download Report</button>
+      <button class="btn-primary">+ Add Student</button>
+    </div>
+  </div>
+
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-icon" style="background:#EFF6FF;"><img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=100&h=100&fit=crop" alt="Students"></div>
+      <div>
+        <div class="stat-label">Total Students</div>
+        <div class="stat-value">1,248</div>
+        <div class="stat-change up">↑ 42 this term</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon" style="background:#ECFDF5;"><img src="https://images.unsplash.com/photo-1606761568499-6d2451b23c66?w=100&h=100&fit=crop" alt="Attendance"></div>
+      <div>
+        <div class="stat-label">Today's Attendance</div>
+        <div class="stat-value">94.2%</div>
+        <div class="stat-change up">↑ 2.1% vs yesterday</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon" style="background:#FFFBEB;"><img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=100&h=100&fit=crop" alt="Fees"></div>
+      <div>
+        <div class="stat-label">Fees Collected</div>
+        <div class="stat-value">₹18.4L</div>
+        <div class="stat-change down">↓ ₹2.1L pending</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon" style="background:#F5F3FF;"><img src="https://images.unsplash.com/photo-1544717305-2782549b5136?w=100&h=100&fit=crop" alt="Staff"></div>
+      <div>
+        <div class="stat-label">Staff Present</div>
+        <div class="stat-value">68/72</div>
+        <div class="stat-change up">↑ 4 on leave</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="main-grid">
+    <div style="display:flex;flex-direction:column;gap:20px;">
+      <!-- Attendance Table -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Today's Class Attendance</div>
+          <div class="card-action">View All →</div>
+        </div>
+        <table>
+          <thead>
+            <tr><th>Student</th><th>Class</th><th>Roll No</th><th>Status</th><th>Time</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><div class="avatar-cell"><div class="avatar" style="background:#2563EB;"><img src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?w=60&h=60&fit=crop" alt="Aarav"></div>Aarav Sharma</div></td>
+              <td>10-A</td><td>01</td>
+              <td><span class="badge present">Present</span></td>
+              <td>8:42 AM</td>
+            </tr>
+            <tr>
+              <td><div class="avatar-cell"><div class="avatar" style="background:#7C3AED;"><img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=60&h=60&fit=crop" alt="Priya"></div>Priya Nair</div></td>
+              <td>10-A</td><td>02</td>
+              <td><span class="badge absent">Absent</span></td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td><div class="avatar-cell"><div class="avatar" style="background:#059669;"><img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=60&h=60&fit=crop" alt="Rohan"></div>Rohan Mehta</div></td>
+              <td>10-B</td><td>05</td>
+              <td><span class="badge late">Late</span></td>
+              <td>9:14 AM</td>
+            </tr>
+            <tr>
+              <td><div class="avatar-cell"><div class="avatar" style="background:#D97706;"><img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=60&h=60&fit=crop" alt="Sneha"></div>Sneha Patil</div></td>
+              <td>9-C</td><td>12</td>
+              <td><span class="badge present">Present</span></td>
+              <td>8:38 AM</td>
+            </tr>
+            <tr>
+              <td><div class="avatar-cell"><div class="avatar" style="background:#0891B2;"><img src="https://images.unsplash.com/photo-1552058544-f2b08422138a?w=60&h=60&fit=crop" alt="Karan"></div>Karan Joshi</div></td>
+              <td>9-C</td><td>14</td>
+              <td><span class="badge present">Present</span></td>
+              <td>8:45 AM</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Fee Status -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Fee Collection — May 2025</div>
+          <div class="card-action">Send Reminders →</div>
+        </div>
+        <div style="padding:20px;">
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:20px;">
+            <div style="text-align:center;padding:16px;background:var(--green-light);border-radius:10px;">
+              <div style="font-size:20px;font-weight:700;color:var(--green);">₹18.4L</div>
+              <div style="font-size:11px;color:var(--ink-soft);margin-top:4px;">Collected</div>
+            </div>
+            <div style="text-align:center;padding:16px;background:var(--amber-light);border-radius:10px;">
+              <div style="font-size:20px;font-weight:700;color:var(--amber);">₹2.1L</div>
+              <div style="font-size:11px;color:var(--ink-soft);margin-top:4px;">Pending</div>
+            </div>
+            <div style="text-align:center;padding:16px;background:var(--blue-light);border-radius:10px;">
+              <div style="font-size:20px;font-weight:700;color:var(--blue);">89.7%</div>
+              <div style="font-size:11px;color:var(--ink-soft);margin-top:4px;">Collection Rate</div>
+            </div>
+          </div>
+          <div style="height:8px;background:var(--border);border-radius:4px;overflow:hidden;">
+            <div style="height:100%;width:89.7%;background:linear-gradient(90deg,var(--blue),var(--green));border-radius:4px;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <div class="card">
+        <div class="card-header"><div class="card-title">Subject Performance</div></div>
+        <div style="padding:16px 20px;">
+          <div class="progress-item">
+            <div class="progress-label">Mathematics</div>
+            <div class="progress-bar-wrap"><div class="progress-bar" style="width:82%;background:var(--blue);"></div></div>
+            <div class="progress-pct">82%</div>
+          </div>
+          <div class="progress-item">
+            <div class="progress-label">Science</div>
+            <div class="progress-bar-wrap"><div class="progress-bar" style="width:76%;background:var(--green);"></div></div>
+            <div class="progress-pct">76%</div>
+          </div>
+          <div class="progress-item">
+            <div class="progress-label">English</div>
+            <div class="progress-bar-wrap"><div class="progress-bar" style="width:88%;background:var(--purple);"></div></div>
+            <div class="progress-pct">88%</div>
+          </div>
+          <div class="progress-item">
+            <div class="progress-label">Social Studies</div>
+            <div class="progress-bar-wrap"><div class="progress-bar" style="width:71%;background:var(--amber);"></div></div>
+            <div class="progress-pct">71%</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><div class="card-title">Upcoming Events</div></div>
+        <div style="padding:16px 20px;">
+          <div class="event-item">
+            <div class="event-date"><div class="event-day">18</div><div class="event-mon">May</div></div>
+            <div class="event-info"><div class="event-title">Unit Test — Class 10</div><div class="event-desc">Mathematics & Science · Hall A</div></div>
+          </div>
+          <div class="event-item">
+            <div class="event-date"><div class="event-day">22</div><div class="event-mon">May</div></div>
+            <div class="event-info"><div class="event-title">Parent-Teacher Meeting</div><div class="event-desc">Classes 8, 9, 10 · 10 AM–1 PM</div></div>
+          </div>
+          <div class="event-item">
+            <div class="event-date"><div class="event-day">01</div><div class="event-mon">Jun</div></div>
+            <div class="event-info"><div class="event-title">Annual Sports Day</div><div class="event-desc">All classes · School Ground</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div>Vidyalaya ERP · Built by CPNexs</div>
+  <div style="display:flex;gap:16px;align-items:center;">
+    <a href="https://www.linkedin.com/company/cpnexs/" target="_blank" style="color:var(--ink-soft);font-size:12px;display:flex;align-items:center;gap:5px;transition:color .2s;" onmouseover="this.style.color='#0A66C2'" onmouseout="this.style.color=''">💼 LinkedIn</a>
+    <a href="https://www.instagram.com/cpnexs" target="_blank" style="color:var(--ink-soft);font-size:12px;display:flex;align-items:center;gap:5px;transition:color .2s;" onmouseover="this.style.color='#E1306C'" onmouseout="this.style.color=''">📷 Instagram</a>
+    <a href="https://x.com/cpnexs" target="_blank" style="color:var(--ink-soft);font-size:12px;display:flex;align-items:center;gap:5px;transition:color .2s;" onmouseover="this.style.color='#000'" onmouseout="this.style.color=''">𝕏 Twitter</a>
+  </div>
+  <div>Academic Year 2024–25 · v2.4.1</div>
+</footer>
+
+</body>
+</html>
