@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cafe Medley — Koramangala, Bengaluru</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=Karla:wght@400;500;600;700&family=Caveat:wght@600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream: #FBF4E6;
+    --cream-2: #F3E8D2;
+    --ink: #2E2A22;
+    --ink-soft: #5C5446;
+    --sage: #56684A;
+    --sage-deep: #3C4A33;
+    --mustard: #D9A441;
+    --rose: #C97B63;
+    --line: rgba(46,42,34,0.14);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Karla', sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.display{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    letter-spacing:-0.01em;
+  }
+  .hand{font-family:'Caveat', cursive; font-weight:600;}
+  a{color:inherit; text-decoration:none;}
+  img{max-width:100%; display:block;}
+
+  /* paper grain */
+  body::before{
+    content:"";
+    position:fixed; inset:0; z-index:0; pointer-events:none;
+    background-image:
+      radial-gradient(circle at 15% 25%, rgba(86,104,74,0.05), transparent 40%),
+      radial-gradient(circle at 85% 80%, rgba(201,123,99,0.06), transparent 45%);
+  }
+
+  nav{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    display:flex; justify-content:space-between; align-items:center;
+    padding:24px 6vw;
+    background:rgba(251,244,230,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  .brand{font-size:1.3rem; display:flex; align-items:center; gap:10px;}
+  .brand .leaf{color:var(--sage); font-size:1.1rem;}
+  .navlinks{display:flex; gap:34px; font-size:0.9rem; color:var(--ink-soft);}
+  .navlinks a:hover{color:var(--sage-deep);}
+  .nav-cta{
+    background:var(--sage-deep); color:var(--cream);
+    padding:10px 22px; border-radius:30px; font-size:0.85rem;
+    transition: background .2s;
+  }
+  .nav-cta:hover{background:var(--rose);}
+
+  /* HERO */
+  .hero{
+    position:relative; z-index:1;
+    min-height:96vh;
+    display:grid; grid-template-columns: 1.1fr 0.9fr;
+    align-items:center;
+    padding:120px 6vw 60px;
+    gap:40px;
+  }
+  @media (max-width:900px){ .hero{grid-template-columns:1fr; min-height:auto;} }
+  .hero-eyebrow{
+    font-family:'Caveat'; font-size:1.4rem; color:var(--rose);
+    display:flex; align-items:center; gap:10px; margin-bottom:4px;
+  }
+  .hero h1{
+    font-size:clamp(2.6rem, 6vw, 5rem);
+    line-height:1.02;
+  }
+  .hero h1 .ital{font-style:italic; color:var(--sage-deep); font-weight:400;}
+  .hero-sub{
+    margin-top:24px; max-width:460px;
+    color:var(--ink-soft); font-size:1.05rem; line-height:1.65;
+  }
+  .hero-ctas{display:flex; gap:14px; margin-top:36px; flex-wrap:wrap;}
+  .btn-primary{
+    background:var(--sage-deep); color:var(--cream);
+    padding:15px 28px; border-radius:30px; font-size:0.92rem; font-weight:600;
+    transition: background .2s;
+  }
+  .btn-primary:hover{background:var(--rose);}
+  .btn-ghost{
+    border:1.5px solid var(--ink); color:var(--ink);
+    padding:14px 28px; border-radius:30px; font-size:0.92rem;
+    transition: all .2s;
+  }
+  .btn-ghost:hover{background:var(--ink); color:var(--cream);}
+  .hero-stats{display:flex; gap:36px; margin-top:46px; flex-wrap:wrap;}
+  .hero-stats .big{font-family:'Fraunces'; font-size:1.6rem; font-weight:600; display:block;}
+  .hero-stats .label{font-size:0.8rem; color:var(--ink-soft);}
+
+  /* hero visual: stamped badge */
+  .hero-visual{position:relative; display:flex; align-items:center; justify-content:center;}
+  .stamp{
+    width:300px; height:300px; border-radius:50%;
+    border:2px solid var(--sage-deep);
+    display:flex; align-items:center; justify-content:center;
+    position:relative;
+    background:radial-gradient(circle, var(--cream-2), var(--cream));
+  }
+  .stamp::before{
+    content:""; position:absolute; inset:14px; border-radius:50%; border:1px dashed var(--rose);
+  }
+  .stamp-text{
+    text-align:center; font-family:'Fraunces'; font-style:italic;
+  }
+  .stamp-text .top{display:block; font-size:0.95rem; color:var(--ink-soft); font-family:'Karla'; letter-spacing:0.15em; text-transform:uppercase; margin-bottom:10px;}
+  .stamp-text .mid{display:block; font-size:2.4rem; color:var(--sage-deep); line-height:1;}
+  .stamp-text .bottom{display:block; font-size:0.85rem; color:var(--rose); margin-top:10px; font-family:'Caveat'; font-size:1.3rem;}
+  .ring{
+    position:absolute; width:90px; height:90px; border-radius:50%;
+    border:6px solid rgba(201,123,99,0.18);
+  }
+  .ring.r1{top:-10px; right:10px;}
+  .ring.r2{bottom:-20px; left:-10px; width:60px; height:60px; border-width:5px;}
+
+  /* SECTION shared */
+  section{position:relative; z-index:1; padding:110px 6vw;}
+  .eyebrow{
+    font-family:'Caveat'; font-size:1.3rem; color:var(--rose); margin-bottom:8px;
+  }
+  .section-head{display:flex; justify-content:space-between; align-items:flex-end; gap:30px; margin-bottom:56px; flex-wrap:wrap;}
+  .section-head h2{font-size:clamp(2rem,4vw,2.8rem);}
+  .section-head p{max-width:380px; color:var(--ink-soft); font-size:0.95rem; line-height:1.6;}
+
+  /* MENU - polaroid cards */
+  .menu-strip{background:var(--cream-2); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+  .polagrid{display:grid; grid-template-columns:repeat(4,1fr); gap:26px;}
+  @media (max-width:980px){.polagrid{grid-template-columns:repeat(2,1fr);}}
+  @media (max-width:560px){.polagrid{grid-template-columns:1fr;}}
+  .pola{
+    background:var(--cream);
+    padding:14px 14px 20px;
+    border-radius:3px;
+    box-shadow:0 10px 24px rgba(46,42,34,0.08);
+    transform:rotate(var(--r,0deg));
+    transition: transform .25s;
+  }
+  .pola:hover{transform:rotate(0deg) translateY(-4px);}
+  .pola:nth-child(1){--r:-2deg;}
+  .pola:nth-child(2){--r:1.5deg;}
+  .pola:nth-child(3){--r:-1deg;}
+  .pola:nth-child(4){--r:2deg;}
+  .pola-img{
+    aspect-ratio:1; border-radius:2px; margin-bottom:14px;
+    background:linear-gradient(155deg, var(--cream-2), #E7D7B8);
+    display:flex; align-items:center; justify-content:center;
+    font-size:2.4rem;
+  }
+  .pola h3{font-size:1.1rem; margin-bottom:4px;}
+  .pola .tag{font-family:'Caveat'; font-size:1.1rem; color:var(--rose);}
+  .pola p{font-size:0.84rem; color:var(--ink-soft); margin-top:6px; line-height:1.5;}
+
+  /* FULL MENU LIST */
+  .menu-cols{display:grid; grid-template-columns:1fr 1fr; gap:60px;}
+  @media (max-width:860px){.menu-cols{grid-template-columns:1fr;}}
+  .menu-cat-title{
+    font-family:'Caveat'; font-size:1.6rem; color:var(--sage-deep); margin-bottom:18px;
+    border-bottom:1px solid var(--line); padding-bottom:10px;
+  }
+  .menu-item{display:flex; justify-content:space-between; gap:20px; padding:13px 0; border-bottom:1px dotted var(--line);}
+  .menu-item:last-child{border-bottom:none;}
+  .menu-item .name{font-family:'Fraunces'; font-size:1.02rem;}
+  .menu-item .desc{font-size:0.8rem; color:var(--ink-soft); margin-top:3px;}
+  .menu-item .price{font-family:'Karla'; font-weight:600; color:var(--rose); white-space:nowrap;}
+
+  /* ABOUT */
+  .about-wrap{display:grid; grid-template-columns:0.9fr 1.1fr; gap:70px; align-items:center;}
+  @media (max-width:900px){.about-wrap{grid-template-columns:1fr;}}
+  .about-visual{
+    aspect-ratio:4/5; border-radius:6px;
+    background:linear-gradient(160deg, var(--cream-2), #E7D7B8);
+    position:relative; overflow:hidden;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .about-visual .coffee-ring{
+    position:absolute; border:7px solid rgba(86,104,74,0.1); border-radius:50%;
+  }
+  .about-visual .cr1{width:160px; height:160px; top:14%; left:10%;}
+  .about-visual .cr2{width:100px; height:100px; bottom:16%; right:14%; border-color:rgba(201,123,99,0.13);}
+  .about-visual .center-text{font-family:'Caveat'; font-size:1.8rem; color:var(--sage-deep); text-align:center; padding:0 20px;}
+  .about-wrap p{color:var(--ink-soft); line-height:1.75; font-size:1.02rem; margin-bottom:18px;}
+  .stat-strip{display:flex; gap:40px; margin-top:30px; flex-wrap:wrap;}
+  .stat{border-left:2px solid var(--mustard); padding-left:16px;}
+  .stat .big{font-family:'Fraunces'; font-size:1.9rem; font-weight:600; display:block;}
+  .stat .label{font-size:0.78rem; color:var(--ink-soft);}
+
+  /* REVIEWS */
+  .reviews{background:var(--sage-deep); color:var(--cream);}
+  .reviews .eyebrow{color:var(--mustard);}
+  .reviews .section-head p{color:rgba(251,244,230,0.7);}
+  .review-rating{display:flex; align-items:baseline; gap:18px; margin-bottom:50px; flex-wrap:wrap;}
+  .review-rating .score{font-family:'Fraunces'; font-size:4rem; font-weight:600; color:var(--mustard);}
+  .review-rating .stars{color:var(--mustard); font-size:1.1rem; letter-spacing:2px;}
+  .review-rating .count{color:rgba(251,244,230,0.65); font-size:0.9rem;}
+  .grid3{display:grid; grid-template-columns:repeat(3,1fr); gap:26px;}
+  @media (max-width:860px){.grid3{grid-template-columns:1fr;}}
+  .review-card{
+    border:1px solid rgba(251,244,230,0.18); padding:28px; border-radius:6px;
+    background:rgba(251,244,230,0.04);
+  }
+  .review-card .quote{font-size:0.96rem; line-height:1.6; margin-bottom:20px;}
+  .review-card .who{font-size:0.8rem; color:rgba(251,244,230,0.6); display:flex; justify-content:space-between;}
+  .review-card .who .stars{color:var(--mustard);}
+
+  /* VISIT */
+  .visit-wrap{display:grid; grid-template-columns:1.1fr 0.9fr; gap:70px;}
+  @media (max-width:900px){.visit-wrap{grid-template-columns:1fr;}}
+  .info-row{display:flex; gap:18px; padding:18px 0; border-bottom:1px dotted var(--line);}
+  .info-row:first-child{padding-top:0;}
+  .info-row .ic{color:var(--rose); font-size:1.1rem; width:24px;}
+  .info-row .label{font-size:0.78rem; color:var(--ink-soft); margin-bottom:4px; text-transform:uppercase; letter-spacing:0.08em;}
+  .info-row .val{font-size:1rem;}
+  .hours-table{width:100%; border-collapse:collapse; margin-top:8px;}
+  .hours-table td{padding:9px 0; font-size:0.9rem; border-bottom:1px dotted var(--line); color:var(--ink-soft);}
+  .hours-table td:last-child{text-align:right; color:var(--ink);}
+  .hours-table tr.today td{color:var(--rose); font-weight:700;}
+  .map-frame{
+    border:1px solid var(--line); border-radius:6px;
+    height:100%; min-height:320px;
+    background:linear-gradient(160deg, var(--cream-2), var(--cream));
+    display:flex; align-items:center; justify-content:center;
+    flex-direction:column; gap:10px; text-align:center; padding:30px;
+  }
+  .map-frame .pin{font-size:1.8rem; color:var(--rose);}
+  .map-frame .plus-code{font-family:'Karla'; font-size:0.8rem; color:var(--ink-soft);}
+
+  footer{
+    padding:46px 6vw 34px;
+    display:flex; justify-content:space-between; align-items:center;
+    border-top:1px solid var(--line);
+    flex-wrap:wrap; gap:20px;
+    font-size:0.82rem; color:var(--ink-soft);
+  }
+  footer .brand{font-size:1rem;}
+
+  ::selection{background:var(--mustard); color:var(--ink);}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="brand"><span class="leaf">❀</span> Cafe Medley</div>
+  <div class="navlinks">
+    <a href="#favourites">Favourites</a>
+    <a href="#menu">Menu</a>
+    <a href="#about">About</a>
+    <a href="#reviews">Reviews</a>
+    <a href="#visit">Visit</a>
+  </div>
+  <a class="nav-cta" href="#visit">Reserve a Table</a>
+</nav>
+
+<section class="hero">
+  <div>
+    <div class="hero-eyebrow">✿ KHB Colony, Koramangala 5th Block</div>
+    <h1>A quiet table,<br><span class="ital">always set.</span></h1>
+    <p class="hero-sub">Cafe Medley is the calm corner of Koramangala — pancakes in the morning, sizzlers by evening, and a cozy room that regulars come back to unwind in.</p>
+    <div class="hero-ctas">
+      <a class="btn-primary" href="#favourites">See the Favourites</a>
+      <a class="btn-ghost" href="#visit">Find Us</a>
+    </div>
+    <div class="hero-stats">
+      <div><span class="big">4.4 ★</span><span class="label">2,527 Google reviews</span></div>
+      <div><span class="big">₹200–600</span><span class="label">per person</span></div>
+      <div><span class="big">10:30am–10:30pm</span><span class="label">open daily</span></div>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="ring r1"></div>
+    <div class="ring r2"></div>
+    <div class="stamp">
+      <div class="stamp-text">
+        <span class="top">Today's Table</span>
+        <span class="mid">Medley</span>
+        <span class="bottom">est. Koramangala</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="menu-strip" id="favourites">
+  <div class="section-head">
+    <div>
+      <div class="eyebrow">~ what people order ~</div>
+      <h2>The Regulars' Picks</h2>
+    </div>
+    <p>The dishes that keep showing up in every review — order one of these on your first visit.</p>
+  </div>
+  <div class="polagrid">
+    <div class="pola">
+      <div class="pola-img">🥞</div>
+      <h3>Pancakes</h3>
+      <span class="tag">most popular</span>
+      <p>Fluffy, simple, and the dish most people search the menu for first.</p>
+    </div>
+    <div class="pola">
+      <div class="pola-img">🍗</div>
+      <h3>Chicken Steak Sizzler</h3>
+      <span class="tag">house favourite</span>
+      <p>Arrives still hissing on the plate — the table-stopper of the menu.</p>
+    </div>
+    <div class="pola">
+      <div class="pola-img">🍰</div>
+      <h3>Cheesecake</h3>
+      <span class="tag">53 mentions</span>
+      <p>Dense, classic, and the most-photographed dessert on the table.</p>
+    </div>
+    <div class="pola">
+      <div class="pola-img">🍔</div>
+      <h3>Classic Chicken Burger</h3>
+      <span class="tag">33 mentions</span>
+      <p>Juicy and well-seasoned — go for the combo if you want more on the plate.</p>
+    </div>
+  </div>
+</section>
+
+<section id="menu">
+  <div class="section-head">
+    <div>
+      <div class="eyebrow">~ on the menu ~</div>
+      <h2>A Little Bit of Everything</h2>
+    </div>
+    <p>Cafe Medley — a mix of comfort plates, grills, and all-day breakfast, true to the name.</p>
+  </div>
+  <div class="menu-cols">
+    <div>
+      <div class="menu-cat-title">Mains &amp; Grills</div>
+      <div class="menu-item">
+        <div><div class="name">Chilli Chicken Corn Spinach Cheese Grill</div><div class="desc">Reviewer favourite — rich, melty, and worth the order on its own.</div></div>
+        <div class="price">₹420</div>
+      </div>
+      <div class="menu-item">
+        <div><div class="name">Classic Chicken White Pasta</div><div class="desc">Creamy, comforting, frequently recommended alongside the grill.</div></div>
+        <div class="price">₹380</div>
+      </div>
+      <div class="menu-item">
+        <div><div class="name">Chicken Keema Pav</div><div class="desc">A regular's order — soft pav with a well-spiced keema filling.</div></div>
+        <div class="price">₹260</div>
+      </div>
+      <div class="menu-item">
+        <div><div class="name">Chicken Wings</div><div class="desc">Crisp outside, juicy inside, built for sharing over conversation.</div></div>
+        <div class="price">₹320</div>
+      </div>
+    </div>
+    <div>
+      <div class="menu-cat-title">Cafe &amp; All-Day</div>
+      <div class="menu-item">
+        <div><div class="name">Pancakes</div><div class="desc">The most-ordered plate on the menu, any time of day.</div></div>
+        <div class="price">₹240</div>
+      </div>
+      <div class="menu-item">
+        <div><div class="name">Chicken Steak Sizzler</div><div class="desc">Comes out sizzling, a table favourite for a reason.</div></div>
+        <div class="price">₹450</div>
+      </div>
+      <div class="menu-item">
+        <div><div class="name">Panini</div><div class="desc">Pressed, simple, and a reliable lighter option.</div></div>
+        <div class="price">₹220</div>
+      </div>
+      <div class="menu-item">
+        <div><div class="name">Cappuccino</div><div class="desc">The cafe's quiet anchor — order it slow, stay a while.</div></div>
+        <div class="price">₹150</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="about-wrap">
+    <div class="about-visual">
+      <div class="coffee-ring cr1"></div>
+      <div class="coffee-ring cr2"></div>
+      <div class="center-text">"cozy, calm, and perfect to just sit and hang out"</div>
+    </div>
+    <div>
+      <div class="eyebrow">~ our story ~</div>
+      <h2 style="font-size:clamp(2rem,4vw,2.8rem); margin-bottom:24px;">A calm corner on 17th C Main Road</h2>
+      <p>Cafe Medley sits in KHB Colony, Koramangala 5th Block — easy to find on the main road, and easy to park a two-wheeler outside. It's the kind of place people stumble on while looking for somewhere quiet to unwind, and end up adding to their regular rotation.</p>
+      <p>The room is warm without trying hard, the staff remember your order by the second visit, and the menu does comfort food properly — from sizzlers to pancakes to a cheesecake people keep photographing before they eat it.</p>
+      <div class="stat-strip">
+        <div class="stat"><span class="big">4.4</span><span class="label">average rating</span></div>
+        <div class="stat"><span class="big">2,527</span><span class="label">Google reviews</span></div>
+        <div class="stat"><span class="big">₹200–600</span><span class="label">per person</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="reviews" id="reviews">
+  <div class="section-head">
+    <div>
+      <div class="eyebrow">~ in their words ~</div>
+      <h2>What the Regulars Say</h2>
+    </div>
+    <p></p>
+  </div>
+  <div class="review-rating">
+    <div class="score">4.4</div>
+    <div>
+      <div class="stars">★★★★☆</div>
+      <div class="count">2,527 reviews on Google</div>
+    </div>
+  </div>
+  <div class="grid3">
+    <div class="review-card">
+      <p class="quote">"Cozy, calm, and perfect to just sit and hang out. The owner and staff were very warm and welcoming. Tried the classic chicken burger and it was great."</p>
+      <div class="who"><span>Afifa Imran, Local Guide</span><span class="stars">★★★★★</span></div>
+    </div>
+    <div class="review-card">
+      <p class="quote">"Found this cafe while looking for a few locations around Koramangala to spend some peaceful time — located on the main road, easy to find, easy to park."</p>
+      <div class="who"><span>Chetan Desai, Local Guide</span><span class="stars">★★★★☆</span></div>
+    </div>
+    <div class="review-card">
+      <p class="quote">"Was looking for a calm, comfortable place to unwind around Koramangala, and it turned out to be a great find."</p>
+      <div class="who"><span>Rajat Tripathi, Local Guide</span><span class="stars">★★★★★</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="visit">
+  <div class="section-head">
+    <div>
+      <div class="eyebrow">~ come by ~</div>
+      <h2>Plan Your Visit</h2>
+    </div>
+    <p>Dine-in, takeaway, and no-contact delivery all available. Tables can be reserved ahead.</p>
+  </div>
+  <div class="visit-wrap">
+    <div>
+      <div class="info-row">
+        <div class="ic">✦</div>
+        <div><div class="label">Address</div><div class="val">473, 17th C Main Rd, KHB Colony, Koramangala 5th Block, Bengaluru, Karnataka 560095</div></div>
+      </div>
+      <div class="info-row">
+        <div class="ic">✦</div>
+        <div><div class="label">Phone</div><div class="val">080 4116 0865</div></div>
+      </div>
+      <div class="info-row">
+        <div class="ic">✦</div>
+        <div><div class="label">Price Range</div><div class="val">₹200 – ₹600 per person</div></div>
+      </div>
+      <div class="info-row">
+        <div class="ic">✦</div>
+        <div><div class="label">Service Options</div><div class="val">Dine-in · Takeaway · No-contact delivery</div></div>
+      </div>
+      <table class="hours-table">
+        <tr><td>Monday</td><td>10:30 am – 10:30 pm</td></tr>
+        <tr><td>Tuesday</td><td>10:30 am – 10:30 pm</td></tr>
+        <tr class="today"><td>Wednesday</td><td>10:30 am – 10:30 pm</td></tr>
+        <tr><td>Thursday – Sunday</td><td>10:30 am – 10:30 pm</td></tr>
+      </table>
+      <div class="hero-ctas" style="margin-top:32px;">
+        <a class="btn-primary" href="#">Reserve a Table</a>
+        <a class="btn-ghost" href="#">Order Online</a>
+      </div>
+    </div>
+    <div class="map-frame">
+      <div class="pin">⌖</div>
+      <div>KHB Colony, Koramangala 5th Block, Bengaluru</div>
+      <div class="plus-code">WJM9+HV Bengaluru, Karnataka</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="brand">Cafe Medley</div>
+  <div>17th C Main Rd, Koramangala 5th Block · Bengaluru</div>
+  <div>© 2026 Cafe Medley</div>
+</footer>
+
+</body>
+</html>

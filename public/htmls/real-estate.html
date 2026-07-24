@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NestFind — Real Estate Portal</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;}
+  :root{
+    --ink:#0D1117;--ink-soft:#4B5563;--ink-muted:#9CA3AF;
+    --accent:#1D4ED8;--accent-light:#EFF6FF;
+    --green:#059669;--green-light:#ECFDF5;
+    --border:#E5E7EB;--bg:#F9FAFB;--white:#fff;
+    --serif:'Instrument Serif',serif;
+    --sans:'Inter',sans-serif;
+  }
+  body{font-family:var(--sans);background:var(--white);color:var(--ink);-webkit-font-smoothing:antialiased;}
+
+  /* NAV */
+  nav{height:64px;padding:0 40px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);background:#fff;position:sticky;top:0;z-index:100;}
+  .logo{font-family:var(--serif);font-size:22px;color:var(--ink);}
+  .logo span{color:var(--accent);}
+  .nav-links{display:flex;gap:28px;}
+  .nav-links a{font-size:14px;color:var(--ink-soft);text-decoration:none;transition:color .2s;}
+  .nav-links a:hover{color:var(--ink);}
+  .nav-right{display:flex;gap:10px;align-items:center;}
+  .btn-ghost{padding:8px 18px;border-radius:8px;font-size:13px;font-weight:500;border:1px solid var(--border);background:#fff;color:var(--ink);cursor:pointer;}
+  .btn-solid{padding:8px 18px;border-radius:8px;font-size:13px;font-weight:600;background:var(--accent);color:#fff;border:none;cursor:pointer;}
+
+  /* HERO */
+  .hero{background:linear-gradient(135deg,#0D1117 0%,#1E3A5F 100%);padding:80px 40px;text-align:center;position:relative;overflow:hidden;}
+  .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 60% 40%,rgba(29,78,216,0.3),transparent 60%);}
+  .hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);border-radius:100px;padding:6px 16px;font-size:12px;color:rgba(255,255,255,0.7);margin-bottom:24px;position:relative;}
+  .hero h1{font-family:var(--serif);font-size:clamp(2.4rem,5vw,3.8rem);color:#fff;line-height:1.1;margin-bottom:16px;position:relative;}
+  .hero h1 em{font-style:italic;color:#93C5FD;}
+  .hero-sub{font-size:16px;color:rgba(255,255,255,0.6);max-width:520px;margin:0 auto 40px;line-height:1.7;position:relative;}
+
+  /* SEARCH BAR */
+  .search-bar{background:#fff;border-radius:14px;padding:8px;display:flex;gap:8px;max-width:700px;margin:0 auto;position:relative;box-shadow:0 20px 60px rgba(0,0,0,0.3);}
+  .search-select{flex:1;padding:10px 14px;border:none;border-radius:8px;font-size:14px;color:var(--ink);background:var(--bg);outline:none;font-family:var(--sans);}
+  .search-btn{padding:10px 24px;border-radius:8px;background:var(--accent);color:#fff;font-size:14px;font-weight:600;border:none;cursor:pointer;white-space:nowrap;}
+  .hero-stats{display:flex;justify-content:center;gap:48px;margin-top:40px;position:relative;}
+  .hero-stat .num{font-family:var(--serif);font-size:1.8rem;color:#fff;}
+  .hero-stat .lbl{font-size:12px;color:rgba(255,255,255,0.5);margin-top:2px;}
+
+  /* LISTINGS */
+  .section{padding:64px 40px;}
+  .section-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:32px;}
+  .section-title{font-family:var(--serif);font-size:clamp(1.6rem,3vw,2.2rem);color:var(--ink);}
+  .section-title em{font-style:italic;color:var(--accent);}
+  .see-all{font-size:13px;color:var(--accent);font-weight:500;cursor:pointer;}
+  .filter-row{display:flex;gap:8px;margin-bottom:28px;flex-wrap:wrap;}
+  .filter-pill{padding:7px 16px;border-radius:20px;font-size:12px;font-weight:500;border:1px solid var(--border);background:#fff;color:var(--ink-soft);cursor:pointer;transition:all .2s;}
+  .filter-pill.active{background:var(--accent);color:#fff;border-color:var(--accent);}
+  .filter-pill:hover:not(.active){border-color:var(--accent);color:var(--accent);}
+
+  .listings-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+  @media(max-width:900px){.listings-grid{grid-template-columns:1fr 1fr;}}
+  @media(max-width:600px){.listings-grid{grid-template-columns:1fr;}}
+
+  .listing-card{border:1px solid var(--border);border-radius:14px;overflow:hidden;background:#fff;transition:box-shadow .25s,transform .25s;cursor:pointer;}
+  .listing-card:hover{box-shadow:0 12px 40px rgba(0,0,0,0.1);transform:translateY(-3px);}
+  .listing-img{height:200px;position:relative;display:flex;align-items:center;justify-content:center;font-size:48px;}
+  .listing-img.l1{background:linear-gradient(135deg,#E0E8F0,#C8D8E8);}
+  .listing-img.l2{background:linear-gradient(135deg,#E8E0F0,#D8C8E8);}
+  .listing-img.l3{background:linear-gradient(135deg,#E0F0E8,#C8E8D8);}
+  .listing-img.l4{background:linear-gradient(135deg,#F0E8E0,#E8D8C8);}
+  .listing-img.l5{background:linear-gradient(135deg,#E8F0E0,#D8E8C8);}
+  .listing-img.l6{background:linear-gradient(135deg,#F0E0E8,#E8C8D8);}
+  .listing-badge{position:absolute;top:12px;left:12px;padding:4px 10px;border-radius:6px;font-size:11px;font-weight:600;}
+  .badge-sale{background:var(--accent);color:#fff;}
+  .badge-rent{background:var(--green);color:#fff;}
+  .badge-new{background:#F59E0B;color:#fff;}
+  .wishlist{position:absolute;top:12px;right:12px;width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,0.9);display:flex;align-items:center;justify-content:center;font-size:14px;cursor:pointer;}
+  .listing-body{padding:16px;}
+  .listing-price{font-size:18px;font-weight:700;color:var(--ink);}
+  .listing-price span{font-size:12px;font-weight:400;color:var(--ink-muted);}
+  .listing-title{font-size:14px;font-weight:500;color:var(--ink);margin:4px 0;}
+  .listing-loc{font-size:12px;color:var(--ink-muted);display:flex;align-items:center;gap:4px;margin-bottom:12px;}
+  .listing-specs{display:flex;gap:16px;padding-top:12px;border-top:1px solid var(--border);}
+  .spec{font-size:12px;color:var(--ink-soft);display:flex;align-items:center;gap:4px;}
+
+  /* MAP SECTION */
+  .map-section{padding:0 40px 64px;}
+  .map-wrap{border-radius:16px;overflow:hidden;border:1px solid var(--border);display:grid;grid-template-columns:1fr 360px;height:480px;}
+  @media(max-width:900px){.map-wrap{grid-template-columns:1fr;height:auto;}}
+  .map-area{background:linear-gradient(135deg,#E8EDF5,#D0DAE8);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px;color:var(--ink-soft);}
+  .map-area .pin{font-size:2.5rem;}
+  .map-panel{background:#fff;border-left:1px solid var(--border);padding:24px;overflow-y:auto;}
+  .map-panel-title{font-size:14px;font-weight:600;color:var(--ink);margin-bottom:16px;}
+  .map-listing{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--border);cursor:pointer;}
+  .map-listing:last-child{border-bottom:none;}
+  .map-listing-img{width:60px;height:60px;border-radius:8px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:24px;}
+  .ml1{background:linear-gradient(135deg,#E0E8F0,#C8D8E8);}
+  .ml2{background:linear-gradient(135deg,#E8E0F0,#D8C8E8);}
+  .ml3{background:linear-gradient(135deg,#E0F0E8,#C8E8D8);}
+  .map-listing-info .price{font-size:14px;font-weight:700;color:var(--ink);}
+  .map-listing-info .name{font-size:12px;color:var(--ink-soft);margin-top:2px;}
+  .map-listing-info .loc{font-size:11px;color:var(--ink-muted);margin-top:2px;}
+
+  footer{padding:32px 40px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--ink-muted);}
+  .footer-logo{font-family:var(--serif);font-size:18px;color:var(--ink);}
+  .footer-logo span{color:var(--accent);}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">Nest<span>Find</span></div>
+  <div class="nav-links">
+    <a href="#">Buy</a>
+    <a href="#">Rent</a>
+    <a href="#">New Projects</a>
+    <a href="#">Commercial</a>
+    <a href="#">Agents</a>
+  </div>
+  <div class="nav-right">
+    <button class="btn-ghost">Sign In</button>
+    <button class="btn-solid">List Property</button>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-eyebrow">🏠 500+ verified listings across Karnataka</div>
+  <h1>Find Your <em>Perfect</em><br>Home in India</h1>
+  <p class="hero-sub">Search from thousands of verified properties — apartments, villas, plots, and commercial spaces across major cities.</p>
+  <div class="search-bar">
+    <select class="search-select"><option>Buy</option><option>Rent</option><option>New Projects</option></select>
+    <select class="search-select"><option>Bengaluru</option><option>Mumbai</option><option>Hyderabad</option><option>Pune</option></select>
+    <select class="search-select"><option>Any Budget</option><option>Under ₹50L</option><option>₹50L–1Cr</option><option>Above ₹1Cr</option></select>
+    <button class="search-btn">Search →</button>
+  </div>
+  <div class="hero-stats">
+    <div class="hero-stat"><div class="num">12,400+</div><div class="lbl">Active Listings</div></div>
+    <div class="hero-stat"><div class="num">8,200+</div><div class="lbl">Happy Buyers</div></div>
+    <div class="hero-stat"><div class="num">320+</div><div class="lbl">Verified Agents</div></div>
+    <div class="hero-stat"><div class="num">18</div><div class="lbl">Cities Covered</div></div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header">
+    <div class="section-title">Featured <em>Listings</em></div>
+    <div class="see-all">View all properties →</div>
+  </div>
+  <div class="filter-row">
+    <div class="filter-pill active">All</div>
+    <div class="filter-pill">Apartment</div>
+    <div class="filter-pill">Villa</div>
+    <div class="filter-pill">Plot</div>
+    <div class="filter-pill">Commercial</div>
+    <div class="filter-pill">Under ₹50L</div>
+    <div class="filter-pill">Ready to Move</div>
+  </div>
+  <div class="listings-grid">
+    <div class="listing-card">
+      <div class="listing-img l1">🏢<span class="listing-badge badge-sale">For Sale</span><div class="wishlist">♡</div></div>
+      <div class="listing-body">
+        <div class="listing-price">₹85,00,000 <span>onwards</span></div>
+        <div class="listing-title">Prestige Lakeside Residences</div>
+        <div class="listing-loc">📍 Whitefield, Bengaluru</div>
+        <div class="listing-specs">
+          <div class="spec">🛏 3 BHK</div>
+          <div class="spec">🚿 2 Bath</div>
+          <div class="spec">📐 1,450 sqft</div>
+        </div>
+      </div>
+    </div>
+    <div class="listing-card">
+      <div class="listing-img l2">🏠<span class="listing-badge badge-rent">For Rent</span><div class="wishlist">♡</div></div>
+      <div class="listing-body">
+        <div class="listing-price">₹32,000 <span>/month</span></div>
+        <div class="listing-title">Modern Villa with Garden</div>
+        <div class="listing-loc">📍 Koramangala, Bengaluru</div>
+        <div class="listing-specs">
+          <div class="spec">🛏 4 BHK</div>
+          <div class="spec">🚿 3 Bath</div>
+          <div class="spec">📐 2,800 sqft</div>
+        </div>
+      </div>
+    </div>
+    <div class="listing-card">
+      <div class="listing-img l3">🏗<span class="listing-badge badge-new">New Launch</span><div class="wishlist">♡</div></div>
+      <div class="listing-body">
+        <div class="listing-price">₹62,00,000 <span>onwards</span></div>
+        <div class="listing-title">Sobha City — Phase 3</div>
+        <div class="listing-loc">📍 Hebbal, Bengaluru</div>
+        <div class="listing-specs">
+          <div class="spec">🛏 2 BHK</div>
+          <div class="spec">🚿 2 Bath</div>
+          <div class="spec">📐 1,100 sqft</div>
+        </div>
+      </div>
+    </div>
+    <div class="listing-card">
+      <div class="listing-img l4">🏡<span class="listing-badge badge-sale">For Sale</span><div class="wishlist">♡</div></div>
+      <div class="listing-body">
+        <div class="listing-price">₹1,20,00,000</div>
+        <div class="listing-title">Independent House — Corner Plot</div>
+        <div class="listing-loc">📍 JP Nagar, Bengaluru</div>
+        <div class="listing-specs">
+          <div class="spec">🛏 5 BHK</div>
+          <div class="spec">🚿 4 Bath</div>
+          <div class="spec">📐 3,200 sqft</div>
+        </div>
+      </div>
+    </div>
+    <div class="listing-card">
+      <div class="listing-img l5">🏢<span class="listing-badge badge-rent">For Rent</span><div class="wishlist">♡</div></div>
+      <div class="listing-body">
+        <div class="listing-price">₹18,000 <span>/month</span></div>
+        <div class="listing-title">Brigade Gateway Apartment</div>
+        <div class="listing-loc">📍 Rajajinagar, Bengaluru</div>
+        <div class="listing-specs">
+          <div class="spec">🛏 2 BHK</div>
+          <div class="spec">🚿 2 Bath</div>
+          <div class="spec">📐 980 sqft</div>
+        </div>
+      </div>
+    </div>
+    <div class="listing-card">
+      <div class="listing-img l6">🏬<span class="listing-badge badge-sale">Commercial</span><div class="wishlist">♡</div></div>
+      <div class="listing-body">
+        <div class="listing-price">₹2,40,00,000</div>
+        <div class="listing-title">Office Space — Tech Park</div>
+        <div class="listing-loc">📍 Electronic City, Bengaluru</div>
+        <div class="listing-specs">
+          <div class="spec">🏢 Office</div>
+          <div class="spec">🚗 Parking</div>
+          <div class="spec">📐 4,500 sqft</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="map-section">
+  <div class="map-wrap">
+    <div class="map-area">
+      <div class="pin">🗺</div>
+      <div style="font-size:15px;font-weight:600;color:#374151;">Interactive Map View</div>
+      <div style="font-size:13px;">Browse properties by location</div>
+    </div>
+    <div class="map-panel">
+      <div class="map-panel-title">Nearby Properties</div>
+      <div class="map-listing">
+        <div class="map-listing-img ml1">🏢</div>
+        <div class="map-listing-info">
+          <div class="price">₹85L</div>
+          <div class="name">Prestige Lakeside</div>
+          <div class="loc">📍 Whitefield · 3 BHK</div>
+        </div>
+      </div>
+      <div class="map-listing">
+        <div class="map-listing-img ml2">🏠</div>
+        <div class="map-listing-info">
+          <div class="price">₹32K/mo</div>
+          <div class="name">Modern Villa</div>
+          <div class="loc">📍 Koramangala · 4 BHK</div>
+        </div>
+      </div>
+      <div class="map-listing">
+        <div class="map-listing-img ml3">🏗</div>
+        <div class="map-listing-info">
+          <div class="price">₹62L</div>
+          <div class="name">Sobha City Ph.3</div>
+          <div class="loc">📍 Hebbal · 2 BHK</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-logo">Nest<span>Find</span></div>
+  <div>© 2025 NestFind · Built by CPNexs</div>
+  <div>Privacy · Terms · Sitemap</div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ÔURA — AI Fashion Store</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --white:   #FFFFFF;
+      --snow:    #F9F8F6;
+      --fog:     #F2F0EC;
+      --stone:   #E4E1DB;
+      --warm:    #C8C3B8;
+      --mid:     #8C8880;
+      --ink:     #2A2825;
+      --ink2:    #1A1917;
+      --accent:  #3D6B4F;   /* forest green — AI tag */
+      --tag-bg:  #EAF0EC;
+      --sans: 'DM Sans', sans-serif;
+      --serif: 'Cormorant Garamond', serif;
+      --mono: 'DM Mono', monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--sans); background: var(--white); color: var(--ink); overflow-x: hidden; }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky; top: 0; z-index: 200;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--stone);
+      display: flex; align-items: center;
+      justify-content: space-between;
+      padding: 0 48px; height: 64px;
+    }
+    .nav-left { display: flex; align-items: center; gap: 36px; }
+    .nav-logo {
+      font-family: var(--serif);
+      font-size: 26px; font-weight: 600;
+      letter-spacing: 4px; text-transform: uppercase;
+      color: var(--ink2);
+    }
+    .nav-links { display: flex; gap: 28px; }
+    .nav-links a {
+      font-size: 13px; font-weight: 400;
+      color: var(--mid); text-decoration: none;
+      letter-spacing: 0.5px;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--ink); }
+    .nav-right { display: flex; align-items: center; gap: 20px; }
+    .ai-chip {
+      display: flex; align-items: center; gap: 6px;
+      padding: 5px 12px; border-radius: 20px;
+      background: var(--tag-bg);
+      font-size: 11px; font-weight: 500;
+      color: var(--accent); font-family: var(--mono);
+      letter-spacing: 0.3px;
+    }
+    .ai-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+    .nav-icon { width: 38px; height: 38px; border-radius: 8px; border: 1px solid var(--stone); display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 16px; transition: background 0.2s; }
+    .nav-icon:hover { background: var(--fog); }
+    .cart-badge { position: relative; }
+    .badge { position: absolute; top: -4px; right: -4px; width: 16px; height: 16px; border-radius: 50%; background: var(--ink2); color: white; font-size: 9px; display: flex; align-items: center; justify-content: center; font-weight: 600; }
+
+    /* ── HERO ── */
+    .hero {
+      display: grid; grid-template-columns: 1fr 1fr;
+      min-height: calc(100vh - 64px);
+    }
+    .hero-left {
+      background: var(--fog);
+      display: flex; flex-direction: column;
+      justify-content: flex-end;
+      padding: 64px 56px;
+      position: relative; overflow: hidden;
+    }
+    /* big editorial image placeholder with CSS art */
+    .hero-image-area {
+      position: absolute; inset: 0;
+      overflow: hidden;
+    }
+    .hero-image-area img {
+      width: 100%; height: 100%; object-fit: cover;
+    }
+    .hero-image-area::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(20,18,16,0.55) 0%, transparent 60%);
+    }
+
+    .hero-content { position: relative; z-index: 2; }
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: var(--mono); font-size: 11px;
+      color: var(--accent); letter-spacing: 1px;
+      text-transform: uppercase; margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-family: var(--serif);
+      font-size: clamp(52px, 6vw, 80px);
+      font-weight: 300; line-height: 1.05;
+      letter-spacing: -1px; color: var(--ink2);
+    }
+    .hero h1 em { font-style: italic; font-weight: 300; }
+    .hero-sub {
+      margin-top: 20px; font-size: 14px;
+      color: var(--mid); line-height: 1.7;
+      max-width: 340px;
+    }
+    .hero-actions { margin-top: 36px; display: flex; gap: 12px; }
+    .btn-dark {
+      padding: 13px 28px; border-radius: 4px;
+      background: var(--ink2); color: white;
+      font-size: 13px; font-weight: 500;
+      border: none; cursor: pointer;
+      letter-spacing: 0.5px;
+      transition: background 0.2s;
+    }
+    .btn-dark:hover { background: #111; }
+    .btn-outline {
+      padding: 13px 28px; border-radius: 4px;
+      background: transparent; color: var(--ink);
+      font-size: 13px; font-weight: 400;
+      border: 1px solid var(--stone);
+      cursor: pointer; letter-spacing: 0.5px;
+      transition: border-color 0.2s;
+    }
+    .btn-outline:hover { border-color: var(--mid); }
+
+    /* hero right — AI stylist panel */
+    .hero-right {
+      background: var(--white);
+      display: flex; flex-direction: column;
+      justify-content: center;
+      padding: 64px 56px;
+      border-left: 1px solid var(--stone);
+    }
+    .panel-label {
+      font-family: var(--mono); font-size: 11px;
+      color: var(--accent); letter-spacing: 1.5px;
+      text-transform: uppercase; margin-bottom: 24px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .panel-label::after { content: ''; flex: 1; height: 1px; background: var(--stone); }
+    .stylist-chat {
+      background: var(--snow);
+      border: 1px solid var(--stone);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+    .chat-msg {
+      display: flex; gap: 10px; margin-bottom: 16px;
+    }
+    .chat-msg:last-child { margin-bottom: 0; }
+    .chat-avatar {
+      width: 32px; height: 32px; border-radius: 50%;
+      flex-shrink: 0; display: flex; align-items: center;
+      justify-content: center; font-size: 14px;
+    }
+    .chat-avatar.ai { background: var(--tag-bg); }
+    .chat-avatar.user { background: var(--stone); }
+    .chat-bubble {
+      background: white; border: 1px solid var(--stone);
+      border-radius: 0 10px 10px 10px;
+      padding: 10px 14px; font-size: 13px;
+      line-height: 1.6; color: var(--ink);
+    }
+    .chat-bubble.user-bubble {
+      background: var(--ink2); color: white;
+      border-radius: 10px 0 10px 10px;
+      border-color: transparent;
+    }
+    .chat-input-row {
+      display: flex; gap: 8px;
+    }
+    .chat-input {
+      flex: 1; padding: 11px 16px;
+      border-radius: 8px; border: 1px solid var(--stone);
+      font-size: 13px; font-family: var(--sans);
+      color: var(--ink); background: white;
+      outline: none;
+    }
+    .chat-input:focus { border-color: var(--accent); }
+    .chat-send {
+      padding: 11px 18px; border-radius: 8px;
+      background: var(--accent); color: white;
+      border: none; cursor: pointer; font-size: 16px;
+      transition: opacity 0.2s;
+    }
+    .chat-send:hover { opacity: 0.85; }
+
+    /* AI picks row */
+    .ai-picks-label {
+      font-size: 12px; color: var(--mid); margin-bottom: 14px;
+    }
+    .ai-picks-row {
+      display: flex; gap: 12px;
+    }
+    .ai-pick {
+      flex: 1; border: 1px solid var(--stone);
+      border-radius: 10px; overflow: hidden;
+      cursor: pointer; transition: border-color 0.2s;
+    }
+    .ai-pick:hover { border-color: var(--accent); }
+    .pick-img {
+      height: 110px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 32px;
+    }
+    .pick-img.c1,.pick-img.c2,.pick-img.c3 { background: #f0ede8; position: relative; overflow: hidden; }
+    .pick-img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .pick-info { padding: 10px 12px; }
+    .pick-name { font-size: 12px; font-weight: 500; color: var(--ink); }
+    .pick-price { font-size: 11px; color: var(--mid); margin-top: 2px; }
+    .pick-match {
+      font-family: var(--mono); font-size: 10px;
+      color: var(--accent); margin-top: 4px;
+    }
+
+    /* ── CATEGORIES ── */
+    .cats-section {
+      padding: 80px 48px;
+      border-top: 1px solid var(--stone);
+    }
+    .section-header {
+      display: flex; align-items: baseline;
+      justify-content: space-between; margin-bottom: 40px;
+    }
+    .section-heading {
+      font-family: var(--serif);
+      font-size: clamp(28px, 3vw, 40px);
+      font-weight: 400; letter-spacing: -0.5px;
+    }
+    .section-heading em { font-style: italic; }
+    .see-all {
+      font-size: 13px; color: var(--mid);
+      text-decoration: underline; text-underline-offset: 4px;
+      cursor: pointer; border: none; background: none;
+    }
+    .cats-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
+    }
+    .cat-card {
+      position: relative; border-radius: 10px;
+      overflow: hidden; cursor: pointer;
+      aspect-ratio: 3/4;
+    }
+    .cat-bg {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 48px;
+      transition: transform 0.4s ease;
+    }
+    .cat-card:hover .cat-bg { transform: scale(1.04); }
+    .cat-bg.c1 { background: #EDE8E0; }
+    .cat-bg.c2 { background: #E0E8EC; }
+    .cat-bg.c3 { background: #ECE0E8; }
+    .cat-bg.c4 { background: #E8ECE0; }
+    .cat-bg img { width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; }
+    .cat-overlay {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 20px 18px;
+      background: linear-gradient(to top, rgba(30,28,26,0.7) 0%, transparent 100%);
+    }
+    .cat-name {
+      font-family: var(--serif); font-size: 20px;
+      font-weight: 400; color: white; letter-spacing: 0.5px;
+    }
+    .cat-count { font-size: 12px; color: rgba(255,255,255,0.65); margin-top: 2px; }
+
+    /* ── PRODUCT GRID ── */
+    .products-section {
+      padding: 80px 48px;
+      background: var(--snow);
+      border-top: 1px solid var(--stone);
+    }
+    .filter-row {
+      display: flex; gap: 8px; margin-bottom: 40px; flex-wrap: wrap;
+    }
+    .filter-pill {
+      padding: 8px 18px; border-radius: 30px;
+      font-size: 12px; font-weight: 400;
+      border: 1px solid var(--stone);
+      background: white; color: var(--mid);
+      cursor: pointer; transition: all 0.2s;
+    }
+    .filter-pill.active {
+      background: var(--ink2); color: white; border-color: var(--ink2);
+    }
+    .filter-pill:hover:not(.active) { border-color: var(--mid); color: var(--ink); }
+    .ai-filter-pill {
+      padding: 8px 18px; border-radius: 30px;
+      font-size: 12px; font-weight: 500;
+      border: 1px solid var(--accent);
+      background: var(--tag-bg); color: var(--accent);
+      cursor: pointer; font-family: var(--mono);
+      letter-spacing: 0.3px;
+    }
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 24px;
+    }
+    .product-card {
+      background: white; border-radius: 10px;
+      border: 1px solid var(--stone);
+      overflow: hidden; cursor: pointer;
+      transition: box-shadow 0.25s, transform 0.25s;
+    }
+    .product-card:hover {
+      box-shadow: 0 8px 32px rgba(42,40,37,0.1);
+      transform: translateY(-2px);
+    }
+    .product-img {
+      aspect-ratio: 3/4;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 52px; position: relative;
+    }
+    .p1,.p2,.p3,.p4,.p5,.p6,.p7,.p8 { background: #f0ede8; }
+    .product-img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .ai-badge {
+      position: absolute; top: 12px; left: 12px;
+      padding: 4px 10px; border-radius: 20px;
+      background: var(--tag-bg); color: var(--accent);
+      font-family: var(--mono); font-size: 10px; font-weight: 500;
+      letter-spacing: 0.3px;
+    }
+    .sale-badge {
+      position: absolute; top: 12px; right: 12px;
+      padding: 4px 10px; border-radius: 20px;
+      background: var(--ink2); color: white;
+      font-size: 10px; font-weight: 600;
+    }
+    .wishlist-btn {
+      position: absolute; bottom: 12px; right: 12px;
+      width: 34px; height: 34px; border-radius: 50%;
+      background: white; border: 1px solid var(--stone);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; cursor: pointer;
+      opacity: 0; transition: opacity 0.2s;
+    }
+    .product-card:hover .wishlist-btn { opacity: 1; }
+    .product-info { padding: 16px 18px 20px; }
+    .product-brand { font-size: 10px; color: var(--warm); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+    .product-name { font-size: 14px; font-weight: 400; color: var(--ink); line-height: 1.4; }
+    .product-bottom {
+      display: flex; align-items: center;
+      justify-content: space-between; margin-top: 10px;
+    }
+    .product-price { font-size: 15px; font-weight: 500; color: var(--ink2); }
+    .product-price .original { font-size: 12px; color: var(--warm); text-decoration: line-through; margin-left: 6px; font-weight: 400; }
+    .product-rating { font-size: 11px; color: var(--mid); display: flex; align-items: center; gap: 3px; }
+    .color-dots { display: flex; gap: 5px; margin-top: 10px; }
+    .color-dot { width: 12px; height: 12px; border-radius: 50%; border: 1px solid var(--stone); cursor: pointer; }
+
+    /* ── AI STYLE QUIZ BANNER ── */
+    .quiz-banner {
+      margin: 0 48px;
+      background: var(--ink2);
+      border-radius: 16px; overflow: hidden;
+      display: grid; grid-template-columns: 1fr 1fr;
+    }
+    .quiz-left { padding: 56px 52px; }
+    .quiz-tag {
+      font-family: var(--mono); font-size: 11px;
+      color: var(--accent); letter-spacing: 1.5px;
+      text-transform: uppercase; margin-bottom: 18px;
+    }
+    .quiz-left h2 {
+      font-family: var(--serif);
+      font-size: clamp(30px, 3.5vw, 48px);
+      font-weight: 300; line-height: 1.1;
+      color: white; letter-spacing: -0.5px;
+    }
+    .quiz-left h2 em { font-style: italic; color: rgba(255,255,255,0.6); }
+    .quiz-left p { margin-top: 16px; font-size: 14px; color: rgba(255,255,255,0.5); line-height: 1.7; max-width: 360px; }
+    .btn-light {
+      display: inline-block; margin-top: 32px;
+      padding: 13px 28px; border-radius: 4px;
+      background: white; color: var(--ink2);
+      font-size: 13px; font-weight: 500;
+      border: none; cursor: pointer; letter-spacing: 0.3px;
+      transition: background 0.2s;
+    }
+    .btn-light:hover { background: var(--fog); }
+    .quiz-right {
+      background: rgba(255,255,255,0.03);
+      border-left: 1px solid rgba(255,255,255,0.08);
+      padding: 40px 44px;
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    .quiz-step {
+      display: flex; align-items: flex-start; gap: 16px;
+      padding: 16px 0; border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .quiz-step:last-child { border-bottom: none; }
+    .step-icon {
+      width: 36px; height: 36px; border-radius: 8px;
+      background: rgba(255,255,255,0.06);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; flex-shrink: 0;
+    }
+    .step-text h4 { font-size: 14px; font-weight: 500; color: white; margin-bottom: 4px; }
+    .step-text p { font-size: 12px; color: rgba(255,255,255,0.4); line-height: 1.5; }
+
+    /* ── TRENDING ── */
+    .trending-section {
+      padding: 80px 48px;
+      border-top: 1px solid var(--stone);
+    }
+    .trend-grid {
+      display: grid; grid-template-columns: 2fr 1fr 1fr;
+      gap: 16px; margin-top: 40px;
+    }
+    .trend-main {
+      background: var(--fog); border-radius: 12px;
+      overflow: hidden; position: relative;
+      display: flex; align-items: flex-end;
+      min-height: 420px;
+    }
+    .trend-main-bg {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 80px;
+    }
+    .trend-main-bg img { width: 100%; height: 100%; object-fit: cover; }
+    .trend-main-info {
+      position: relative; z-index: 2;
+      padding: 28px;
+      background: linear-gradient(to top, rgba(30,28,26,0.75) 0%, transparent 100%);
+      width: 100%;
+    }
+    .trend-label { font-family: var(--mono); font-size: 10px; color: rgba(255,255,255,0.6); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 6px; }
+    .trend-name { font-family: var(--serif); font-size: 26px; font-weight: 400; color: white; }
+    .trend-price { font-size: 14px; color: rgba(255,255,255,0.75); margin-top: 4px; }
+    .trend-side { display: flex; flex-direction: column; gap: 16px; }
+    .trend-small {
+      background: var(--fog); border-radius: 12px;
+      overflow: hidden; flex: 1; position: relative;
+      display: flex; align-items: flex-end; min-height: 190px;
+    }
+    .trend-small-bg {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center; font-size: 44px;
+    }
+    .ts1,.ts2,.ts3,.ts4 { background: #e8e4dc; }
+    .trend-small-bg img { width: 100%; height: 100%; object-fit: cover; }
+    .trend-small-info {
+      position: relative; z-index: 2; padding: 16px;
+      background: linear-gradient(to top, rgba(30,28,26,0.7) 0%, transparent 100%);
+      width: 100%;
+    }
+    .trend-small-info .trend-name { font-size: 16px; }
+    .trend-small-info .trend-price { font-size: 13px; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--ink2); color: white;
+      padding: 64px 48px 40px;
+      border-top: 1px solid var(--stone);
+    }
+    .footer-grid {
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 48px; margin-bottom: 56px;
+    }
+    .footer-logo {
+      font-family: var(--serif); font-size: 28px;
+      font-weight: 300; letter-spacing: 5px;
+      margin-bottom: 16px;
+    }
+    .footer-tagline { font-size: 13px; color: rgba(255,255,255,0.4); line-height: 1.6; max-width: 260px; }
+    .footer-ai-note {
+      margin-top: 20px; display: inline-flex;
+      align-items: center; gap: 8px;
+      font-family: var(--mono); font-size: 11px;
+      color: var(--accent); letter-spacing: 0.5px;
+    }
+    .footer-col h4 { font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 20px; }
+    .footer-col a { display: block; font-size: 14px; color: rgba(255,255,255,0.7); text-decoration: none; margin-bottom: 12px; transition: color 0.2s; }
+    .footer-col a:hover { color: white; }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding-top: 24px; display: flex;
+      align-items: center; justify-content: space-between;
+    }
+    .footer-bottom p { font-size: 12px; color: rgba(255,255,255,0.3); }
+    .footer-bottom-links { display: flex; gap: 20px; }
+    .footer-bottom-links a { font-size: 12px; color: rgba(255,255,255,0.3); text-decoration: none; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 0 20px; }
+      .nav-links { display: none; }
+      .hero { grid-template-columns: 1fr; }
+      .hero-right { display: none; }
+      .cats-grid { grid-template-columns: repeat(2,1fr); }
+      .quiz-banner { grid-template-columns: 1fr; margin: 0 20px; }
+      .quiz-right { display: none; }
+      .trend-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .cats-section, .products-section, .trending-section { padding: 60px 20px; }
+      .quiz-left { padding: 40px 28px; }
+    }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-left">
+    <div class="nav-logo">ÔURA</div>
+    <div class="nav-links">
+      <a href="#">New In</a>
+      <a href="#">Women</a>
+      <a href="#">Men</a>
+      <a href="#">Collections</a>
+      <a href="#">Sale</a>
+    </div>
+  </div>
+  <div class="nav-right">
+    <div class="ai-chip"><span class="ai-dot"></span> AI Stylist On</div>
+    <div class="nav-icon">🔍</div>
+    <div class="nav-icon">👤</div>
+    <div class="nav-icon cart-badge">🛍️<span class="badge">3</span></div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-left">
+    <div class="hero-image-area">
+      <img src="https://t3.ftcdn.net/jpg/01/38/81/76/360_F_138817681_4FCgB89eGIBi7W7i0g0mPJHsg9ZuZyzU.jpg" alt="Hero Fashion">
+    </div>
+    <div class="hero-content">
+      <div class="hero-tag" style="color: white; background-color: #11111189; padding:10px"><span class="ai-dot"></span> SS 2025 Collection</div>
+      <h1 style="color: white; background-color: #11111189; padding:10px">Dress with<br/><em>intention,</em><br/>not effort.</h1>
+      <p class="hero-sub" style="color: white; background-color: #11111189; padding:10px">Our AI stylist learns your taste and curates looks that feel effortlessly you — every time you visit.</p>
+      <div class="hero-actions">
+        <button class="btn-dark">Shop Now</button>
+        <button class="btn-outline" style="color: #ffffff;">Meet Your Stylist</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="panel-label"><span class="ai-dot"></span> Your AI Stylist</div>
+    <div class="stylist-chat">
+      <div class="chat-msg">
+        <div class="chat-avatar ai">✨</div>
+        <div class="chat-bubble">Hi! I'm your personal stylist. Tell me about an occasion, a mood, or a piece you love — I'll find your perfect look.</div>
+      </div>
+      <div class="chat-msg" style="flex-direction:row-reverse;">
+        <div class="chat-avatar user">👤</div>
+        <div class="chat-bubble user-bubble">Something chic for a weekend brunch, earthy tones.</div>
+      </div>
+      <div class="chat-msg">
+        <div class="chat-avatar ai">✨</div>
+        <div class="chat-bubble">Love that direction! Here are 3 outfits that match your vibe — relaxed but polished, with warm neutral tones.</div>
+      </div>
+    </div>
+    <div class="chat-input-row" style="margin-bottom:28px;">
+      <input class="chat-input" type="text" placeholder="Ask your stylist anything…"/>
+      <button class="chat-send">→</button>
+    </div>
+    <div class="ai-picks-label">AI-curated picks for you</div>
+    <div class="ai-picks-row">
+      <div class="ai-pick">
+        <div class="pick-img c1"><img src="https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=200&h=150&fit=crop" alt="Linen Wrap Dress"></div>
+        <div class="pick-info">
+          <div class="pick-name">Linen Wrap Dress</div>
+          <div class="pick-price">₹3,499</div>
+          <div class="pick-match">94% match</div>
+        </div>
+      </div>
+      <div class="ai-pick">
+        <div class="pick-img c2"><img src="https://images.unsplash.com/photo-1548624313-0396c75e4b1a?w=200&h=150&fit=crop" alt="Relaxed Blazer"></div>
+        <div class="pick-info">
+          <div class="pick-name">Relaxed Blazer</div>
+          <div class="pick-price">₹5,299</div>
+          <div class="pick-match">91% match</div>
+        </div>
+      </div>
+      <div class="ai-pick">
+        <div class="pick-img c3"><img src="https://images.unsplash.com/photo-1485462537746-965f33f7f6a7?w=200&h=150&fit=crop" alt="Silk Blend Top"></div>
+        <div class="pick-info">
+          <div class="pick-name">Silk Blend Top</div>
+          <div class="pick-price">₹2,199</div>
+          <div class="pick-match">88% match</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CATEGORIES -->
+<div class="cats-section">
+  <div class="section-header">
+    <h2 class="section-heading">Shop by <em>category</em></h2>
+    <button class="see-all">View all →</button>
+  </div>
+  <div class="cats-grid">
+    <div class="cat-card">
+      <div class="cat-bg c1" style="position:relative;"><img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=400&h=533&fit=crop" alt="Dresses"></div>
+      <div class="cat-overlay"><div class="cat-name">Dresses</div><div class="cat-count">284 styles</div></div>
+    </div>
+    <div class="cat-card">
+      <div class="cat-bg c2" style="position:relative;"><img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=400&h=533&fit=crop" alt="Outerwear"></div>
+      <div class="cat-overlay"><div class="cat-name">Outerwear</div><div class="cat-count">156 styles</div></div>
+    </div>
+    <div class="cat-card">
+      <div class="cat-bg c3" style="position:relative;"><img src="https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=400&h=533&fit=crop" alt="Bottoms"></div>
+      <div class="cat-overlay"><div class="cat-name">Bottoms</div><div class="cat-count">312 styles</div></div>
+    </div>
+    <div class="cat-card">
+      <div class="cat-bg c4" style="position:relative;"><img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=533&fit=crop" alt="Footwear"></div>
+      <div class="cat-overlay"><div class="cat-name">Footwear</div><div class="cat-count">198 styles</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- PRODUCTS -->
+<div class="products-section">
+  <div class="section-header">
+    <h2 class="section-heading"><em>New</em> arrivals</h2>
+    <button class="see-all">View all →</button>
+  </div>
+  <div class="filter-row">
+    <div class="filter-pill active">All</div>
+    <div class="filter-pill">Women</div>
+    <div class="filter-pill">Men</div>
+    <div class="filter-pill">Under ₹2000</div>
+    <div class="filter-pill">Trending</div>
+    <div class="ai-filter-pill">✦ AI Picks for You</div>
+  </div>
+  <div class="products-grid">
+
+    <div class="product-card">
+      <div class="product-img p1">
+        <img src="https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=400&h=533&fit=crop" alt="Linen Midi Dress">
+        <span class="ai-badge">✦ AI Pick</span>
+        <div class="wishlist-btn">♡</div>
+      </div>
+      <div class="product-info">
+        <div class="product-brand">Ôura Studio</div>
+        <div class="product-name">Relaxed Linen Midi Dress</div>
+        <div class="product-bottom">
+          <div class="product-price">₹3,499</div>
+          <div class="product-rating">★ 4.8 <span>(124)</span></div>
+        </div>
+        <div class="color-dots">
+          <div class="color-dot" style="background:#C8C0B4;"></div>
+          <div class="color-dot" style="background:#8B9E8A;"></div>
+          <div class="color-dot" style="background:#C4B4A8;"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="product-img p2">
+        <img src="https://images.unsplash.com/photo-1548624313-0396c75e4b1a?w=400&h=533&fit=crop" alt="Wool Coat">
+        <span class="sale-badge">−20%</span>
+        <div class="wishlist-btn">♡</div>
+      </div>
+      <div class="product-info">
+        <div class="product-brand">Ôura</div>
+        <div class="product-name">Oversized Wool Coat</div>
+        <div class="product-bottom">
+          <div class="product-price">₹7,999 <span class="original">₹9,999</span></div>
+          <div class="product-rating">★ 4.9 <span>(89)</span></div>
+        </div>
+        <div class="color-dots">
+          <div class="color-dot" style="background:#4A4A4A;"></div>
+          <div class="color-dot" style="background:#C8C0B4;"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="product-img p3">
+        <img src="https://images.unsplash.com/photo-1485462537746-965f33f7f6a7?w=400&h=533&fit=crop" alt="Silk Blouse">
+        <span class="ai-badge">✦ AI Pick</span>
+        <div class="wishlist-btn">♡</div>
+      </div>
+      <div class="product-info">
+        <div class="product-brand">Ôura Basics</div>
+        <div class="product-name">Silk Charmeuse Blouse</div>
+        <div class="product-bottom">
+          <div class="product-price">₹2,199</div>
+          <div class="product-rating">★ 4.7 <span>(212)</span></div>
+        </div>
+        <div class="color-dots">
+          <div class="color-dot" style="background:#E8D8D0;"></div>
+          <div class="color-dot" style="background:#C4CCD8;"></div>
+          <div class="color-dot" style="background:#D8E0D8;"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="product-img p4">
+        <img src="https://images.unsplash.com/photo-1509631179647-0177331693ae?w=400&h=533&fit=crop" alt="Linen Trousers">
+        <div class="wishlist-btn">♡</div>
+      </div>
+      <div class="product-info">
+        <div class="product-brand">Ôura</div>
+        <div class="product-name">Wide-Leg Linen Trousers</div>
+        <div class="product-bottom">
+          <div class="product-price">₹2,899</div>
+          <div class="product-rating">★ 4.6 <span>(76)</span></div>
+        </div>
+        <div class="color-dots">
+          <div class="color-dot" style="background:#D4CFC5;"></div>
+          <div class="color-dot" style="background:#3D3D3D;"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="product-img p5">
+        <img src="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=400&h=533&fit=crop" alt="Tote Bag">
+        <span class="ai-badge">✦ Trending</span>
+        <div class="wishlist-btn">♡</div>
+      </div>
+      <div class="product-info">
+        <div class="product-brand">Ôura Accessories</div>
+        <div class="product-name">Structured Tote Bag</div>
+        <div class="product-bottom">
+          <div class="product-price">₹4,599</div>
+          <div class="product-rating">★ 4.9 <span>(301)</span></div>
+        </div>
+        <div class="color-dots">
+          <div class="color-dot" style="background:#B8A898;"></div>
+          <div class="color-dot" style="background:#2A2825;"></div>
+          <div class="color-dot" style="background:#C4B0A8;"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="product-img p6">
+        <img src="https://images.unsplash.com/photo-1520903920243-00d872a2d1c9?w=400&h=533&fit=crop" alt="Cashmere Scarf">
+        <span class="sale-badge">−15%</span>
+        <div class="wishlist-btn">♡</div>
+      </div>
+      <div class="product-info">
+        <div class="product-brand">Ôura</div>
+        <div class="product-name">Cashmere Knit Scarf</div>
+        <div class="product-bottom">
+          <div class="product-price">₹1,699 <span class="original">₹1,999</span></div>
+          <div class="product-rating">★ 4.8 <span>(145)</span></div>
+        </div>
+        <div class="color-dots">
+          <div class="color-dot" style="background:#D4CFC5;"></div>
+          <div class="color-dot" style="background:#8B9E8A;"></div>
+          <div class="color-dot" style="background:#C0A898;"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="product-img p7">
+        <img src="https://images.unsplash.com/photo-1533867617858-e7b97e060509?w=400&h=533&fit=crop" alt="Leather Loafer">
+        <span class="ai-badge">✦ AI Pick</span>
+        <div class="wishlist-btn">♡</div>
+      </div>
+      <div class="product-info">
+        <div class="product-brand">Ôura Footwear</div>
+        <div class="product-name">Minimalist Leather Loafer</div>
+        <div class="product-bottom">
+          <div class="product-price">₹5,999</div>
+          <div class="product-rating">★ 4.7 <span>(58)</span></div>
+        </div>
+        <div class="color-dots">
+          <div class="color-dot" style="background:#C8B8A4;"></div>
+          <div class="color-dot" style="background:#2A2825;"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="product-img p8">
+        <img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&h=533&fit=crop" alt="Gold Ring">
+        <div class="wishlist-btn">♡</div>
+      </div>
+      <div class="product-info">
+        <div class="product-brand">Ôura Fine</div>
+        <div class="product-name">Demi-Fine Gold Stacking Ring</div>
+        <div class="product-bottom">
+          <div class="product-price">₹1,299</div>
+          <div class="product-rating">★ 4.9 <span>(432)</span></div>
+        </div>
+        <div class="color-dots">
+          <div class="color-dot" style="background:#D4B896;"></div>
+          <div class="color-dot" style="background:#C0C0C0;"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- AI STYLE QUIZ BANNER -->
+<div class="quiz-banner">
+  <div class="quiz-left">
+    <div class="quiz-tag">✦ AI-Powered</div>
+    <h2>Your wardrobe,<br/><em>understood.</em></h2>
+    <p>Take our 90-second style quiz. Our AI builds a taste profile that improves every time you browse, wishlist, or buy.</p>
+    <button class="btn-light">Take the Style Quiz</button>
+  </div>
+  <div class="quiz-right">
+    <div class="quiz-step">
+      <div class="step-icon">🎨</div>
+      <div class="step-text">
+        <h4>Share your aesthetic</h4>
+        <p>Pick from moods, colours, and silhouettes that speak to you.</p>
+      </div>
+    </div>
+    <div class="quiz-step">
+      <div class="step-icon">🧠</div>
+      <div class="step-text">
+        <h4>AI builds your profile</h4>
+        <p>We map your answers to a personalised style fingerprint.</p>
+      </div>
+    </div>
+    <div class="quiz-step">
+      <div class="step-icon">✨</div>
+      <div class="step-text">
+        <h4>See your curated store</h4>
+        <p>Every visit shows you products ranked for your unique taste.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TRENDING -->
+<div class="trending-section">
+  <div class="section-header">
+    <h2 class="section-heading"><em>Trending</em> now</h2>
+    <button class="see-all">View all →</button>
+  </div>
+  <div class="trend-grid">
+    <div class="trend-main">
+      <div class="trend-main-bg"><img src="https://cdn.prod.website-files.com/635a76dc72a1554a18e33d3d/63f62f2d63501a20978b56de_63c525d81c217825ecd91b15_60-best-fashion-e-commerce-sites.jpeg" alt="Trending Dress"></div>
+      <div class="trend-main-info">
+        <div class="trend-label">Best Seller · Women</div>
+        <div class="trend-name">The Signature Wrap Dress</div>
+        <div class="trend-price">From ₹3,499</div>
+      </div>
+    </div>
+    <div class="trend-side">
+      <div class="trend-small">
+        <div class="trend-small-bg ts1"><img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=400&h=300&fit=crop" alt="Trench Coat"></div>
+        <div class="trend-small-info">
+          <div class="trend-label">Outerwear</div>
+          <div class="trend-name">Trench Coat</div>
+          <div class="trend-price">₹8,499</div>
+        </div>
+      </div>
+      <div class="trend-small">
+        <div class="trend-small-bg ts2"><img src="https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=400&h=300&fit=crop" alt="Mule Sandal"></div>
+        <div class="trend-small-info">
+          <div class="trend-label">Footwear</div>
+          <div class="trend-name">Mule Sandal</div>
+          <div class="trend-price">₹3,299</div>
+        </div>
+      </div>
+    </div>
+    <div class="trend-side">
+      <div class="trend-small">
+        <div class="trend-small-bg ts3"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxcF1P72QIk9vTTFnrugQFqUztpmmpi_R0GCmS63z6G-q7mWgkCkn3yU&s=10" alt="Bucket Bag"></div>
+        <div class="trend-small-info">
+          <div class="trend-label">Accessories</div>
+          <div class="trend-name">Bucket Bag</div>
+          <div class="trend-price">₹4,199</div>
+        </div>
+      </div>
+      <div class="trend-small">
+        <div class="trend-small-bg ts4"><img src="https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?w=400&h=300&fit=crop" alt="Linen Shirt"></div>
+        <div class="trend-small-info">
+          <div class="trend-label">Tops</div>
+          <div class="trend-name">Linen Shirt</div>
+          <div class="trend-price">₹1,899</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-logo">ÔURA</div>
+      <div class="footer-tagline">Curated fashion, personalised by AI. Every visit, every look — made for you.</div>
+      <div class="footer-ai-note"><span class="ai-dot"></span> AI Stylist active for all users</div>
+    </div>
+    <div class="footer-col">
+      <h4>Shop</h4>
+      <a href="#">New In</a>
+      <a href="#">Women</a>
+      <a href="#">Men</a>
+      <a href="#">Accessories</a>
+      <a href="#">Sale</a>
+    </div>
+    <div class="footer-col">
+      <h4>Help</h4>
+      <a href="#">Size Guide</a>
+      <a href="#">Returns</a>
+      <a href="#">Track Order</a>
+      <a href="#">Contact Us</a>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <a href="#">About</a>
+      <a href="#">Sustainability</a>
+      <a href="#">Careers</a>
+      <a href="#">Press</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 Ôura. All rights reserved.</p>
+    <div class="footer-bottom-links">
+      <a href="#">Privacy</a>
+      <a href="#">Terms</a>
+      <a href="#">Cookies</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

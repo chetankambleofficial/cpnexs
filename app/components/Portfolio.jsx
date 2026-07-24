@@ -1,190 +1,216 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
-const ShoppingBagIcon = () => (<svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>);
-const HospitalIcon = () => (<svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 21h18M5 21V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16"/><path d="M9 10h6M12 7v6"/></svg>);
-const SchoolIcon = () => (<svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>);
-const UtensilsIcon = () => (<svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M18 2v20M2 2v20M6 2v6a4 4 0 0 0 4 4v10M14 2v6a4 4 0 0 0 4 4v10"/></svg>);
-const FactoryIcon = () => (<svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M2 20a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8l-7 5V8l-7 5V4H2z"/></svg>);
-const HomeIcon = () => (<svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>);
+const FONT = "var(--font-heading), 'Alegreya Sans SC', sans-serif";
 
 const projects = [
   {
-    title: "AI-Powered E-Commerce Platform",
-    industry: "Retail",
-    desc: "Full-stack e-commerce with AI product recommendations, real-time inventory, and payment gateway integration for a growing retail chain.",
-    tags: ["Next.js", "Node.js", "OpenAI", "PostgreSQL"],
-    color: "#006BFF",
-    bg: "#EAF4FF",
-    icon: <ShoppingBagIcon />,
-    span: "lg:col-span-2",
+    id: "ecommerce",
+    title: "ÔURA — AI Fashion Store",
+    industry: "E-Commerce",
+    desc: "Full-stack AI-powered fashion store with personalised stylist chat, product recommendations, and editorial design.",
+    tags: ["Next.js", "OpenAI", "Node.js", "PostgreSQL"],
+    color: "#3D6B4F",
+    file: "/htmls/ecommerce.html",
   },
   {
-    title: "Hospital Management System",
-    industry: "Healthcare",
-    desc: "Patient records, appointment booking, billing, and telemedicine platform for a multi-specialty clinic.",
-    tags: ["React", "Python", "AWS", "MongoDB"],
-    color: "#059669",
-    bg: "#ECFDF5",
-    icon: <HospitalIcon />,
-    span: "",
-  },
-  {
-    title: "School ERP & Parent App",
-    industry: "Education",
-    desc: "Complete school management — admissions, attendance, fees, results, and a parent mobile app for real-time updates.",
-    tags: ["React Native", "Node.js", "MySQL"],
-    color: "#7C3AED",
-    bg: "#F5F3FF",
-    icon: <SchoolIcon />,
-    span: "",
-  },
-  {
-    title: "Restaurant CRM & POS System",
+    id: "cafe",
+    title: "Cafe Medley — Restaurant",
     industry: "Food & Beverage",
-    desc: "Complete restaurant management — orders, inventory, staff scheduling, and customer loyalty programs in one system.",
-    tags: ["Next.js", "Node.js", "PostgreSQL"],
-    color: "#D97706",
-    bg: "#FFFBEB",
-    icon: <UtensilsIcon />,
-    span: "",
+    desc: "Warm editorial website for a Bengaluru cafe with menu, reviews, reservation system and location info.",
+    tags: ["Next.js", "Node.js", "MySQL"],
+    color: "#C97B63",
+    file: "/htmls/hotelcafe.html",
   },
   {
-    title: "Manufacturing ERP",
-    industry: "Manufacturing",
-    desc: "End-to-end manufacturing management — raw materials, production planning, quality control, and dispatch tracking.",
-    tags: ["React", "Python", "PostgreSQL", "Docker"],
-    color: "#0891B2",
-    bg: "#ECFEFF",
-    icon: <FactoryIcon />,
-    span: "",
+    id: "school",
+    title: "Vidyalaya ERP",
+    industry: "Education",
+    desc: "Complete school management system — attendance, fees, exams, staff, and parent communication in one dashboard.",
+    tags: ["React", "Python", "PostgreSQL", "AWS"],
+    color: "#2563EB",
+    file: "/htmls/school-erp.html",
   },
   {
-    title: "Real Estate Portal",
+    id: "realestate",
+    title: "NestFind — Real Estate Portal",
     industry: "Real Estate",
-    desc: "Property listing, virtual tours, lead management, and agent CRM for a real estate company with 500+ listings.",
-    tags: ["Next.js", "Node.js", "MongoDB", "AWS"],
-    color: "#DC2626",
-    bg: "#FEF2F2",
-    icon: <HomeIcon />,
-    span: "lg:col-span-2",
+    desc: "Property listing portal with map view, advanced filters, agent CRM and verified listings across 18 cities.",
+    tags: ["Next.js", "Node.js", "MongoDB", "Maps API"],
+    color: "#1D4ED8",
+    file: "/htmls/real-estate.html",
   },
 ];
 
-const fadeUp = { hidden: { opacity: 0, y: 32 }, show: { opacity: 1, y: 0 } };
+const fadeUp = { hidden: { opacity: 0, y: 24 }, show: { opacity: 1, y: 0 } };
 
 export default function Portfolio() {
+  const [active, setActive] = useState(projects[0]);
+
   return (
-    <section className="bg-white py-24">
+    <section style={{ background: "#F8FAFC", padding: "96px 0" }}>
       <div className="section-shell">
+        {/* Header */}
         <motion.div
           variants={fadeUp} initial="hidden" whileInView="show"
           viewport={{ once: true }} transition={{ duration: 0.6 }}
-          className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-14"
+          style={{ marginBottom: "56px" }}
         >
-          <div>
-            <div className="inline-flex items-center gap-2 rounded-full border border-[#006BFF]/20 bg-[#EAF4FF] px-4 py-2 mb-5">
-              <span className="text-sm font-semibold text-[#006BFF] tracking-wide" style={{ fontFamily: "var(--font-heading), 'Alegreya Sans SC', sans-serif" }}>Our Work</span>
-            </div>
-            <h2 className="text-4xl font-bold text-[#0F172A] md:text-5xl" style={{ fontFamily: "var(--font-heading), 'Alegreya Sans SC', sans-serif" }}>
-              Projects That
-              <br />
-              <span className="gradient-text">Speak for Themselves</span>
-            </h2>
+          <div style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "#EAF4FF", border: "1px solid rgba(0,107,255,0.2)", borderRadius: "100px", padding: "6px 16px", marginBottom: "20px" }}>
+            <span style={{ fontSize: "13px", fontWeight: 600, color: "#006BFF", fontFamily: FONT }}>Our Work</span>
           </div>
-          <p className="max-w-sm text-[#475569] text-base leading-7" style={{ fontFamily: "var(--font-heading), 'Alegreya Sans SC', sans-serif" }}>
-            Every project is built with precision, purpose, and a focus on real business outcomes.
-          </p>
+          <div style={{ display: "flex", flexWrap: "wrap", alignItems: "flex-end", justifyContent: "space-between", gap: "16px" }}>
+            <h2 style={{ fontSize: "clamp(2rem,4vw,3rem)", fontWeight: 700, color: "#0F172A", fontFamily: FONT, lineHeight: 1.1 }}>
+              Real Designs,<br />
+              <span style={{ background: "linear-gradient(135deg,#006BFF,#0052D9)", WebkitBackgroundClip: "text", backgroundClip: "text", WebkitTextFillColor: "transparent" }}>
+                Live Previews
+              </span>
+            </h2>
+            <p style={{ maxWidth: "380px", color: "#475569", fontSize: "15px", lineHeight: 1.7, fontFamily: FONT }}>
+              Click any project to see the actual live design — not mockups, real HTML pages we built.
+            </p>
+          </div>
         </motion.div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {projects.map((p, i) => (
-            <motion.article
-              key={p.title}
-              variants={fadeUp} initial="hidden" whileInView="show"
-              viewport={{ once: true }} transition={{ delay: i * 0.1, duration: 0.55 }}
-              whileHover={{ y: -6, boxShadow: `0 20px 60px ${p.color}18` }}
-              className={`group relative overflow-hidden rounded-2xl border border-[#E2E8F0] bg-white cursor-pointer transition-all ${p.span}`}
+        {/* Tab selector */}
+        <motion.div
+          variants={fadeUp} initial="hidden" whileInView="show"
+          viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.1 }}
+          style={{ display: "flex", gap: "10px", flexWrap: "wrap", marginBottom: "24px" }}
+        >
+          {projects.map((p) => (
+            <button
+              key={p.id}
+              onClick={() => setActive(p)}
+              style={{
+                padding: "9px 20px",
+                borderRadius: "10px",
+                border: `1.5px solid ${active.id === p.id ? p.color : "#E2E8F0"}`,
+                background: active.id === p.id ? p.color + "12" : "#fff",
+                color: active.id === p.id ? p.color : "#475569",
+                fontSize: "13px",
+                fontWeight: 600,
+                cursor: "pointer",
+                fontFamily: FONT,
+                transition: "all 0.2s",
+              }}
             >
-              {/* Preview area */}
-              <div className="relative h-48 overflow-hidden" style={{ background: p.bg }}>
-                <div className="absolute inset-0 flex items-center justify-center text-slate-800 opacity-15">
-                  {p.icon}
+              {p.industry}
+            </button>
+          ))}
+        </motion.div>
+
+        {/* Main preview */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={active.id}
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.3 }}
+            style={{ display: "grid", gridTemplateColumns: "1fr 300px", gap: "24px", alignItems: "start" }}
+            className="portfolio-main-grid"
+          >
+            {/* iframe preview */}
+            <div style={{ borderRadius: "16px", overflow: "hidden", border: "1px solid #E2E8F0", boxShadow: "0 20px 60px rgba(0,0,0,0.1)", background: "#fff" }}>
+              {/* Browser chrome */}
+              <div style={{ display: "flex", alignItems: "center", gap: "6px", padding: "10px 16px", background: "#F7FAFC", borderBottom: "1px solid #E2E8F0" }}>
+                <span style={{ width: "10px", height: "10px", borderRadius: "50%", background: "#FC5F57", display: "inline-block" }} />
+                <span style={{ width: "10px", height: "10px", borderRadius: "50%", background: "#FDBC2C", display: "inline-block" }} />
+                <span style={{ width: "10px", height: "10px", borderRadius: "50%", background: "#27C840", display: "inline-block" }} />
+                <div style={{ flex: 1, marginLeft: "8px", background: "#fff", border: "1px solid #E2E8F0", borderRadius: "6px", padding: "4px 12px", fontSize: "11px", color: "#94A3B8", fontFamily: "monospace", display: "flex", alignItems: "center", gap: "6px" }}>
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#4ade80" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                  cpnexs.in/preview/{active.id}
                 </div>
-                {/* Browser mockup */}
-                <div className="absolute inset-4 bg-white rounded-xl shadow-lg overflow-hidden border border-[#E2E8F0]">
-                  <div className="flex items-center gap-1.5 px-3 py-2 border-b border-[#E2E8F0] bg-[#F7FAFC]">
-                    <span className="h-2 w-2 rounded-full bg-red-400" />
-                    <span className="h-2 w-2 rounded-full bg-yellow-400" />
-                    <span className="h-2 w-2 rounded-full bg-green-400" />
-                    <div className="ml-2 flex-1 h-3 rounded bg-[#E2E8F0]" />
-                  </div>
-                  <div className="p-3 space-y-2">
-                    <div className="h-3 rounded bg-[#E2E8F0] w-3/4" />
-                    <div className="h-2 rounded bg-[#E2E8F0] w-full" />
-                    <div className="h-2 rounded bg-[#E2E8F0] w-5/6" />
-                    <div className="grid grid-cols-3 gap-2 mt-3">
-                      {[1,2,3].map(n => (
-                        <div key={n} className="h-12 rounded-lg" style={{ background: p.bg }} />
-                      ))}
-                    </div>
-                  </div>
-                </div>
-                {/* Industry badge */}
-                <div className="absolute top-3 left-3 rounded-full px-3 py-1 text-[11px] font-bold" style={{ background: p.color + "18", color: p.color, fontFamily: "var(--font-heading), 'Alegreya Sans SC', sans-serif" }}>
-                  {p.industry}
-                </div>
+                <a href={active.file} target="_blank" rel="noopener noreferrer"
+                  style={{ fontSize: "11px", color: "#3E7CB1", fontWeight: 600, fontFamily: FONT, whiteSpace: "nowrap", textDecoration: "none" }}>
+                  Open ↗
+                </a>
               </div>
+              <iframe
+                src={active.file}
+                title={active.title}
+                style={{ width: "100%", height: "560px", border: "none", display: "block" }}
+                loading="lazy"
+              />
+            </div>
 
-              {/* Content */}
-              <div className="p-6">
-                <h3 className="text-lg font-bold text-[#0F172A] mb-2" style={{ fontFamily: "var(--font-heading), 'Alegreya Sans SC', sans-serif" }}>{p.title}</h3>
-                <p className="text-sm leading-6 text-[#475569] mb-4" style={{ fontFamily: "var(--font-inter)" }}>{p.desc}</p>
-
-                <div className="flex flex-wrap gap-2 mb-5">
-                  {p.tags.map(tag => (
-                    <span key={tag} className="rounded-full px-3 py-1 text-[11px] font-semibold border border-[#E2E8F0] text-[#475569]" style={{ fontFamily: "var(--font-inter)" }}>
+            {/* Info panel */}
+            <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+              <div style={{ background: "#fff", border: "1px solid #E2E8F0", borderRadius: "14px", padding: "24px" }}>
+                <div style={{ display: "inline-flex", alignItems: "center", padding: "4px 12px", borderRadius: "20px", fontSize: "11px", fontWeight: 700, background: active.color + "15", color: active.color, fontFamily: FONT, marginBottom: "12px" }}>
+                  {active.industry}
+                </div>
+                <h3 style={{ fontSize: "18px", fontWeight: 700, color: "#0F172A", fontFamily: FONT, marginBottom: "10px", lineHeight: 1.3 }}>{active.title}</h3>
+                <p style={{ fontSize: "13px", color: "#475569", lineHeight: 1.7, fontFamily: FONT, marginBottom: "16px" }}>{active.desc}</p>
+                <div style={{ display: "flex", flexWrap: "wrap", gap: "6px", marginBottom: "20px" }}>
+                  {active.tags.map(tag => (
+                    <span key={tag} style={{ padding: "4px 10px", borderRadius: "6px", fontSize: "11px", fontWeight: 600, background: "#F1F5F9", color: "#475569", fontFamily: FONT }}>
                       {tag}
                     </span>
                   ))}
                 </div>
-
-                <div className="flex gap-3">
-                  <Link href="/contact" className="no-underline flex-1">
-                    <motion.div
-                      whileHover={{ scale: 1.02 }}
-                      className="w-full rounded-lg py-2 text-center text-xs font-semibold text-white cursor-pointer"
-                      style={{ background: `linear-gradient(135deg, ${p.color}, ${p.color}cc)`, fontFamily: "var(--font-inter)" }}
-                    >
-                      Build Similar →
-                    </motion.div>
+                <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+                  <a href={active.file} target="_blank" rel="noopener noreferrer"
+                    style={{ display: "block", padding: "10px 16px", borderRadius: "10px", background: active.color, color: "#fff", fontSize: "13px", fontWeight: 600, textAlign: "center", fontFamily: FONT, textDecoration: "none" }}>
+                    View Full Design ↗
+                  </a>
+                  <Link href="/contact" style={{ display: "block", padding: "10px 16px", borderRadius: "10px", border: "1px solid #E2E8F0", color: "#475569", fontSize: "13px", fontWeight: 600, textAlign: "center", fontFamily: FONT, textDecoration: "none" }}>
+                    Build Similar →
                   </Link>
                 </div>
               </div>
-            </motion.article>
-          ))}
-        </div>
 
+              {/* Other projects */}
+              <div style={{ background: "#fff", border: "1px solid #E2E8F0", borderRadius: "14px", padding: "20px" }}>
+                <div style={{ fontSize: "11px", fontWeight: 700, color: "#94A3B8", textTransform: "uppercase", letterSpacing: "0.1em", fontFamily: FONT, marginBottom: "12px" }}>Other Projects</div>
+                {projects.filter(p => p.id !== active.id).map(p => (
+                  <button key={p.id} onClick={() => setActive(p)}
+                    style={{ width: "100%", display: "flex", alignItems: "center", gap: "10px", padding: "10px", borderRadius: "8px", border: "none", background: "transparent", cursor: "pointer", textAlign: "left", transition: "background 0.2s" }}
+                    onMouseEnter={e => e.currentTarget.style.background = "#F8FAFC"}
+                    onMouseLeave={e => e.currentTarget.style.background = "transparent"}
+                  >
+                    <div style={{ width: "8px", height: "8px", borderRadius: "50%", background: p.color, flexShrink: 0 }} />
+                    <div>
+                      <div style={{ fontSize: "13px", fontWeight: 600, color: "#0F172A", fontFamily: FONT }}>{p.industry}</div>
+                      <div style={{ fontSize: "11px", color: "#94A3B8", fontFamily: FONT }}>{p.title}</div>
+                    </div>
+                  </button>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+        </AnimatePresence>
+
+        {/* CTA */}
         <motion.div
           variants={fadeUp} initial="hidden" whileInView="show"
-          viewport={{ once: true }} transition={{ duration: 0.5 }}
-          className="mt-12 text-center"
+          viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.2 }}
+          style={{ marginTop: "56px", textAlign: "center" }}
         >
-          <p className="text-[#475569] text-sm mb-5" style={{ fontFamily: "var(--font-inter)" }}>Want a project like this built for your business?</p>
+          <p style={{ color: "#475569", fontSize: "14px", marginBottom: "16px", fontFamily: FONT }}>Want a custom design like this for your business?</p>
           <Link href="/contact">
             <motion.div
               whileHover={{ scale: 1.04, boxShadow: "0 8px 30px rgba(0,107,255,0.3)" }}
               whileTap={{ scale: 0.97 }}
-              className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-[#006BFF] to-[#0052D9] px-8 py-3.5 text-sm font-semibold text-white cursor-pointer"
-              style={{ fontFamily: "var(--font-inter)" }}
+              style={{ display: "inline-flex", alignItems: "center", gap: "8px", borderRadius: "12px", background: "linear-gradient(135deg,#006BFF,#0052D9)", padding: "13px 32px", fontSize: "14px", fontWeight: 600, color: "#fff", cursor: "pointer", fontFamily: FONT }}
             >
               Start Your Project →
             </motion.div>
           </Link>
         </motion.div>
       </div>
+
+      <style>{`
+        @media (max-width: 768px) {
+          .portfolio-main-grid {
+            grid-template-columns: 1fr !important;
+          }
+        }
+      `}</style>
     </section>
   );
 }
